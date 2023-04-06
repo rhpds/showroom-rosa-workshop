@@ -1,13 +1,12 @@
 {
     "guid": "abcde",
-    "example_var": 42,
-    "ssh_command": "ssh lab-user@bastion.abcde.example.com",
-    "ssh_password": "p4ssword!1",
-    "user": "lab-user",
-    "user_info_messages": "Example workshop messages:\nHello, World",
-    "my": {
-        "deep": {
-            "var": "flattened data"
-        }
-    }
+    "aws_web_console_url": "https://aaaa.com",
+    "aws_web_console_user_name": "username",
+    "aws_web_console_password": "password",
+    "rosa_console_user_name": "lab-user",
+    "rosa_console_password": "password",
+    "rosa_bastion_user_name": "rosa",
+    "rosa_user_password": "password",
+    "rosa_subdomain_base": "apps.xxxx.com",
+    "rosa_sandbox_account_id": "11111111"
 }

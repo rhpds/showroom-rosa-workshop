@@ -1,9 +1,6 @@
 :guid: %guid%
 :user: %user%
-:ssh_command: %ssh_password%
 :markup-in-source: verbatim,attributes,quotes
-:my_deep_var_underbars: %my_deep_var%
-:my_deep_var_dots: %my.deep.var%
 
 :aws_web_console_url: %aws_web_console_url%
 :aws_web_console_user_name: %aws_web_console_user_name%
@@ -22,9 +19,13 @@
 
 Your lab GUID is %guid%.
 
-Log into bastion:
-
+. Log into bastion:
++
+[source,sh]
+----
 ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
+----
+
 
 === What is Red Hat OpenShift Service on AWS (ROSA)?
 

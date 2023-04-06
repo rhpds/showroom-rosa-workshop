@@ -1,8 +1,10 @@
-:guid: %guid%
-:user: %user%
 :markup-in-source: verbatim,attributes,quotes
 
-== Setup
+== Environment Setup
+
+Your environment has already been set up and you are ready to deploy your first ROSA cluster.
+
+ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
 
 There are currently two supported credential methods when creating a ROSA cluster.
 One method uses an IAM user with the _AdministratorAccess_ policy (only for the account using ROSA).
@@ -10,102 +12,105 @@ The other, more recent, and *recommended* method uses AWS STS.
 Please see the section "xref:15-sts_explained.adoc[ROSA with STS Explained]" for a detailed explanation.
 In this workshop we will only be using the STS method.
 
-== Prerequisites
+== Connect to your bastion VM
 
-Please review the prerequisites found in the documentation at https://docs.openshift.com/rosa/rosa_planning/rosa-sts-aws-prereqs.html[Prerequisites for ROSA w/STS] before getting started.
-
-You will need the following pieces of information from your AWS account:
-
-* AWS IAM User
-* AWS Access Key ID
-* AWS Secret Access Key
-
-=== A Red Hat account
-
-If you do not have a Red Hat account, create one here https://console.redhat.com/.
-Accept the required terms and conditions.
-Then check your email for a verification link.
-
-=== Install the AWS CLI
-
-https://aws.amazon.com/cli/[Install the AWS CLI] as per your operating system.
-
-=== Enable ROSA
-
-Complete this step if you have _not_ enabled ROSA in your AWS account.
-
-* Visit https://console.aws.amazon.com/rosa to enable your account to use ROSA.
-* Click on the orange "Enable OpenShift" button on the right.
+. In the terminal window to the right connect to the bastion VM (you can also just click the command below to have it copied and executed automatically):
 +
-image::images/1-enable.png[Enable]
+[source,sh]
+----
+ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
+----
 
-* It will take about a minute and then you will see a green "service enabled" bar at the top.
+=== Validate installed tools
+
+You will be using the `rosa`, `aws` and `oc` command line tools throughout this lab.
+
+. Verify that the `rosa` command line tool is installed:
 +
-image::images/1-enabled.png[Enabled]
+[source,sh]
+----
+rosa version
+----
++
+.Sample Output
+[source,texinfo]
+----
+1.2.15
+Your ROSA CLI is up to date.
+----
 
-=== Install the ROSA CLI
+. Verify that the `aws` command line tool is installed and configured:
++
+[source,sh]
+----
+aws sts get-caller-identity
+----
++
+.Sample Output
+[source,texinfo]
+----
+{
+    "UserId": "AIDA52VPS74UJLY4GUW7L",
+    "Account": "950629760808",
+    "Arn": "arn:aws:iam::950629760808:user/wkulhane@redhat.com-nhnv4"
+}
+----
 
-* Install the https://console.redhat.com/openshift/downloads[ROSA CLI] as per your operating system.
-* Download and extract the relevant file for your operating system
- ** ex: `tar -xvf rosa-linux.tar.gz`
-* Save it to a location within your "PATH".
- ** ex: `sudo mv rosa /usr/local/bin/rosa`
-* Run `rosa version` to make sure it works and that it returns the version number.
+. Download and install the oc binary
+// don't use `rosa download oc` because it downloads latest 4.12:
++
+[source,sh]
+----
+cd $HOME
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.12.9/openshift-client-linux.tar.gz
 
-=== Install the OpenShift CLI
+mkdir $HOME/bin
+tar -xzvf $HOME/openshift-client-linux.tar.gz -C $HOME/bin
+rm $HOME/openshift-client-linux.tar.gz
 
-There are a few ways to install the `oc` CLI:
-
-. If you have the `rosa` CLI installed, the simplest way is to run `rosa download oc`
- .. Once downloaded, untar (or unzip) the file and move the executables into a directory in your PATH
-. Or, you can https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html#installing-openshift-cli[download and install] the latest OpenShift CLI (oc)
-. Or, if you already have an OpenShift cluster you can access the command line tools page by clicking on the _Question mark > Command Line Tools_.
-Then download the relevant one for your operating system.
-
-image::images/0-cli_tools_page.png[CLI Tools]
-
+export PATH=$HOME/bin:$PATH
+----
++
 *Why use `oc` over `kubectl`* + Being Kubernetes, one can definitely use `kubectl` with their OpenShift cluster.
-`oc` is specific to OpenShift in that it includes the standard set of features from `kubectl` plus additional support for OpenShift functionality.
-See https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/usage-oc-kubectl.html[Usage of oc and kubectl commands] for more details.
+`oc` is specific to OpenShift in that it includes the standard set of features from `kubectl` plus additional support for OpenShift functionality. See https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/usage-oc-kubectl.html[Usage of oc and kubectl commands] for more details.
 
-=== Configure the AWS CLI
-
-If you've just installed the AWS CLI, or simply want to make sure it is using the correct AWS account, follow these steps in a terminal:
-
-. Enter `aws configure` in the terminal
-. Enter the AWS Access Key ID and press enter
-. Enter the AWS Secret Access Key and press enter
-. Enter the default region you want to deploy into
-. Enter the output format you want ("`table`" or "`json`").
-For this guide you can choose "`table`" as it is easier to read but either is fine.
+. Rosa login
 +
-It should look like the following as an example:
+[source,sh]
+----
+rosa login
+----
++
+.Sample Output
+[source,texinfo]
+----
+I: Logged in as 'rhpds-cloud' on 'https://api.openshift.com'
+----
 
-  $ aws configure
-  AWS Access Key ID: AKIA0000000000000000
-  AWS Secret Access Key: NGvmP0000000000000000000000000
-  Default region name: us-east-1
-  Default output format: table
+. Run rosa whoami:
++
+[source,sh]
+----
+rosa whoami
+----
++
+.Sample Output
+[source,texinfo]
+----
+AWS ARN:                      arn:aws:iam::950629760808:user/wkulhane@redhat.com-nhnv4
+AWS Account ID:               950629760808
+AWS Default Region:           us-east-2
+OCM API:                      https://api.openshift.com
+OCM Account Email:            rhpds-admins+cloud@redhat.com
+OCM Account ID:               1z8aXAxD3PWdlWiNRIE588rHD9l
+OCM Account Name:             RHPDS Cloud
+OCM Account Username:         rhpds-cloud
+OCM Organization External ID: 15324659
+OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
+OCM Organization Name:        Red Hat, Inc.
+----
 
-=== Verify the configuration
 
-Verify that the configuration is correct.
-
-. Run the following command to query the AWS API
-
-  aws sts get-caller-identity
-
-. You should see a table (or JSON if that's what you set it to above) like the below.
-Verify that the account information is correct.
-
-  $ aws sts get-caller-identity
-  ------------------------------------------------------------------------------
-  |                                GetCallerIdentity                           |
-  +--------------+----------------------------------------+--------------------+
-  |    Account   |                   Arn                  |        UserId      |
-  +--------------+----------------------------------------+--------------------+
-  |  000000000000|  arn:aws:iam::00000000000:user/myuser  |  AIDA00000000000000|
-  +--------------+----------------------------------------+--------------------+
 
 === Ensure the ELB service role exists
 
