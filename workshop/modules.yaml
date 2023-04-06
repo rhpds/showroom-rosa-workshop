@@ -1,0 +1,14 @@
+---
+modules:
+  home:
+    name: Home
+    exit_sign: Continue
+  lab_1_setup:
+    name: Setup
+    exit_sign: Continue
+  lab_2_deploy_cluster:
+    name: Deploy ROSA cluster
+    exit_sign: Continue
+  lab_3_create_admin_user:
+    name: Create an admin user
+    exit_sign: Continue
