@@ -1,5 +1,3 @@
-:markup-in-source: verbatim,attributes,quotes
-
 == Environment Setup
 
 Your environment has already been set up and you are ready to deploy your first ROSA cluster.
@@ -18,7 +16,7 @@ In this workshop we will only be using the STS method.
 +
 [TIP]
 ====
-The password for the user %rosa_bastion_user_name% is *%rosa_user_password%*.
+The password for the user %rosa_bastion_user_name% is `%rosa_user_password%`
 ====
 +
 [source,sh,role=execute]
@@ -115,87 +113,131 @@ OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
 OCM Organization Name:        Red Hat, Inc.
 ----
 
-
-
 === Ensure the ELB service role exists
 
 Make sure that the service role for ELB already exists, otherwise the cluster deployment could fail.
 As such, run the following to check for the role and create it if it is missing.
 
- aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
-
-If you received an error during cluster creation like below, then the above should correct it.
-
- Error: Error creating network Load Balancer: AccessDenied: User: arn:aws:sts::970xxxxxxxxx:assumed-role/ManagedOpenShift-Installer-Role/163xxxxxxxxxxxxxxxx is not authorized to perform: iam:CreateServiceLinkedRole on resource: arn:aws:iam::970xxxxxxxxx:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing"
++
+[source,sh,role=execute]
+----
+aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+{
+    "Role": {
+        "Path": "/aws-service-role/elasticloadbalancing.amazonaws.com/",
+        "RoleName": "AWSServiceRoleForElasticLoadBalancing",
+        "RoleId": "AROA5ZWLJ2BAZWKPE75AN",
+        "Arn": "arn:aws:iam::948540395585:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForEl
+asticLoadBalancing",
+        "CreateDate": "2019-09-07T14:48:48Z",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "elasticloadbalancing.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        },
+        "Description": "Allows ELB to call AWS services on your behalf.",
+        "MaxSessionDuration": 3600,
+        "RoleLastUsed": {
+            "LastUsedDate": "2023-04-05T18:53:02Z",
+            "Region": "us-east-2"
+        }
+    }
+}
+----
 
 === Log into your Red Hat account
 
-. Enter `rosa login` in a terminal.
-. It will prompt you to open a web browser and go to:
-+
-https://console.redhat.com/openshift/token/rosa
+Your bastion VM is already preconfigured for ROSA
 
-. If you are asked to log in, then please do.
-. Click on the "Load token" button.
-. Copy the token and paste it back into the CLI prompt and press enter.
-Alternatively, you can just copy the full `+rosa login --token=abc...+` command and paste that in the terminal.
+. Validate that you are already logged into ROSA:
 +
-image::images/1-token.png[CLI Tools]
+[source,sh,role=execute]
+----
+rosa login
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+I: Logged in as 'rhpds-cloud' on 'https://api.openshift.com'
+----
 
 === Verify credentials
 
-Verify that all the credentials set up are correctly.
-
-. Run `rosa whoami`
+. Verify that all the credentials set up are correctly.
 +
-You should see an output like below:
+[source,sh,role=execute]
+----
+rosa whoami
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+AWS ARN:                      arn:aws:iam::948540395585:user/wkulhane@redhat.com-4fgbq
+AWS Account ID:               948540395585
+AWS Default Region:           us-east-2
+OCM API:                      https://api.openshift.com
+OCM Account Email:            rhpds-admins+cloud@redhat.com
+OCM Account ID:               1z8aXAxD3PWdlWiNRIE588rHD9l
+OCM Account Name:             RHPDS Cloud
+OCM Account Username:         rhpds-cloud
+OCM Organization External ID: 15324659
+OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
+OCM Organization Name:        Red Hat, Inc.
 
-  AWS Account ID:               000000000000
-  AWS Default Region:           us-east-2
-  AWS ARN:                      arn:aws:iam::000000000000:user/myuser
-  OCM API:                      https://api.openshift.com
-  OCM Account ID:               1DzGIdIhqEWy000000000000000
-  OCM Account Name:             Your Name
-  OCM Account Username:         you@domain.com
-  OCM Account Email:            you@domain.com
-  OCM Organization ID:          1HopHfA20000000000000000000
-  OCM Organization Name:        Red Hat
-  OCM Organization External ID: 0000000
-
-. Please check all information for accuracy before proceeding.
+----
 
 === Verify quota
 
-Verify that your AWS account has ample quota in the region you will be deploying your cluster to.
-Run the following:
+Verify that your AWS account has enough quota in the region you will be deploying your cluster to.
 
- rosa verify quota
-
-Should return a response like
-
- I: Validating AWS quota...
- I: AWS quota ok. If cluster installation fails, validate actual AWS resource usage against https://docs.openshift.com/rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
++
+[source,sh,role=execute]
+----
+rosa verify quota
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+I: Validating AWS quota...
+I: AWS quota ok. If cluster installation fails, validate actual AWS resource usage against https://docs.openshift.com/
+rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
+----
 
 See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
 
 === Verify `oc` CLI
 
-Verify that the `oc` CLI is installed correctly
-
- rosa verify openshift-client
+Verify that the `oc` CLI is installed correctly (remember that you installed the oc client before).
++
+[source,sh,role=execute]
+----
+rosa verify openshift-client
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+I: Verifying whether OpenShift command-line tool is available...
+I: Current OpenShift Client Version: 4.12.9
+----
 
 We have now successfully set up our account and environment and are ready to deploy our cluster.
 
 === Cluster Deployment
 
 In the next section you will deploy your cluster.
-There are two mechanisms to do so:
-
-* Using the ROSA CLI
-* Using the OCM Web User Interface
-
-Either way is perfectly fine for the purposes of this workshop.
-Though keep in mind that if you are using the OCM UI, there will be a few extra steps to set it up in order to deploy into your AWS account for the first time.
-This will not need to be repeated for subsequent deployments using the OCM UI for the same AWS account.
-
-Please select the desired mechanism in the left menu under "Deploy the cluster".
