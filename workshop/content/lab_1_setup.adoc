@@ -16,6 +16,8 @@ In this workshop we will only be using the STS method.
 +
 [TIP]
 ====
+Answer `yes` when asked if to accept the host key.
+
 The password for the user %rosa_bastion_user_name% is `%rosa_user_password%`
 ====
 +
@@ -90,7 +92,7 @@ rosa login
 I: Logged in as 'rhpds-cloud' on 'https://api.openshift.com'
 ----
 
-. Run rosa whoami:
+. Run rosa whoami to verify your credentials:
 +
 [source,sh,role=execute]
 ----
@@ -116,8 +118,8 @@ OCM Organization Name:        Red Hat, Inc.
 === Ensure the ELB service role exists
 
 Make sure that the service role for ELB already exists, otherwise the cluster deployment could fail.
-As such, run the following to check for the role and create it if it is missing.
 
+. Run the following to check for the role and create it if it is missing.
 +
 [source,sh,role=execute]
 ----
@@ -157,53 +159,9 @@ asticLoadBalancing",
 }
 ----
 
-=== Log into your Red Hat account
-
-Your bastion VM is already preconfigured for ROSA
-
-. Validate that you are already logged into ROSA:
-+
-[source,sh,role=execute]
-----
-rosa login
-----
-+
-.Sample Output
-[source,texinfo,options=nowrap]
-----
-I: Logged in as 'rhpds-cloud' on 'https://api.openshift.com'
-----
-
-=== Verify credentials
-
-. Verify that all the credentials set up are correctly.
-+
-[source,sh,role=execute]
-----
-rosa whoami
-----
-+
-.Sample Output
-[source,texinfo,options=nowrap]
-----
-AWS ARN:                      arn:aws:iam::948540395585:user/wkulhane@redhat.com-4fgbq
-AWS Account ID:               948540395585
-AWS Default Region:           us-east-2
-OCM API:                      https://api.openshift.com
-OCM Account Email:            rhpds-admins+cloud@redhat.com
-OCM Account ID:               1z8aXAxD3PWdlWiNRIE588rHD9l
-OCM Account Name:             RHPDS Cloud
-OCM Account Username:         rhpds-cloud
-OCM Organization External ID: 15324659
-OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
-OCM Organization Name:        Red Hat, Inc.
-
-----
-
 === Verify quota
 
-Verify that your AWS account has enough quota in the region you will be deploying your cluster to.
-
+. Verify that your AWS account has enough quota in the region you will be deploying your cluster to.
 +
 [source,sh,role=execute]
 ----
@@ -217,12 +175,12 @@ I: Validating AWS quota...
 I: AWS quota ok. If cluster installation fails, validate actual AWS resource usage against https://docs.openshift.com/
 rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
 ----
-
++
 See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
 
 === Verify `oc` CLI
 
-Verify that the `oc` CLI is installed correctly (remember that you installed the oc client before).
+. Verify that the `oc` CLI is installed correctly (remember that you installed the oc client before).
 +
 [source,sh,role=execute]
 ----

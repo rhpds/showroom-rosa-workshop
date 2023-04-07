@@ -200,7 +200,7 @@ rosa describe cluster -c rosa-${GUID} | grep Console
 .Sample Output
 [source,texinfo,options=nowrap]
 ----
-
+Console URL:                https://console-openshift-console.apps.rosa-4fgbq.qrdf.p1.openshiftapps.com
 ----
 
 The cluster has now been successfully deployed.
