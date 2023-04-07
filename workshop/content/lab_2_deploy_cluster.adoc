@@ -41,7 +41,8 @@ If this is the *first time* you are deploying ROSA in this account and have *not
 +
 [source,sh,role=execute]
 ----
-rosa create account-roles --mode auto --yes
+rosa create account-roles \
+  --mode auto --yes
 ----
 +
 .Sample Output
@@ -66,7 +67,7 @@ rosa create cluster --sts
 
 === Create the cluster
 
-. Run the following command to create a cluster with all the default options.
+. Run the following command to create a cluster with all the default options except for the cluster version.
 +
 Note that for the cluster name you are using `rosa-${GUID}` - the environment variable `GUID` has a unique identifier for your environment that will separate yours from any other ROSA cluster.
 +

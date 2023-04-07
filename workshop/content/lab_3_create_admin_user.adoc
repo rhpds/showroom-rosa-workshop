@@ -59,8 +59,7 @@ Welcome! See 'oc help' to get started.
 If you get an error that the *Login failed (401 Unauthorized)* wait a few seconds and then try again. It takes a few minutes for the cluster authentication operator to update itself after creating the cluster admin user.
 ====
 
-. To check that you are logged in as the admin user you can run `oc whoami`
-+
+. To check that you are logged in as the admin user you can run `oc whoami`:
 +
 [source,sh,role=execute]
 ----
