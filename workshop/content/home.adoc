@@ -1,32 +1,3 @@
-:guid: %guid%
-:user: %user%
-:markup-in-source: verbatim,attributes,quotes
-
-:aws_web_console_url: %aws_web_console_url%
-:aws_web_console_user_name: %aws_web_console_user_name%
-:aws_web_console_password: %aws_web_console_password%
-
-:rosa_console_user_name: %rosa_console_user_name%
-:rosa_console_password: %rosa_console_password%
-
-:rosa_bastion_user_name: %rosa_bastion_user_name%
-:rosa_user_password: %rosa_user_password%
-:rosa_subdomain_base: %rosa_subdomain_base%
-
-:rosa_sandbox_account_id: %rosa_sandbox_account_id%
-
-// -## Red Hat OpenShift Service on AWS (ROSA) information pages
-
-Your lab GUID is %guid%.
-
-. Log into bastion:
-+
-[source,sh]
-----
-ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
-----
-
-
 === What is Red Hat OpenShift Service on AWS (ROSA)?
 
 Red Hat OpenShift Service on AWS (ROSA) is a _fully_-managed turnkey application platform that allows you to focus on what matters most, delivering value to your customers by building and deploying applications.
