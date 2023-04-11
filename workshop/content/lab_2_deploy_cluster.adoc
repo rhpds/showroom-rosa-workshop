@@ -75,7 +75,7 @@ Note that for the cluster name you are using `rosa-${GUID}` - the environment va
 ----
 rosa create cluster \
   --cluster-name rosa-${GUID} \
-  --region us-east-2 \
+  --region us-west-2 \
   --version 4.12.9 \
   --sts \
   --mode auto \
