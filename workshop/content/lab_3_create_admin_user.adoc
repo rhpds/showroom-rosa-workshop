@@ -34,7 +34,7 @@ Save the login command somewhere. Also take note of the password for your `clust
 
 . Copy the login command returned to you in the previous step and paste that into your terminal. This should log you into the cluster via the CLI so you can start using the cluster (answer `y` when promted if you want to accept the certificate).
 +
-[source,sh,role=copy]
+[source,sh]
 ----
 oc login https://api.rosa-4fgbq.qrdf.p1.openshiftapps.com:6443 --username cluster-admin --password cD4xo-AnanH-DvB6L-6yndM
 ----

@@ -20,7 +20,7 @@ echo "OAuth callback URL: https://oauth-openshift.apps.${CLUSTER_DOMAIN}/oauth2c
 .Sample Output
 [source,text,options=nowrap]
 ----
-
+OAuth callback URL: https://oauth-openshift.apps.rosa-6sc5n.dypb.p1.openshiftapps.com/oauth2callback/Cognito
 ----
 
 . Next, let's create an app client in Amazon Cognito. To do so, run the following command:
