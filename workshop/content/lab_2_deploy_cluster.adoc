@@ -110,6 +110,13 @@ I: Created OIDC provider with ARN 'arn:aws:iam::948540395585:oidc-provider/rh-oi
 I: To determine when your cluster is Ready, run 'rosa describe cluster -c rosa-4fgbq'.
 I: To watch your cluster installation logs, run 'rosa logs install -c rosa-4fgbq --watch'.
 ----
++
+[TIP]
+====
+Sometimes AWS isn't quite quick enough creating the prerequisites for the cluster.
+
+Examine the output of the create cluster command carefully. If you get an error `E: Failed to retrieve AWS regions: status is 400, identifier is '400', ...` simply wait a few seconds and then repeat the command to create the cluster.
+====
 
 ==== Default configuration
 
@@ -175,6 +182,11 @@ rosa logs install -c rosa-${GUID} --watch
 | time="2023-04-05T20:55:39Z" level=debug msg="Still waiting for the cluster to initialize: Cluster operator authentication is not available"
 / I: Cluster 'rosa-4fgbq' is now ready
 ----
++
+[TIP]
+====
+Sometimes it can happen that the connection to your bastion VM drops. In that case simply follow the instructions in the Setup section to ssh back into your bastion VM.
+====
 
 . Verify that the cluster is now ready:
 +
@@ -206,5 +218,3 @@ Console URL:                https://console-openshift-console.apps.rosa-4fgbq.qr
 ----
 
 The cluster has now been successfully deployed.
-
-In the next step we will create an admin user to be able to use the cluster immediately.

@@ -6,3 +6,4 @@ modules:
   - lab_1_setup
   - lab_2_deploy_cluster
   - lab_3_create_admin_user
+  - lab_4_configure_idp

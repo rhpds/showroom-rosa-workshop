@@ -3,14 +3,16 @@
 == Create an admin user for quick access
 
 If you want to be able to access your cluster immediately through a cluster-admin user, you can follow these steps.
+
 This is good if you need quick access to the cluster, which is great for this workshop.
+
 Though the recommended approach is to use a formal identity provider to access the cluster (and then grant that user admin privileges, if desired).
 
 . Run this command to create the admin user
 +
 [source,sh,role=execute]
 ----
-rosa create admin --cluster=rosa-${GUID}
+rosa create admin --cluster rosa-${GUID}
 ----
 +
 .Sample Output
@@ -89,3 +91,26 @@ apiserver-c5689956d-p9z7v   2/2     Running   0          16m
 ----
 
 . You can now use the cluster as an admin user, which will suffice for this workshop. Though, for any other use, it is highly recommended to set up an IdP.
+
+=== Login to the OpenShift Web Console
+
+Next, let's log in to the OpenShift Web Console. To do so, follow the below steps:
+
+. First, we'll need to grab your cluster's web console URL. To do so, run the following command:
++
+[source,sh,role=execute]
+----
+oc whoami --show-console
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+https://console-openshift-console.%rosa_subdomain_base%
+----
+
+. Next, open the printed URL in a web browser.
+. Click on the `htpasswd` identity provider.
+. Enter the username (`cluster-admin`) and password from the above previous section.
++
+If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.

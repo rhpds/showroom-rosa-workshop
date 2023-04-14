@@ -2,13 +2,10 @@
 
 Your environment has already been set up and you are ready to deploy your first ROSA cluster.
 
-ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
+Your workshop environment consists of several components which have been pre-configured and are ready to use.
+This includes a %aws_web_console_url%[Amazon Web Services (AWS)] account, and many other supporting resources.
 
-There are currently two supported credential methods when creating a ROSA cluster.
-One method uses an IAM user with the _AdministratorAccess_ policy (only for the account using ROSA).
-The other, more recent, and *recommended* method uses AWS STS.
-Please see the section "xref:15-sts_explained.adoc[ROSA with STS Explained]" for a detailed explanation.
-In this workshop we will only be using the STS method.
+ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
 
 == Connect to your bastion VM
 
@@ -91,6 +88,13 @@ rosa login
 ----
 I: Logged in as 'rhpds-cloud' on 'https://api.openshift.com'
 ----
++
+[NOTE]
+====
+Normally you would need to get a *token* from the https://console.redhat.com/openshift/token/rosa)[Red Hat Console] and log into ROSA using that token.
+
+In this environment your token has been preconfigured for you.
+====
 
 . Run rosa whoami to verify your credentials:
 +
@@ -195,7 +199,3 @@ I: Current OpenShift Client Version: 4.12.9
 ----
 
 We have now successfully set up our account and environment and are ready to deploy our cluster.
-
-=== Cluster Deployment
-
-In the next section you will deploy your cluster.
