@@ -1,0 +1,45 @@
+== Introduction
+
+Red Hat OpenShift Service on AWS (ROSA) provides fully-managed cluster updates.
+These updates can be scheduled from the OpenShift Cluster Manager or from the ROSA CLI.
+All updates are monitored and managed by the Red Hat ROSA SRE team.
+
+For more information on how ROSA's Upgrade Service works, please see the https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Red Hat documentation].
+
+== Upgrade using the OpenShift Cluster Manager
+
+!!!
+note
+
+ It is important to note, that even though we are upgrading via the OpenShift Cluster Manager, this can also be done via the ROSA CLI.
+
+. Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
+If you need to reauthenticate, use the credentials provided by the workshop team.
+. In the _Clusters_ section, locate your cluster and click on it.
++
+image:../assets/images/ocm-cluster-list.png[OCM - Cluster List]{ align=center }
+
+. Next, click on the _Settings_ tab.
++
+image:../assets/images/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]{ align=center }
+
+. Next, select the _Update_ button in the _Update status_ sidebar.
++
+image:../assets/images/ocm-update-status.png[OCM - Update Status]{ align=center }
+
+. Now, you're presented with a number of versions.
+For this exercise, we'll select the recommended version, and then hit _Next_.
++
+image:../assets/images/ocm-update-version-select.png[OCM - Update Version Select]{ align=center }
+
+. Next, choose to _Schedule a different time_ and change the date box to 1 day from now, then select _Next_.
++
+image:../assets/images/ocm-update-schedule-select.png[OCM - Update Schedule Select]{ align=center }
+
+. Finally, select the _Confirm Update_ button and then the _Close_ button.
++
+image:../assets/images/ocm-update-confirm.png[OCM - Update Confirm]{ align=center }  image:../assets/images/ocm-update-close.png[OCM - Update Close]{ align=center }
++
+Congratulations!
+You've successfully scheduled an upgrade of your cluster for tomorrow at this time.
+While the workshop environment will be deleted before then, you now have the experience to schedule upgrades in the future.
