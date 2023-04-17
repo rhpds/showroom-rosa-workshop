@@ -7,4 +7,5 @@ modules:
   - lab_2_deploy_cluster
   - lab_3_create_admin_user
   - lab_4_configure_idp
+  - lab_5_cluster_upgrades
   - lab_8_cloudwatch

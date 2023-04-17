@@ -15,6 +15,9 @@ modules:
   lab_4_configure_idp:
     name: Configure Authentication
     exit_sign: Continue
+  lab_5_cluster_upgrades:
+    name: Cluster Upgrades
+    exit_sign: Continue
   lab_8_cloudwatch:
     name: Configure Log Forwarding to Cloudwatch
     exit_sign: Continue

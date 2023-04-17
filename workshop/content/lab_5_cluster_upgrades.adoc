@@ -6,40 +6,143 @@ All updates are monitored and managed by the Red Hat ROSA SRE team.
 
 For more information on how ROSA's Upgrade Service works, please see the https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Red Hat documentation].
 
+== Upgrade using the `rosa` command line interface
+
+There are two ways to upgrade a ROSA cluster - using OpenShift Cluster Manager or using the `rosa` CLI.
+
+In this lab environment you do not have access to the OpenShift Cluster Manager so we have to you the CLI.
+
+. Remind yourself of the version of your cluster:
++
+[source,sh,role=execute]
+----
+oc version
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+Client Version: 4.12.9
+Kustomize Version: v4.5.7
+Server Version: 4.12.9
+Kubernetes Version: v1.25.7+eab9cc9
+----
+
+. Find out the available versions:
++
+[source,sh,role=execute]
+----
+oc adm upgrade
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+Cluster version is 4.12.9
+
+Upgradeable=False
+
+  Reason: MultipleReasons
+  Message: Cluster should not be upgraded between minor versions for multiple reasons: AdminAckRequired,MissingUpgradeableAnnotatio
+n
+  * Kubernetes 1.26 and therefore OpenShift 4.13 remove several APIs which require admin consideration. Please see the knowledge ar
+ticle https://access.redhat.com/articles/6958394 for details and instructions.
+  * Cluster operator cloud-credential should not be upgraded between minor versions: Upgradeable annotation cloudcredential.openshi
+ft.io/upgradeable-to on cloudcredential.operator.openshift.io/cluster object needs updating before upgrade. See Manually Creating I
+AM documentation for instructions on preparing a cluster for upgrade.
+
+Upstream is unset, so the cluster will use an appropriate default.
+Channel: stable-4.12 (available channels: candidate-4.12, candidate-4.13, eus-4.12, fast-4.12, stable-4.12)
+
+Recommended updates:
+
+  VERSION     IMAGE
+  4.12.10     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
+----
++
+[NOTE]
+====
+Depending on when you run this command the available version list may be longer than just the next release.
+====
+
+. You probably don't want to actually upgrade the cluster right now siince that may disrupt your lab environment. Luckily it is possible to schedule an update at a less inconvenient time.
++
+Get a date and time that is 24 hours from now:
++
+[source,sh,role=execute]
+----
+export UPGRADE_DATE=$(date -d "+24 hours" '+%Y-%m-%d')
+export UPGRADE_TIME=$(date '+%H:%M')
+
+echo Date: ${UPGRADE_DATE}, Time: ${UPGRADE_TIME}
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+Date: 2023-04-18, Time: 19:51
+----
+
+. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.12.10`) - answer `y` when prompted if you really want to upgrade.
++
+[source,sh,role=execute]
+----
+rosa upgrade cluster \
+  -c rosa-${GUID} \
+  --version 4.12.10 \
+  --mode auto \
+  --schedule-date ${UPGRADE_DATE} \
+  --schedule-time ${UPGRADE_TIME}
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+I: Ensuring account and operator role policies for cluster '235ftpmaq3oavfin8mt600af4sar9oej' are compatible with upgrade.
+I: Account roles/policies for cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
+I: Operator roles/policies associated with the cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
+I: Account and operator roles for cluster 'rosa-6n4s8' are compatible with upgrade
+? Are you sure you want to upgrade cluster to version '4.12.10'? Yes
+I: Upgrade successfully scheduled for cluster 'rosa-6n4s8'
+----
+
+That's it - your cluster will now be upgraded in exactly 24 hours - of course your environment will no longer exist at this time. But you now know how to easily schedule an upgrade.
+
 == Upgrade using the OpenShift Cluster Manager
 
-!!!
-note
-
- It is important to note, that even though we are upgrading via the OpenShift Cluster Manager, this can also be done via the ROSA CLI.
+[WARNING]
+====
+This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next swection.
+====
 
 . Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
-If you need to reauthenticate, use the credentials provided by the workshop team.
 . In the _Clusters_ section, locate your cluster and click on it.
 +
-image:../assets/images/ocm-cluster-list.png[OCM - Cluster List]{ align=center }
+image::media/ocm-cluster-list.png[OCM - Cluster List]
 
 . Next, click on the _Settings_ tab.
 +
-image:../assets/images/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]{ align=center }
+image::media/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]
 
 . Next, select the _Update_ button in the _Update status_ sidebar.
 +
-image:../assets/images/ocm-update-status.png[OCM - Update Status]{ align=center }
+image::media/ocm-update-status.png[OCM - Update Status]
 
 . Now, you're presented with a number of versions.
 For this exercise, we'll select the recommended version, and then hit _Next_.
 +
-image:../assets/images/ocm-update-version-select.png[OCM - Update Version Select]{ align=center }
+image::media/ocm-update-version-select.png[OCM - Update Version Select]
 
 . Next, choose to _Schedule a different time_ and change the date box to 1 day from now, then select _Next_.
 +
-image:../assets/images/ocm-update-schedule-select.png[OCM - Update Schedule Select]{ align=center }
+image::media/ocm-update-schedule-select.png[OCM - Update Schedule Select]
 
 . Finally, select the _Confirm Update_ button and then the _Close_ button.
 +
-image:../assets/images/ocm-update-confirm.png[OCM - Update Confirm]{ align=center }  image:../assets/images/ocm-update-close.png[OCM - Update Close]{ align=center }
+image::media/ocm-update-confirm.png[OCM - Update Confirm]
 +
+image::media/ocm-update-close.png[OCM - Update Close]
+
 Congratulations!
-You've successfully scheduled an upgrade of your cluster for tomorrow at this time.
-While the workshop environment will be deleted before then, you now have the experience to schedule upgrades in the future.
+
+You've successfully scheduled an upgrade of your cluster for tomorrow at this time. While the workshop environment will be deleted before then, you now have the experience to schedule upgrades in the future.
