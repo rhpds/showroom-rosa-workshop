@@ -13,3 +13,4 @@ modules:
   - lab_8_labeling_nodes
   - lab_9_cloudwatch
   - lab_10_deploy_app
+  - lab_11_openshift_gitops

@@ -33,3 +33,6 @@ modules:
   lab_10_deploy_app:
     name: Deploy an Application
     exit_sign: Continue
+  lab_11_openshift_gitops:
+    name: Deploy the Application using OpenShift Gitops
+    exit_sign: Continue
