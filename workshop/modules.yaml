@@ -24,6 +24,9 @@ modules:
   lab_7_autoscaling:
     name: Cluster Autoscaling
     exit_sign: Continue
-  lab_8_cloudwatch:
+  lab_8_labeling_nodes:
+    name: Labeling Nodes
+    exit_sign: Continue
+  lab_9_cloudwatch:
     name: Configure Log Forwarding to Cloudwatch
     exit_sign: Continue
