@@ -36,3 +36,6 @@ modules:
   lab_11_openshift_gitops:
     name: Deploy the Application using OpenShift Gitops
     exit_sign: Continue
+  lab_12_network_policy:
+    name: Securing the application using NetworkPolicies
+    exit_sign: Continue

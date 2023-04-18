@@ -14,3 +14,4 @@ modules:
   - lab_9_cloudwatch
   - lab_10_deploy_app
   - lab_11_openshift_gitops
+  - lab_12_network_policy
