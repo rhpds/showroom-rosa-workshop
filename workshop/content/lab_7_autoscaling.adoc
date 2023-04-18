@@ -5,54 +5,70 @@ The cluster autoscaler increases the size of the cluster when there are pods tha
 The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.
 To learn more about cluster autoscaling, visit the https://docs.openshift.com/rosa/rosa_cluster_admin/rosa_nodes/rosa-nodes-about-autoscaling-nodes.html[Red Hat documentation for cluster autoscaling].
 
-== Enable Autoscaling on the Default MachinePool
+== Enable Autoscaling on the Default MachinePool using the Rosa CLI
 
-!!!
-note
+You can enable autoscaling on your cluster using either the `rosa` CLI or the Red Hat OpenShift Cluster Manager. Because you do not have credentials for the Red Hat OpenShift Cluster Manager you will be using the CLI in this lab. There are instructions at the end of the lab showing how to do it in the console.
 
- It is important to note, that even though we are enabling autoscaling via the OpenShift Cluster Manager, this can also be done via the ROSA CLI.
+You will need to set up autoscaling for each MachinePool in the cluster separately.
 
-. Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
-If you need to reauthenticate, use the credentials provided by the workshop team.
-. In the Cluster section, locate your cluster and click on it.
+. To identify the machine pool IDs in a cluster, enter the following command:
 +
-image:../assets/images/ocm-cluster-list.png[OCM - Cluster List]{ align=center }
-
-. Next, click on the _Machine pools_ tab.
+[source,sh,role=execute]
+----
+rosa list machinepools --cluster rosa-${GUID}
+----
 +
-image:../assets/images/ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]{ align=center }
-
-. Next, click on the ⋮ icon beside the _Default_ machine pool, and select _Scale_.
+.Sample Output
+[source,text,options=nowrap]
+----
+ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
+Default  No           2         m5.xlarge                          us-west-2a                       N/A
+----
 +
-image:../assets/images/ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]{ align=center }
+The *ID* of the MachinePool that you want to add autoscaling to is `Default`.
 
-. Finally, check the _Enable autoscaling_ checkbox, and set the minimum to `1` and maximum to `2`, then click _Apply_.
+. To enable autoscaling on a machine pool, enter the following command:
 +
-image:../assets/images/ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]{ align=center }
+[source,sh,role=execute]
+----
+rosa edit machinepool --cluster rosa-${GUID} Default --enable-autoscaling --min-replicas=2 --max-replicas=4
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+I: Updated machine pool 'Default' on cluster 'rosa-6n4s8'
+----
 
 . Next, let's check to see that our managed machine autoscalers have been created.
 To do so, run the following command:
 +
-[,bash]
+[source,sh,role=execute]
 ----
- oc -n openshift-machine-api get machineautoscaler
+oc -n openshift-machine-api get machineautoscaler
 ----
 +
-You should see output similar to:
-+
-`{.text .no-copy}  NAME                                   REF KIND     REF NAME                        MIN   MAX   AGE  user1-mobbws-6sj5f-worker-{{ aws_region }}a   MachineSet   user1-mobbws-6sj5f-worker-{{ aws_region }}a   1     2     18s  user1-mobbws-6sj5f-worker-{{ aws_region }}b   MachineSet   user1-mobbws-6sj5f-worker-{{ aws_region }}b   1     2     18s  user1-mobbws-6sj5f-worker-{{ aws_region }}c   MachineSet   user1-mobbws-6sj5f-worker-{{ aws_region }}c   1     2     18s `
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME                                 REF KIND     REF NAME                             MIN   MAX   AGE
+rosa-6n4s8-7hbhw-worker-us-west-2a   MachineSet   rosa-6n4s8-7hbhw-worker-us-west-2a   2     4     4m30s
+----
 
 . And finally, let's check to see that our cluster autoscaler has been created.
 To do so, run the following command:
 +
-[,bash]
+[source,sh,role=execute]
 ----
- oc -n openshift-machine-api get clusterautoscaler
+oc -n openshift-machine-api get clusterautoscaler
 ----
 +
-You should see output similar to:
-+
-`{.text .no-copy}  NAME      AGE  default   3m `
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME      AGE
+default   4m55s
+----
 
 == Test the Cluster Autoscaler
 
@@ -63,55 +79,88 @@ This should force the cluster to scale to handle the load.
 . First, let's create a namespace (also known as a project in OpenShift).
 To do so, run the following command:
 +
-[,bash]
+[source,sh,role=execute]
 ----
- oc new-project autoscale-ex
+oc new-project autoscale-ex
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+Now using project "autoscale-ex" on server "https://api.rosa-6n4s8.1c1c.p1.openshiftapps.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app rails-postgresql-example
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
 ----
 
 . Next, let's deploy our job that will exhaust the cluster's resources and cause it to scale more worker nodes.
 To do so, run the following command:
 +
-[,yaml]
+[source,sh,role=execute]
 ----
- cat << EOF | oc apply -f -
- apiVersion: batch/v1
- kind: Job
- metadata:
-   generateName: maxscale
-   namespace: autoscale-ex
- spec:
-   template:
-     spec:
-       containers:
-       - name: work
-         image: busybox
-         command: ["sleep",  "300"]
-         resources:
-           requests:
-             memory: 500Mi
-             cpu: 500m
-         securityContext:
-           allowPrivilegeEscalation: false
-           capabilities:
-             drop:
-               - ALL
-       restartPolicy: Never
-   backoffLimit: 4
-   completions: 50
-   parallelism: 50
- EOF
+cat << EOF | oc apply -f -
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: maxscale
+  namespace: autoscale-ex
+spec:
+  template:
+    spec:
+      containers:
+      - name: work
+        image: busybox
+        command: ["sleep",  "300"]
+        resources:
+          requests:
+            memory: 500Mi
+            cpu: 500m
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+      restartPolicy: Never
+  backoffLimit: 4
+  completions: 50
+  parallelism: 50
+EOF
 ----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+Warning: would violate PodSecurity "restricted:v1.24": runAsNonRoot != true (pod or container "work" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "work" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
+job.batch/maxscale created
+----
++
+You may ignore the warning.
 
 . After a few seconds, run the following to see what pods have been created.
 +
-[,bash]
+[source,sh,role=execute]
 ----
- oc -n autoscale-ex get pods
+oc -n autoscale-ex get pods
 ----
 +
-Your output will look something like this:
-+
-`+{.text .no-copy}  NAME                     READY   STATUS    RESTARTS   AGE  maxscale-2bdjf   0/1     Pending   0          2s  maxscale-2tvd6   0/1     Pending   0          2s  maxscale-48rt7   0/1     Pending   0          2s  maxscale-4nmch   0/1     Pending   0          2s  maxscale-4zpnf   0/1     Pending   0          2s  [...] +`
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME             READY   STATUS    RESTARTS   AGE
+maxscale-2c6zt   1/1     Running   0          29s
+maxscale-2ps5g   0/1     Pending   0          29s
+maxscale-42l2d   0/1     Pending   0          29s
+maxscale-4n8rt   0/1     Pending   0          29s
+maxscale-5888n   1/1     Running   0          29s
+
+[...Output Omitted...]
+----
 +
 Notice that we see a lot of pods in a pending state.
 This should trigger the cluster autoscaler to create more machines using the MachineAutoscaler we created.
@@ -119,36 +168,91 @@ This should trigger the cluster autoscaler to create more machines using the Mac
 . Let's check to see if our MachineSet automatically scaled.
 To do so, run the following command:
 +
-[,bash]
+[source,sh,role=execute]
 ----
- oc -n openshift-machine-api get machinesets
+oc -n openshift-machine-api get machinesets
 ----
 +
-You should see output similar to:
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME                                 DESIRED   CURRENT   READY   AVAILABLE   AGE
+rosa-6n4s8-7hbhw-infra-us-west-2a    2         2         2       2           23h
+rosa-6n4s8-7hbhw-worker-us-west-2a   4         4         2       2           23h
+----
 +
-`{.text .no-copy}  NAME                                   DESIRED   CURRENT   READY   AVAILABLE   AGE  user1-mobbws-6sj5f-infra-{{ aws_region }}a    1         1         1       1           20h  user1-mobbws-6sj5f-infra-{{ aws_region }}b    1         1         1       1           20h  user1-mobbws-6sj5f-infra-{{ aws_region }}c    1         1         1       1           20h  user1-mobbws-6sj5f-worker-{{ aws_region }}a   2         2         1       1           20h  user1-mobbws-6sj5f-worker-{{ aws_region }}b   2         2         1       1           20h  user1-mobbws-6sj5f-worker-{{ aws_region }}c   2         2         1       1           20h `
-+
-This shows that the cluster autoscaler is working on scaling multiple MachineSets up to 2.
+This shows that the cluster autoscaler is working on scaling multiple MachineSets up to 4.
 
 . Now let's watch the cluster autoscaler create and delete machines as necessary.
 To do so, run the following command:
 +
-[,bash]
+[source,sh,role=execute]
 ----
- watch oc -n openshift-machine-api get machines \
- -l machine.openshift.io/cluster-api-machine-role=worker
+watch oc -n openshift-machine-api get machines \
+  -l machine.openshift.io/cluster-api-machine-role=worker
 ----
 +
-Your output will look like this:
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME                                       PHASE         TYPE        REGION	 ZONE         AGE
+rosa-6n4s8-7hbhw-worker-us-west-2a-vpfqr   Provisioned   m5.xlarge   us-west-2   us-west-2a   99s
+rosa-6n4s8-7hbhw-worker-us-west-2a-wwmj7   Provisioned   m5.xlarge   us-west-2   us-west-2a   99s
+rosa-6n4s8-7hbhw-worker-us-west-2a-xc8g2   Running	 m5.xlarge   us-west-2   us-west-2a   23h
+rosa-6n4s8-7hbhw-worker-us-west-2a-zxm8j   Running	 m5.xlarge   us-west-2   us-west-2a   23h
+----
 +
-```{.text .no-copy}  Every 2.0s: ip-10-0-3-193.{{ aws_region }}.compute.internal: Tue Jan 24 21:32:18 2023
-+
-NAME                                         PHASE         TYPE        REGION      ZONE         AGE  user1-mobbws-6sj5f-worker-{{ aws_region }}a-frzrq   Provisioned   m5.xlarge   {{ aws_region }}   {{ aws_region }}a   2m54s  user1-mobbws-6sj5f-worker-{{ aws_region }}a-jrxnz   Running       m5.xlarge   {{ aws_region }}   {{ aws_region }}a   20h  user1-mobbws-6sj5f-worker-{{ aws_region }}b-274j7   Provisioned   m5.xlarge   {{ aws_region }}   {{ aws_region }}b   2m55s  user1-mobbws-6sj5f-worker-{{ aws_region }}b-2j8lc   Running       m5.xlarge   {{ aws_region }}   {{ aws_region }}b   20h  user1-mobbws-6sj5f-worker-{{ aws_region }}c-4vswp   Provisioned   m5.xlarge   {{ aws_region }}   {{ aws_region }}c   2m54s  user1-mobbws-6sj5f-worker-{{ aws_region }}c-w8jl6   Running       m5.xlarge   {{ aws_region }}   {{ aws_region }}c   20h  ```
-+
-!!!
-info
+[TIP]
+====
+Watch will refresh the output of a command every second. Hit CTRL and c on your keyboard to exit the watch command when you're ready to move on to the next part of the workshop.
+====
 
-  Watch will refresh the output of a command every second. Hit CTRL and c on your keyboard to exit the watch command when you're ready to move on to the next part of the workshop.
+. Once the machines are running stop the watch and re-run the command to display the pods for the job. You should see that more pods are now running. If you still see some pods in Pending state that is normal because even 4 worker nodes may not be enough to handle the node - but you limited the autoscaler to 4 worker nodes.
++
+[source,sh,role=execute]
+----
+oc -n autoscale-ex get pods
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+NAME             READY   STATUS              RESTARTS   AGE
+maxscale-2c6zt   0/1     Completed           0          5m18s
+maxscale-2ps5g   0/1     ContainerCreating   0          5m18s
+maxscale-42l2d   0/1     ContainerCreating   0          5m18s
+maxscale-4n8rt   0/1     Pending             0          5m18s
+maxscale-5888n   0/1     Completed           0          5m18s
+maxscale-5944p   0/1     Completed           0          5m18s
+maxscale-5nwfz   0/1     Pending             0          5m18s
+maxscale-5p2n8   0/1     ContainerCreating   0          5m18s
+
+[...Output omitted...]
+----
 
 Congratulations!
 You've successfully demonstrated cluster autoscaling.
+
+== Enable Autoscaling on the Default MachinePool in the Red Hat OpenShift Cluster Console
+
+[WARNING]
+====
+These instructions will *not* work in your lab environment - they are here so that you see that you could also enable cluster autoscaling from the console if you have access.
+====
+
+. Log back into the https://console.redhat.com/openshift[OpenShift Cluster Manager].
+. In the Cluster section, locate your cluster and click on it.
++
+image::media/ocm-cluster-list.png[OCM - Cluster List]
+
+. Next, click on the _Machine pools_ tab.
++
+image::media/ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]
+
+. Next, click on the ⋮ icon beside the _Default_ machine pool, and select _Scale_.
++
+image::media/ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]
+
+. Finally, check the _Enable autoscaling_ checkbox, and set the minimum to `1` and maximum to `2`, then click _Apply_.
++
+image::media/ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]

@@ -18,6 +18,12 @@ modules:
   lab_5_cluster_upgrades:
     name: Cluster Upgrades
     exit_sign: Continue
+  lab_6_managing_worker_nodes:
+    name: Managing Worker Nodes
+    exit_sign: Continue
+  lab_7_autoscaling:
+    name: Cluster Autoscaling
+    exit_sign: Continue
   lab_8_cloudwatch:
     name: Configure Log Forwarding to Cloudwatch
     exit_sign: Continue
