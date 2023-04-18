@@ -186,7 +186,7 @@ serviceaccount/microsweeper annotated
 
 Now that we've got a DynamoDB instance up and running and our IRSA configuration completed, let's build and deploy our application.
 
-In order to build the application you will need the Java JDK 17 and the Quarkus CLI installed. Java JDK 17 is already installed on your bastion VM so let's install the Quarkus CLI:
+. In order to build the application you will need the Java JDK 17 and the Quarkus CLI installed. Java JDK 17 is already installed on your bastion VM so let's install the Quarkus CLI:
 +
 [source,sh,role=execute]
 ----
@@ -381,7 +381,9 @@ image::media/rosa-console-routes.png[OpenShift Web Console - Routes]
 
 === Test the application
 
-While in the route section of the OpenShift Web Console, click the URL under _Location_: image::media/rosa-console-route-link.png[OpenShift Web Console - Route Link]
+While in the route section of the OpenShift Web Console, click the URL under _Location_:
+
+image::media/rosa-console-route-link.png[OpenShift Web Console - Route Link]
 
 You can also get the the URL for your application using the command line:
 
@@ -400,7 +402,7 @@ microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.co
 
 Let's take a quick look at what IP the application resolves to.
 
-Back in your Cloud Shell environment, run the following command:
+Back in your bastion VM, run the following command:
 
 [source,sh,role=execute]
 ----
