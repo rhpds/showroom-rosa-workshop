@@ -15,3 +15,5 @@ modules:
   - lab_10_deploy_app
   - lab_11_openshift_gitops
   - lab_12_network_policy
+  # - lab_13_cicd
+  - lab_14_resilient_app
