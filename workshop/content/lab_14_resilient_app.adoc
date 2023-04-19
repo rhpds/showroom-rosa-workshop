@@ -294,4 +294,3 @@ frontend-js-cpu   Deployment/frontend-js   8%/50%    2         4         4      
 frontend-js-cpu   Deployment/frontend-js   8%/50%    2         4         3          7m16s
 frontend-js-cpu   Deployment/frontend-js   0%/50%    2         4         2          7m31s
 ----
-

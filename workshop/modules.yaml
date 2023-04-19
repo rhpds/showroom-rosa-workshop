@@ -45,4 +45,19 @@ modules:
   lab_14_resilient_app:
     name: Making your application resilient
     exit_sign: Continue
+  lab_15_service_mesh_introduction:
+    name: Introduction to OpenShift Service Mesh
+    exit_sign: Continue
+  lab_16_service_mesh_deploy_operators:
+    name: Deploy Service Mesh Operator
+    exit_sign: Continue
+  lab_17_service_mesh_deploy_control_plane:
+    name: Deploy Control Plane
+    exit_sign: Continue
+  lab_18_service_mesh_deploy_app:
+    name: Deploy Workloads
+    exit_sign: Continue
+  lab_19_service_mesh_observe:
+    name: Configure and Observe Traffic
+    exit_sign: Exit
 
