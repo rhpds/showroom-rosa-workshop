@@ -18,7 +18,7 @@ modules:
   # - lab_13_cicd
   - lab_14_resilient_app
   - lab_15_service_mesh_introduction
-  - lab_16_service_mesh_deploy_operators
+  - lab_16_service_mesh_deploy_operator
   - lab_17_service_mesh_deploy_control_plane
   - lab_18_service_mesh_deploy_app
   - lab_19_service_mesh_observe
