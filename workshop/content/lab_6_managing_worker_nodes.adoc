@@ -23,8 +23,8 @@ oc -n openshift-machine-api get machinesets
 [source,text,options=nowrap]
 ----
 NAME                                   DESIRED   CURRENT   READY   AVAILABLE   AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a      2         2         2       2           22h
-rosa-6n4s8-7hbhw-worker-us-west-2a     2         2         2       2           23h
+rosa-6n4s8-7hbhw-infra-us-east-2a      2         2         2       2           22h
+rosa-6n4s8-7hbhw-worker-us-east-2a     2         2         2       2           23h
 ----
 +
 You will see two MachineSets, one for worker nodes and one for infra nodes.
@@ -41,7 +41,7 @@ rosa list machinepools -c rosa-${GUID}
 [source,text,options=nowrap]
 ----
 ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
-Default  No           2         m5.xlarge                          us-west-2a                       N/A
+Default  No           2         m5.xlarge                          us-east-2a                       N/A
 ----
 +
 Note that there is only a MachinePool for worker nodes.
@@ -58,13 +58,13 @@ oc -n openshift-machine-api get machine
 [source,text,options=nowrap]
 ----
 NAME                                       PHASE     TYPE         REGION      ZONE         AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a-bgr86    Running   r5.xlarge    us-west-2   us-west-2a   22h
-rosa-6n4s8-7hbhw-infra-us-west-2a-xthr6    Running   r5.xlarge    us-west-2   us-west-2a   22h
-rosa-6n4s8-7hbhw-master-0                  Running   m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-master-1                  Running   m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-master-2                  Running   m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-worker-us-west-2a-xc8g2   Running   m5.xlarge    us-west-2   us-west-2a   22h
-rosa-6n4s8-7hbhw-worker-us-west-2a-zxm8j   Running   m5.xlarge    us-west-2   us-west-2a   22h
+rosa-6n4s8-7hbhw-infra-us-east-2a-bgr86    Running   r5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-infra-us-east-2a-xthr6    Running   r5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-master-0                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-1                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-2                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-xc8g2   Running   m5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-worker-us-east-2a-zxm8j   Running   m5.xlarge    us-east-2   us-east-2a   22h
 ----
 +
 For this workshop, we've deployed your ROSA cluster with seven total machines (two workers, three control planes, and two infrastructure nodes).
@@ -113,9 +113,9 @@ oc -n openshift-machine-api get machinesets
 [source,text,options=nowrap]
 ----
 NAME                                   DESIRED   CURRENT   READY   AVAILABLE   AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a      2         2         2       2           22h
-rosa-6n4s8-7hbhw-worker-us-west-2a     2         2         2       2           23h
-rosa-6n4s8-7hbhw-workshop-us-west-2a   2         2                             70s
+rosa-6n4s8-7hbhw-infra-us-east-2a      2         2         2       2           22h
+rosa-6n4s8-7hbhw-worker-us-east-2a     2         2         2       2           23h
+rosa-6n4s8-7hbhw-workshop-us-east-2a   2         2                             70s
 ----
 
  Note, that the number of *desired* and *current* nodes matches the scale we specified, but depending when you ran this command they may not be available yet.
@@ -131,15 +131,15 @@ oc -n openshift-machine-api get machine
 [source,text,options=nowrap]
 ----
 NAME                                         PHASE         TYPE         REGION      ZONE         AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a-bgr86      Running       r5.xlarge    us-west-2   us-west-2a   22h
-rosa-6n4s8-7hbhw-infra-us-west-2a-xthr6      Running       r5.xlarge    us-west-2   us-west-2a   22h
-rosa-6n4s8-7hbhw-master-0                    Running       m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-master-1                    Running       m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-master-2                    Running       m5.2xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-worker-us-west-2a-xc8g2     Running       m5.xlarge    us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-worker-us-west-2a-zxm8j     Running       m5.xlarge    us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-workshop-us-west-2a-pcfd9   Provisioned   m5.xlarge    us-west-2   us-west-2a   3m57s
-rosa-6n4s8-7hbhw-workshop-us-west-2a-pxnvd   Provisioned   m5.xlarge    us-west-2   us-west-2a   4m30s
+rosa-6n4s8-7hbhw-infra-us-east-2a-bgr86      Running       r5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-infra-us-east-2a-xthr6      Running       r5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-master-0                    Running       m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-1                    Running       m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-2                    Running       m5.2xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-xc8g2     Running       m5.xlarge    us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-zxm8j     Running       m5.xlarge    us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-workshop-us-east-2a-pcfd9   Provisioned   m5.xlarge    us-east-2   us-east-2a   3m57s
+rosa-6n4s8-7hbhw-workshop-us-east-2a-pxnvd   Provisioned   m5.xlarge    us-east-2   us-east-2a   4m30s
 ----
 
 . Repeat the above command until all machines are in the *Running* phase. This means that they are ready and available to run Pods in the cluster.
@@ -163,9 +163,9 @@ oc -n openshift-machine-api get machinesets
 [source,text,options=nowrap]
 ----
 NAME                                   DESIRED   CURRENT   READY   AVAILABLE   AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a      2         2         2       2           22h
-rosa-6n4s8-7hbhw-worker-us-west-2a     2         2         2       2           23h
-rosa-6n4s8-7hbhw-workshop-us-west-2a   1         1         1       1           6m49s
+rosa-6n4s8-7hbhw-infra-us-east-2a      2         2         2       2           22h
+rosa-6n4s8-7hbhw-worker-us-east-2a     2         2         2       2           23h
+rosa-6n4s8-7hbhw-workshop-us-east-2a   1         1         1       1           6m49s
 ----
 
 . Now let's scale the cluster back down to a total of 2 worker nodes by deleting the "Workshop" Machine Pool.

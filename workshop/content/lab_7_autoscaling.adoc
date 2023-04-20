@@ -22,7 +22,7 @@ rosa list machinepools --cluster rosa-${GUID}
 [source,text,options=nowrap]
 ----
 ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
-Default  No           2         m5.xlarge                          us-west-2a                       N/A
+Default  No           2         m5.xlarge                          us-east-2a                       N/A
 ----
 +
 The *ID* of the MachinePool that you want to add autoscaling to is `Default`.
@@ -52,7 +52,7 @@ oc -n openshift-machine-api get machineautoscaler
 [source,text,options=nowrap]
 ----
 NAME                                 REF KIND     REF NAME                             MIN   MAX   AGE
-rosa-6n4s8-7hbhw-worker-us-west-2a   MachineSet   rosa-6n4s8-7hbhw-worker-us-west-2a   2     4     4m30s
+rosa-6n4s8-7hbhw-worker-us-east-2a   MachineSet   rosa-6n4s8-7hbhw-worker-us-east-2a   2     4     4m30s
 ----
 
 . And finally, let's check to see that our cluster autoscaler has been created.
@@ -177,8 +177,8 @@ oc -n openshift-machine-api get machinesets
 [source,text,options=nowrap]
 ----
 NAME                                 DESIRED   CURRENT   READY   AVAILABLE   AGE
-rosa-6n4s8-7hbhw-infra-us-west-2a    2         2         2       2           23h
-rosa-6n4s8-7hbhw-worker-us-west-2a   4         4         2       2           23h
+rosa-6n4s8-7hbhw-infra-us-east-2a    2         2         2       2           23h
+rosa-6n4s8-7hbhw-worker-us-east-2a   4         4         2       2           23h
 ----
 +
 This shows that the cluster autoscaler is working on scaling multiple MachineSets up to 4.
@@ -196,10 +196,10 @@ watch oc -n openshift-machine-api get machines \
 [source,text,options=nowrap]
 ----
 NAME                                       PHASE         TYPE        REGION	 ZONE         AGE
-rosa-6n4s8-7hbhw-worker-us-west-2a-vpfqr   Provisioned   m5.xlarge   us-west-2   us-west-2a   99s
-rosa-6n4s8-7hbhw-worker-us-west-2a-wwmj7   Provisioned   m5.xlarge   us-west-2   us-west-2a   99s
-rosa-6n4s8-7hbhw-worker-us-west-2a-xc8g2   Running	 m5.xlarge   us-west-2   us-west-2a   23h
-rosa-6n4s8-7hbhw-worker-us-west-2a-zxm8j   Running	 m5.xlarge   us-west-2   us-west-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-vpfqr   Provisioned   m5.xlarge   us-east-2   us-east-2a   99s
+rosa-6n4s8-7hbhw-worker-us-east-2a-wwmj7   Provisioned   m5.xlarge   us-east-2   us-east-2a   99s
+rosa-6n4s8-7hbhw-worker-us-east-2a-xc8g2   Running	 m5.xlarge   us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-zxm8j   Running	 m5.xlarge   us-east-2   us-east-2a   23h
 ----
 +
 [TIP]

@@ -34,10 +34,10 @@ oc get nodes --selector='tier=frontend' -o name
 .Sample Output
 [source,text,options=nowrap]
 ----
-node/ip-10-0-133-248.us-west-2.compute.internal
-node/ip-10-0-146-31.us-west-2.compute.internal
-node/ip-10-0-187-229.us-west-2.compute.internal
-node/ip-10-0-252-142.us-west-2.compute.internal
+node/ip-10-0-133-248.us-east-2.compute.internal
+node/ip-10-0-146-31.us-east-2.compute.internal
+node/ip-10-0-187-229.us-east-2.compute.internal
+node/ip-10-0-252-142.us-east-2.compute.internal
 ----
 +
 You may see between two and four nodes - depending if you did the autoscaling lab recently (if you did the cluster has probably not scaled down yet). This demonstrates that our machine pool and associated nodes are properly annotated!
@@ -130,7 +130,7 @@ oc -n nodeselector-ex get pod -l app=nodeselector-app -o json \
 .Sample Output
 [source,text,options=nowrap]
 ----
-ip-10-0-146-31.us-west-2.compute.internal
+ip-10-0-146-31.us-east-2.compute.internal
 ----
 
 . Double check the name of the node to compare it to the output above to ensure the node selector worked to put the pod on the correct node
@@ -143,10 +143,10 @@ oc get nodes --selector='tier=frontend' -o name
 .Sample Output
 [source,text,options=nowrap]
 ----
-node/ip-10-0-133-248.us-west-2.compute.internal
-node/ip-10-0-146-31.us-west-2.compute.internal
-node/ip-10-0-187-229.us-west-2.compute.internal
-node/ip-10-0-252-142.us-west-2.compute.internal
+node/ip-10-0-133-248.us-east-2.compute.internal
+node/ip-10-0-146-31.us-east-2.compute.internal
+node/ip-10-0-187-229.us-east-2.compute.internal
+node/ip-10-0-252-142.us-east-2.compute.internal
 ----
 
 . Next create a `service` using the `oc expose` command
