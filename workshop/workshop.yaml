@@ -6,7 +6,7 @@ modules:
   - lab_1_setup
   - lab_2_deploy_cluster
   - lab_3_create_admin_user
-#  - lab_4_configure_idp
+  - lab_4_configure_idp
   - lab_5_cluster_upgrades
   - lab_6_managing_worker_nodes
   - lab_7_autoscaling

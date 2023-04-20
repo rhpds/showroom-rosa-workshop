@@ -12,9 +12,9 @@ modules:
   lab_3_create_admin_user:
     name: Create an admin user
     exit_sign: Continue
-  # lab_4_configure_idp:
-  #   name: Configure Authentication
-  #   exit_sign: Continue
+  lab_4_configure_idp:
+    name: Configure Authentication
+    exit_sign: Continue
   lab_5_cluster_upgrades:
     name: Cluster Upgrades
     exit_sign: Continue
