@@ -106,12 +106,12 @@ aws sts get-caller-identity
 ----
 
 . Download and install the oc binary
-// don't use `rosa download oc` because it downloads latest 4.12 - you want to match the installed version:
+// don't use `rosa download oc` because it downloads latest - you want to match the installed version:
 +
 [source,sh,role=execute]
 ----
 cd $HOME
-wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.12.9/openshift-client-linux.tar.gz
+wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.12.12/openshift-client-linux.tar.gz
 
 mkdir $HOME/bin
 tar -xzvf $HOME/openshift-client-linux.tar.gz -C $HOME/bin
@@ -196,7 +196,7 @@ rosa verify openshift-client
 [source,texinfo,options=nowrap]
 ----
 I: Verifying whether OpenShift command-line tool is available...
-I: Current OpenShift Client Version: 4.12.9
+I: Current OpenShift Client Version: 4.12.12
 ----
 
 We have now successfully set up our account and environment and are ready to deploy our cluster.

@@ -22,9 +22,9 @@ oc version
 .Sample Output
 [source,text,options=nowrap]
 ----
-Client Version: 4.12.9
+Client Version: 4.12.12
 Kustomize Version: v4.5.7
-Server Version: 4.12.9
+Server Version: 4.12.12
 Kubernetes Version: v1.25.7+eab9cc9
 ----
 
@@ -38,7 +38,7 @@ oc adm upgrade
 .Sample Output
 [source,text,options=nowrap]
 ----
-Cluster version is 4.12.9
+Cluster version is 4.12.12
 
 Upgradeable=False
 
@@ -57,7 +57,7 @@ Channel: stable-4.12 (available channels: candidate-4.12, candidate-4.13, eus-4.
 Recommended updates:
 
   VERSION     IMAGE
-  4.12.10     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
+  4.12.13     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
 ----
 +
 [NOTE]
@@ -89,7 +89,7 @@ Date: 2023-04-18, Time: 19:51
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.12.10 \
+  --version 4.12.13 \
   --mode auto \
   --schedule-date ${UPGRADE_DATE} \
   --schedule-time ${UPGRADE_TIME}
