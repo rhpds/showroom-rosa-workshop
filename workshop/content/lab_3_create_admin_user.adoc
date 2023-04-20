@@ -30,7 +30,20 @@ I: It may take several minutes for this access to become active.
 [TIP]
 ====
 Save the login command somewhere. Also take note of the password for your `cluster-admin` user.
+
+*Make sure to use the entire password when copying and pasting the command!*
 ====
+
+. Save an environment variable for your admin password (copy the password from above making sure to copy the *entire* password):
++
+[source,sh,role=execute]
+----
+export ADMIN_PASSWORD=cD4xo-AnanH-DvB6L-6yndM
+
+echo "export ADMIN_PASSWORD=${ADMIN_PASSWORD}" >>$HOME/.bashrc
+
+source $HOME/.bashrc
+----
 
 . Copy the login command returned to you in the previous step and paste that into your terminal. This should log you into the cluster via the CLI so you can start using the cluster (answer `y` when promted if you want to accept the certificate).
 +
@@ -111,6 +124,6 @@ https://console-openshift-console.%rosa_subdomain_base%
 
 . Next, open the printed URL in a web browser.
 . Click on the `htpasswd` identity provider.
-. Enter the username (`cluster-admin`) and password from the above previous section.
+. Enter the username (`cluster-admin`) and password from the previous section.
 +
 If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.
