@@ -27,14 +27,6 @@ ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 
 You will be using the `rosa`, `aws` and `oc` command line tools throughout this lab.
 
-. You will add a few tools to your `$HOME/bin` directory so make sure that this directory is in your PATH:
-+
-[source,sh,role=execute]
-----
-export PATH=$HOME/bin:$PATH
-echo "export PATH=$HOME/bin:$PATH" >>$HOME/.bashrc
-----
-
 . Verify that the `rosa` command line tool is installed:
 +
 [source,sh,role=execute]
