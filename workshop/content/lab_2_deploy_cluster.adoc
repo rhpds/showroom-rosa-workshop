@@ -33,6 +33,50 @@ For each succeeding cluster in the same account for the same y-stream version, o
 
 As mentioned above, if you want the ROSA CLI to automate the creation of the roles and policies to create your cluster quickly, then use this method.
 
+=== Ensure the ELB service role exists
+
+Make sure that the service role for ELB already exists, otherwise the cluster deployment could fail.
+
+. Run the following to check for the role and create it if it is missing.
++
+[source,sh,role=execute]
+----
+aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+{
+    "Role": {
+        "Path": "/aws-service-role/elasticloadbalancing.amazonaws.com/",
+        "RoleName": "AWSServiceRoleForElasticLoadBalancing",
+        "RoleId": "AROA5ZWLJ2BAZWKPE75AN",
+        "Arn": "arn:aws:iam::948540395585:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForEl
+asticLoadBalancing",
+        "CreateDate": "2019-09-07T14:48:48Z",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "elasticloadbalancing.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        },
+        "Description": "Allows ELB to call AWS services on your behalf.",
+        "MaxSessionDuration": 3600,
+        "RoleLastUsed": {
+            "LastUsedDate": "2023-04-05T18:53:02Z",
+            "Region": "us-east-2"
+        }
+    }
+}
+----
+
 === Create account roles
 
 If this is the *first time* you are deploying ROSA in this account and have *not yet created the account roles*, then create the account-wide roles and policies, including Operator policies.

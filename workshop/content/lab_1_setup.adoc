@@ -27,6 +27,14 @@ ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 
 You will be using the `rosa`, `aws` and `oc` command line tools throughout this lab.
 
+. You will add a few tools to your `$HOME/bin` directory so make sure that this directory is in your PATH:
++
+[source,sh,role=execute]
+----
+export PATH=$HOME/bin:$PATH
+echo "export PATH=$HOME/bin:$PATH" >>$HOME/.bashrc
+----
+
 . Verify that the `rosa` command line tool is installed:
 +
 [source,sh,role=execute]
@@ -108,8 +116,6 @@ wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.12.9/openshift-
 mkdir $HOME/bin
 tar -xzvf $HOME/openshift-client-linux.tar.gz -C $HOME/bin
 rm $HOME/openshift-client-linux.tar.gz
-
-export PATH=$HOME/bin:$PATH
 ----
 +
 *Why use `oc` over `kubectl`* + Being Kubernetes, one can definitely use `kubectl` with their OpenShift cluster.
@@ -156,50 +162,6 @@ OCM Account Username:         rhpds-cloud
 OCM Organization External ID: 15324659
 OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
 OCM Organization Name:        Red Hat, Inc.
-----
-
-=== Ensure the ELB service role exists
-
-Make sure that the service role for ELB already exists, otherwise the cluster deployment could fail.
-
-. Run the following to check for the role and create it if it is missing.
-+
-[source,sh,role=execute]
-----
-aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
-----
-+
-.Sample Output
-[source,texinfo,options=nowrap]
-----
-{
-    "Role": {
-        "Path": "/aws-service-role/elasticloadbalancing.amazonaws.com/",
-        "RoleName": "AWSServiceRoleForElasticLoadBalancing",
-        "RoleId": "AROA5ZWLJ2BAZWKPE75AN",
-        "Arn": "arn:aws:iam::948540395585:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForEl
-asticLoadBalancing",
-        "CreateDate": "2019-09-07T14:48:48Z",
-        "AssumeRolePolicyDocument": {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Principal": {
-                        "Service": "elasticloadbalancing.amazonaws.com"
-                    },
-                    "Action": "sts:AssumeRole"
-                }
-            ]
-        },
-        "Description": "Allows ELB to call AWS services on your behalf.",
-        "MaxSessionDuration": 3600,
-        "RoleLastUsed": {
-            "LastUsedDate": "2023-04-05T18:53:02Z",
-            "Region": "us-east-2"
-        }
-    }
-}
 ----
 
 === Verify quota
