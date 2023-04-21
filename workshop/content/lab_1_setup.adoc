@@ -51,34 +51,8 @@ aws --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-aws-cli/1.18.200 Python/3.6.8 Linux/4.18.0-305.82.1.el8_4.x86_64 botocore/1.19.40
-----
-
-. Well that's an old version of the AWS command line interface. Let's install the latest one for your user:
-+
-[source,sh,role=execute]
-----
-curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o $HOME/awscliv2.zip
-cd $HOME
-unzip -u awscliv2.zip
-$HOME/aws/install --install-dir $HOME/aws-cli --bin-dir $HOME/bin
-rm -rf $HOME/awscliv2.zip $HOME/aws
-----
-
-. Now check the version again:
-+
-[source,sh,role=execute]
-----
-aws --version
-----
-+
-.Sample Output
-[source,text,options=nowrap]
-----
 aws-cli/2.11.14 Python/3.11.3 Linux/4.18.0-305.82.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
 ----
-+
-That's better.
 
 . Verify that the `aws` command line tool is configured:
 +
@@ -97,8 +71,7 @@ aws sts get-caller-identity
 }
 ----
 
-. Download and install the oc binary
-// don't use `rosa download oc` because it downloads latest - you want to match the installed version:
+. Download and install the oc binary. The `rosa` CLI has the capability to automatically download the latest version of the oc binary (`rosa download oc`). However for this lab you want a specific version of the OpenShift client.
 +
 [source,sh,role=execute]
 ----
