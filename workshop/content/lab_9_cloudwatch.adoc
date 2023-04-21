@@ -164,6 +164,11 @@ oc -n openshift-logging rollout status deployment \
 ----
 deployment "cluster-logging-operator" successfully rolled out
 ----
++
+[TIP]
+====
+If you get an error `Error from server (NotFound): deployments.apps "cluster-logging-operator" not found` wait a few seconds and try again.
+====
 
 . Next, we need to create a secret containing the ARN of the IAM role that we previously created above.
 To do so, run the following command:
@@ -262,18 +267,27 @@ aws logs describe-log-groups \
 ----
 +
 .Sample Output
-[source,text,options=nowrap]
+[source,json,options=nowrap]
 ----
-
+{
+    "logGroups": [
+        {
+            "logGroupName": "rosa-fxxj9.audit",
+            "creationTime": 1682098364311,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:us-east-2:511846242393:log-group:rosa-fxxj9.audit:*",
+            "storedBytes": 0
+        },
+        {
+            "logGroupName": "rosa-fxxj9.infrastructure",
+            "creationTime": 1682098364399,
+            "metricFilterCount": 0,
+            "arn": "arn:aws:logs:us-east-2:511846242393:log-group:rosa-fxxj9.infrastructure:*",
+            "storedBytes": 0
+        }
+    ]
+}
 ----
-+
-You should see two log groups (`audit` and `infrastructure`).
-+
-!!!
-info "check back later after you've run some applications and you'll see a third `application` log group"
-+
-`{.json .no-copy}      {     "logGroups": [        {              "logGroupName": "rosa-xxxx.audit",              "creationTime": 1661286368369,              "metricFilterCount": 0,              "arn": "arn:aws:logs:us-east-1:xxxx:log-group:rosa-xxxx.audit:*",              "storedBytes": 0        },        {              "logGroupName": "rosa-xxxx.infrastructure",              "creationTime": 1661286369821,              "metricFilterCount": 0,              "arn": "arn:aws:logs:us-east-1:xxxx:log-group:rosa-xxxx.infrastructure:*",              "storedBytes": 0        }     ]  } `
-
 
 Congratulations!
 

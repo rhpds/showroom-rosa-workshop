@@ -197,7 +197,7 @@ rosa create idp \
 --issuer-url https://cognito-idp.us-east-2.amazonaws.com/${AWS_USER_POOL_ID} \
 --email-claims email \
 --name-claims name \
---username-claims preferred_username
+--username-claims username
 ----
 +
 .Sample Output
@@ -216,47 +216,67 @@ I: To log in to the console, open https://console-openshift-console.apps.rosa-6n
 +
 [source,sh,role=execute]
 ----
-oc get oauth cluster -o yaml
+oc get oauth cluster -o json | jq .spec.identityProviders
+----
++
+.Sample Output
+[source,json,options=nowrap]
+----
+[
+  {
+    "mappingMethod": "claim",
+    "name": "Cognito",
+    "openID": {
+      "ca": {
+        "name": ""
+      },
+      "claims": {
+        "email": [
+          "email"
+        ],
+        "name": [
+          "name"
+        ],
+        "preferredUsername": [
+          "username"
+        ]
+      },
+      "clientID": "id9f96fqss85fq3retc8483qf",
+      "clientSecret": {
+        "name": "idp-client-secret-238712vvljtshrufolh9494m2khq3lac"
+      },
+      "issuer": "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_wlMPBkXKO"
+    },
+    "type": "OpenID"
+  },
+  {
+    "htpasswd": {
+      "fileData": {
+        "name": "htpasswd-secret"
+      }
+    },
+    "mappingMethod": "claim",
+    "name": "htpasswd",
+    "type": "HTPasswd"
+  }
+]
+----
++
+You will notice that there are two authentication providers configured: Cognito and htpasswd. The htpasswd authentication provider got added when you added the admin user in a previous lab. In the last step of this lab you will clean that up.
+
+. To display just the names of the configured identity providers use this command:
++
+[source,sh,role=execute]
+----
+oc get oauth cluster -o json | jq -r '.spec.identityProviders[].name'
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-apiVersion: config.openshift.io/v1
-kind: OAuth
-
-[... Output omitted...]
-
-spec:
-  identityProviders:
-  - mappingMethod: claim
-    name: Cognito
-    openID:
-      ca:
-        name: ""
-      claims:
-        email:
-        - email
-        name:
-        - name
-        preferredUsername:
-        - preferred_username
-      clientID: 1l3onr3gg232ngprritg50fqao
-      clientSecret:
-        name: idp-client-secret-237k7dv8ctrnvf1bjlb825tmpd1nnm2t
-      issuer: https://cognito-idp.us-east-2.amazonaws.com/us-east-2_Z91VxhckZ
-    type: OpenID
-  - htpasswd:
-      fileData:
-        name: htpasswd-secret
-    mappingMethod: claim
-    name: htpasswd
-    type: HTPasswd
-
-[... Output omitted...]
+Cognito
+htpasswd
 ----
-+
-You will notice that there are two authentication providers configured: Cognito and htpasswd. The htpasswd authentication provider got added when you added the admin user in a previous lab. In the last step of this lab you will clean that up.
 
 . It will take a few minutes for the authentication operator to redeploy the authentication pods. Watch the pods until all three pods have been updated - when all three pods are running again (with an age of less than a few minutes) hit `Ctrl-C` to stop the watch:
 +
@@ -288,8 +308,6 @@ Select that, and log in using your workshop AWS credentials.
 
 . Let's give Cluster Admin permissions to your AWS Cognito admin.
 +
-Unfortunately OpenShift users that have been set up via Cognito don't actually get created with the user id that we use in Cognito (like `admin` or `user1`) but with a random ID. So you can't just grant cluster admin permissions to the `admin` user but need to find out the OpenShift user that got created instead.
-+
 Find out the existing users in OpenShift (note for this to work you *must* have logged in via the web console before - OpenShift does not create user objects until a user has logged in).
 +
 [source,sh,role=execute]
@@ -300,47 +318,38 @@ oc get users
 .Sample Output
 [source,text,options=nowrap]
 ----
-NAME                                   UID                                    FULL NAME               IDENTITIES
-backplane-cluster-admin                4554ddb4-524c-47d9-9724-c88f0183aa2a
-cluster-admin                          9f96a50c-83e2-4134-b978-785c6023579f                           htpasswd:cluster-admin
-e6569c03-ccc2-4428-b15b-1ad251e1bad6   c7c8c87d-df67-4548-b243-cd0beb0741c3   Cluster Administrator   Cognito:e6569c03-ccc2-4428-b15b-1ad251e1bad6
+NAME                      UID                                    FULL NAME               IDENTITIES
+admin                     92cb9ccd-4e94-427a-81ac-3e3cb6b33aae   Cluster Administrator   Cognito:e28ab3f6-0940-442a-9999-05fe1b6fe9e2
+backplane-cluster-admin   b154dba0-55f4-4451-9a98-ce3c371b8c19
+cluster-admin             301ada8a-3348-465f-8506-31e1c6ae0db1                           htpasswd:cluster-admin
 ----
 +
-In the example above the OpenShift user you are looking for is `e6569c03-ccc2-4428-b15b-1ad251e1bad6`.
-
-. Save this user ID in a variable:
-+
-[source,sh]
-----
-export COGNITO_ADMIN_USER=e6569c03-ccc2-4428-b15b-1ad251e1bad6
-----
-
-. Save your admin password in a variable:
+In the example above you can see the two admin users that we have created: the `cluster-admin` which is managed by htpasswd and the `admin` user that is managed by Cognito. You will also see the `backplane-cluster-admin` that Red Hat SREs are using.
+. Save your admin user password in a variable:
 +
 [source,sh,role=execute]
 ----
 export COGNITO_ADMIN_PASSWORD=%rosa_user_password%-2@23
 ----
 
-. Save the credentials to your `.bashrc`
+. Save the variable to your `.bashrc`
 +
 [source,sh,role=execute]
 ----
-echo "export COGNITO_ADMIN_USER=${COGNITO_ADMIN_USER} >>$HOME/.bashrc"
-echo "export COGNITO_ADMIN_PASSWORD=${COGNITO_ADMIN_PASSWORD} >>$HOME/.bashrc"
+echo "export COGNITO_ADMIN_PASSWORD=${COGNITO_ADMIN_PASSWORD}" >>$HOME/.bashrc
 ----
 
 . Now you can users  user by running the following commands:
 +
 [source,sh,role=execute]
 ----
-oc adm policy add-cluster-role-to-user cluster-admin ${COGNITO_ADMIN_USER}
+oc adm policy add-cluster-role-to-user cluster-admin admin
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-clusterrole.rbac.authorization.k8s.io/cluster-admin added: "e6569c03-ccc2-4428-b15b-1ad251e1bad6"
+clusterrole.rbac.authorization.k8s.io/cluster-admin added: "admin"
 ----
 
 . Refresh the OpenShift web console - you should now be able to switch to the Administrator view.
@@ -383,49 +392,30 @@ I: Admin user 'cluster-admin' has been deleted from cluster 'rosa-s8j4w'
 +
 [source,sh,role=execute]
 ----
-oc get oauth cluster -o json | jq .spec.identityProviders
+oc get oauth cluster -o json | jq -r '.spec.identityProviders[].name'
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-[
-  {
-    "mappingMethod": "claim",
-    "name": "Cognito",
-    "openID": {
-      "ca": {
-        "name": ""
-      },
-      "claims": {
-        "email": [
-          "email"
-        ],
-        "name": [
-          "name"
-        ],
-        "preferredUsername": [
-          "preferred_username"
-        ]
-      },
-      "clientID": "7aphe607a2l1qcridtbgh9g1jh",
-      "clientSecret": {
-        "name": "idp-client-secret-237nnnblfoq2ebiuotc4k88596d0f44q"
-      },
-      "issuer": "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_VRz9yxZbc"
-    },
-    "type": "OpenID"
-  }
-]
+Cognito
 ----
 +
 Now all of your users are managed in AWS Cognito.
 
-From now on whenever you need to log into OpenShift you can use the following command:
-
+. You can delete the `cluster-admin` user object and it's associated identity:
++
 [source,sh,role=execute]
 ----
-oc login -u ${COGNITO_ADMIN_USER} -p ${COGNITO_ADMIN_PASSWORD}
+oc delete user cluster-admin
+oc delete identity htpasswd:cluster-admin
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+user.user.openshift.io "cluster-admin" deleted
+identity.user.openshift.io "htpasswd:cluster-admin" deleted
 ----
 
 Congratulations!

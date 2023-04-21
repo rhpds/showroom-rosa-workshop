@@ -37,7 +37,7 @@ Save the login command somewhere. Also take note of the password for your `clust
 . Save an environment variable for your admin password (copy the password from above making sure to copy the *entire* password):
 +
 .Note this box will not automatically copy the command for you. You need to write the command yourself.
-[source,sh,role=copy]
+[source,sh]
 ----
 export ADMIN_PASSWORD=cD4xo-AnanH-DvB6L-6yndM
 ----
