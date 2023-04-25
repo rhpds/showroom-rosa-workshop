@@ -195,12 +195,6 @@ curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@qu
 
 source $HOME/.bashrc
 ----
-+
-.Sample Output
-[source,text,options=nowrap]
-----
-TBD
-----
 
 . Double check the Quarkus CLI version:
 +
