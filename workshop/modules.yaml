@@ -60,4 +60,3 @@ modules:
   lab_19_service_mesh_observe:
     name: Configure and Observe Traffic
     exit_sign: Exit
-
