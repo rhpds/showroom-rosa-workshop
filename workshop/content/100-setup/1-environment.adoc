@@ -22,6 +22,12 @@ The password for the user %rosa_bastion_user_name% is `%rosa_user_password%`
 ----
 ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 ----
++
+.Click here to copy and paste the password to your terminal:
++[source,sh,role=execute]
+----
+%rosa_user_password%
+----
 
 === Validate installed tools
 
