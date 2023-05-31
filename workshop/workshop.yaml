@@ -4,7 +4,7 @@ modules:
   activate:
   - index
   - 100-setup/1-environment
-  - 100-setup/2-cluster-creation
+  - 100-setup/2-cluster-creation-hcp
   - 100-setup/3-access-cluster
   - 200-ops/lab_4_configure_idp
   - 200-ops/lab_5_cluster_upgrades

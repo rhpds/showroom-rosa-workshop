@@ -23,7 +23,14 @@ The password for the user %rosa_bastion_user_name% is `%rosa_user_password%`
 ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 ----
 +
-.Click here to copy and paste the password to your terminal:
+.Click in the box below to copy and paste the string `yes` to your terminal:
++
+[source,sh,role=execute]
+----
+yes
+----
++
+.Click in the box below to copy and paste the password to your terminal:
 +
 [source,sh,role=execute]
 ----
@@ -34,7 +41,7 @@ ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 
 You will be using the `rosa`, `aws` and `oc` command line tools throughout this lab.
 
-. Verify that the `rosa` command line tool is installed:
+. Verify that the `rosa` command line tool is installed (note that your version may be a more recent version than the output shown below):
 +
 [source,sh,role=execute]
 ----
@@ -44,7 +51,7 @@ rosa version
 .Sample Output
 [source,texinfo]
 ----
-1.2.15
+1.2.22
 Your ROSA CLI is up to date.
 ----
 
@@ -58,10 +65,10 @@ aws --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-aws-cli/2.11.14 Python/3.11.3 Linux/4.18.0-305.82.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.11.23 Python/3.11.3 Linux/4.18.0-305.88.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
 ----
 
-. Verify that the `aws` command line tool is configured:
+. Verify that the `aws` command line tool is configured correctly:
 +
 [source,sh,role=execute]
 ----
@@ -78,20 +85,19 @@ aws sts get-caller-identity
 }
 ----
 
-. Download and install the oc binary. The `rosa` CLI has the capability to automatically download the latest version of the oc binary (`rosa download oc`). However for this lab you want a specific version of the OpenShift client.
+. Verify that the `oc` CLI is installed correctly
 +
 [source,sh,role=execute]
 ----
-cd $HOME
-wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/4.12.12/openshift-client-linux.tar.gz
-
-mkdir $HOME/bin
-tar -xzvf $HOME/openshift-client-linux.tar.gz -C $HOME/bin
-rm $HOME/openshift-client-linux.tar.gz
+rosa verify openshift-client
 ----
 +
-*Why use `oc` over `kubectl`* + Being Kubernetes, one can definitely use `kubectl` with their OpenShift cluster.
-`oc` is specific to OpenShift in that it includes the standard set of features from `kubectl` plus additional support for OpenShift functionality. See https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/usage-oc-kubectl.html[Usage of oc and kubectl commands] for more details.
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+I: Verifying whether OpenShift command-line tool is available...
+I: Current OpenShift Client Version: 4.13.0
+----
 
 . Rosa login
 +
@@ -155,20 +161,13 @@ rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
 +
 See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
 
-=== Verify `oc` CLI
+=== Ensure ELB service role exists
 
-. Verify that the `oc` CLI is installed correctly (remember that you installed the oc client before).
-+
+Run the following to check for the role and create it if it is missing.
+
 [source,sh,role=execute]
 ----
-rosa verify openshift-client
-----
-+
-.Sample Output
-[source,texinfo,options=nowrap]
-----
-I: Verifying whether OpenShift command-line tool is available...
-I: Current OpenShift Client Version: 4.12.12
+aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
 ----
 
 We have now successfully set up our account and environment and are ready to deploy our cluster.
