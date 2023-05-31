@@ -31,28 +31,28 @@ export PRIVATE_CIDR_SUBNET=10.0.0.0/24
 
 . Create the VPC
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --query Vpc.VpcId --output text)
 ----
 
 . Create Tags:
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 aws ec2 create-tags --resources $VPC_ID --tags Key=Name,Value=$CLUSTER_NAME
 ----
 
 . Enable DNS Hostname:
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 aws ec2 modify-vpc-attribute --vpc-id $VPC_ID --enable-dns-hostnames
 ----
 
 . Now you can create the public subnet and add tags:
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export PUBLIC_SUBNET_ID=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PUBLIC_CIDR_SUBNET --query Subnet.SubnetId --output text)
 
@@ -61,7 +61,7 @@ aws ec2 create-tags --resources $PUBLIC_SUBNET_ID --tags Key=Name,Value=$CLUSTER
 
 . Create the private subnet and add tags:
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export PRIVATE_SUBNET_ID=$(aws ec2 create-subnet --vpc-id $VPC_ID --cidr-block $PRIVATE_CIDR_SUBNET --query Subnet.SubnetId --output text)
 
@@ -70,7 +70,7 @@ aws ec2 create-tags --resources $PRIVATE_SUBNET_ID --tags Key=Name,Value=$CLUSTE
 
 . Create an internet gateway for outbound traffic and attach it to the VPC.
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export IGW_ID=$(aws ec2 create-internet-gateway --query InternetGateway.InternetGatewayId --output text)
 
@@ -81,7 +81,7 @@ aws ec2 attach-internet-gateway --vpc-id $VPC_ID --internet-gateway-id $IGW_ID
 
 . Create a route table for outbound traffic and associate it to the public subnet.
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export PUBLIC_ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id $VPC_ID --query RouteTable.RouteTableId --output text)
 
@@ -94,18 +94,18 @@ aws ec2 associate-route-table --subnet-id $PUBLIC_SUBNET_ID --route-table-id $PU
 
 . Create a NAT gateway in the public subnet for outgoing traffic from the private network.
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 export NAT_IP_ADDRESS=$(aws ec2 allocate-address --domain vpc --query AllocationId --output text)
 
 export NAT_GATEWAY_ID=$(aws ec2 create-nat-gateway --subnet-id $PUBLIC_SUBNET_ID --allocation-id $NAT_IP_ADDRESS --query NatGateway.NatGatewayId --output text)
 
-export aws ec2 create-tags --resources $NAT_IP_ADDRESS --resources $NAT_GATEWAY_ID --tags Key=Name,Value=$CLUSTER_NAME
+aws ec2 create-tags --resources $NAT_IP_ADDRESS --resources $NAT_GATEWAY_ID --tags Key=Name,Value=$CLUSTER_NAME
 ----
 
 . Wait 10 seconds for the NAT gateway to be ready then create a route table for the private subnet to the NAT gateway.
 +
-[source,sh]
+[source,sh,role=execute]
 ----
 sleep 10
 
@@ -154,7 +154,6 @@ export OIDC_ID=$(rosa create oidc-config --mode auto --managed --yes -o json | j
 23o3doeo86adgqhci4jl000000000000
 ----
 
-
 == Create the cluster
 As this is the first time you are deploying ROSA in this account and have not yet created the account roles, create the account-wide roles with policies, and Operator roles with policies.  Since ROSA makes use of AWS Security Token Service (STS), this step creates the AWS IAM roles and policies that are needed for ROSA to interact within your account.  See https://docs.openshift.com/rosa/rosa_architecture/rosa-sts-about-iam-resources.html#rosa-sts-account-wide-roles-and-policies_rosa-sts-about-iam-resources[Account-wide IAM role and policy reference] for more details if you are interested.
 
@@ -194,3 +193,5 @@ rosa logs install --cluster rosa-${GUID} --watch
 ----
 
 . Once the state changes to “ready” your cluster is now installed. It may take a few more minutes for the worker nodes to come online. In total this should take about 15 minutes.
++
+You can continue this lab - there is a step in the next section where you will need to wait for the cluster operators to finish rolling out - but there is no need to wait at this point.

@@ -91,23 +91,61 @@ oc whoami
 cluster-admin
 ----
 
-. You can also confirm by running the following command. Only a cluster-admin user can run this without errors.
+. You can also confirm by running the following command. Only a cluster-admin user can run this without errors. Also these pods may not yet exist or be in `Pending` status depending on how long it's been since your control plane finished installing.
 +
 [source,sh,role=execute]
 ----
-oc get pod -n openshift-apiserver
+oc get pod -n openshift-ingress
 ----
 +
 .Sample Output
 [source,texinfo,options=nowrap]
 ----
-NAME                        READY   STATUS    RESTARTS   AGE
-apiserver-c5689956d-gp7hq   2/2     Running   0          17m
-apiserver-c5689956d-nkf2w   2/2     Running   0          12m
-apiserver-c5689956d-p9z7v   2/2     Running   0          16m
+NAME                              READY   STATUS    RESTARTS   AGE
+router-default-58db5d8769-m2b9j   0/1     Pending   0          6m26s
+router-default-d969c54df-cl2cp    0/1     Pending   0          52s
+router-default-d969c54df-wgj6z    0/1     Pending   0          52s
 ----
 
 . You can now use the cluster as an admin user, which will suffice for this workshop. Though, for any other use, it is highly recommended to set up an IdP.
+
+=== Wait for Cluster Operators to finish rolling out
+
+Once your cluster has worker nodes available the cluster operators can deploy their operands to these worker nodes. These include the console and ingress controllers for example. Without those it will be impossible to access the cluster.
+
+. Repeat the following command every few minutes until the output looks like the example below (all operators should show as available, not progressing and certainly not degraded):
++
+[source,sh,role=execute]
+----
+oc get co
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
+console                                    4.12.18   True        False         False      2m41s
+csi-snapshot-controller                    4.12.18   True        False         False      16m
+dns                                        4.12.18   True        False         False      5m30s
+image-registry                             4.12.18   True        False         False      4m51s
+ingress                                    4.12.18   True        False         False      4m56s
+insights                                   4.12.18   True        False         False      6m8s
+kube-apiserver                             4.12.18   True        False         False      16m
+kube-controller-manager                    4.12.18   True        False         False      16m
+kube-scheduler                             4.12.18   True        False         False      16m
+kube-storage-version-migrator              4.12.18   True        False         False      6m3s
+monitoring                                 4.12.18   True        False         False      3m40s
+network                                    4.12.18   True        False         False      16m
+node-tuning                                4.12.18   True        False         False      6m37s
+openshift-apiserver                        4.12.18   True        False         False      16m
+openshift-controller-manager               4.12.18   True        False         False      16m
+openshift-samples                          4.12.18   True        False         False      5m6s
+operator-lifecycle-manager                 4.12.18   True        False         False      16m
+operator-lifecycle-manager-catalog         4.12.18   True        False         False      16m
+operator-lifecycle-manager-packageserver   4.12.18   True        False         False      16m
+service-ca                                 4.12.18   True        False         False      6m5s
+storage                                    4.12.18   True        False         False      6m27s
+----
 
 === Login to the OpenShift Web Console
 
@@ -127,7 +165,7 @@ https://console-openshift-console.%rosa_subdomain_base%
 ----
 
 . Next, open the printed URL in a web browser.
-. Click on the `htpasswd` identity provider.
-. Enter the username (`cluster-admin`) and password from the previous section.
+//. Click on the `htpasswd` identity provider.
+. Enter the username (`cluster-admin`) and password from the previous section (use `echo ${ADMIN_PASSWORD}` to remind yourself what the password is in case you forgot).
 +
 If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.
