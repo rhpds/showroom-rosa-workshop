@@ -1,62 +1,62 @@
 ---
 modules:
-  home:
+  index:
     name: Home
     exit_sign: Continue
-  lab_1_setup:
-    name: Setup
+  100-setup/1-environment:
+    name: Environment
     exit_sign: Continue
-  lab_2_deploy_cluster:
+  100-setup/2-cluster-creation:
     name: Deploy ROSA cluster
     exit_sign: Continue
-  lab_3_create_admin_user:
+  100-setup/3-access-cluster:
     name: Create an admin user
     exit_sign: Continue
-  lab_4_configure_idp:
+  200-ops/lab_4_configure_idp:
     name: Configure Authentication
     exit_sign: Continue
-  lab_5_cluster_upgrades:
+  200-ops/lab_5_cluster_upgrades:
     name: Cluster Upgrades
     exit_sign: Continue
-  lab_6_managing_worker_nodes:
+  200-ops/lab_6_managing_worker_nodes:
     name: Managing Worker Nodes
     exit_sign: Continue
-  lab_7_autoscaling:
+  200-ops/lab_7_autoscaling:
     name: Cluster Autoscaling
     exit_sign: Continue
-  lab_8_labeling_nodes:
+  200-ops/lab_8_labeling_nodes:
     name: Labeling Nodes
     exit_sign: Continue
-  lab_9_cloudwatch:
+  200-ops/lab_9_cloudwatch:
     name: Configure Log Forwarding to Cloudwatch
     exit_sign: Continue
-  lab_10_deploy_app:
+  300-apps/lab_10_deploy_app:
     name: Deploy an Application
     exit_sign: Continue
-  lab_11_openshift_gitops:
+  300-apps/lab_11_openshift_gitops:
     name: Deploy the Application using OpenShift Gitops
     exit_sign: Continue
-  lab_12_network_policy:
+  300-apps/lab_12_network_policy:
     name: Securing the application using NetworkPolicies
     exit_sign: Continue
   # lab_13_cicd:
   #   name: Automate Deploying the App using OpenShift Pipelines
   #   exit_sign: Continue
-  lab_14_resilient_app:
+  300-apps/lab_14_resilient_app:
     name: Making your application resilient
     exit_sign: Continue
-  lab_15_service_mesh_introduction:
+  400-service-mesh/lab_15_service_mesh_introduction:
     name: Introduction to OpenShift Service Mesh
     exit_sign: Continue
-  lab_16_service_mesh_deploy_operator:
+  400-service-mesh/lab_16_service_mesh_deploy_operator:
     name: Deploy Service Mesh Operator
     exit_sign: Continue
-  lab_17_service_mesh_deploy_control_plane:
+  400-service-mesh/lab_17_service_mesh_deploy_control_plane:
     name: Deploy Control Plane
     exit_sign: Continue
-  lab_18_service_mesh_deploy_app:
+  400-service-mesh/lab_18_service_mesh_deploy_app:
     name: Deploy Workloads
     exit_sign: Continue
-  lab_19_service_mesh_observe:
+  400-service-mesh/lab_19_service_mesh_observe:
     name: Configure and Observe Traffic
     exit_sign: Exit
