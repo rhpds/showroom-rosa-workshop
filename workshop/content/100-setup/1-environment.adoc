@@ -24,7 +24,8 @@ ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
 ----
 +
 .Click here to copy and paste the password to your terminal:
-+[source,sh,role=execute]
++
+[source,sh,role=execute]
 ----
 %rosa_user_password%
 ----
