@@ -22,10 +22,10 @@ oc version
 .Sample Output
 [source,text,options=nowrap]
 ----
-Client Version: 4.12.12
+Client Version: 4.13.1
 Kustomize Version: v4.5.7
-Server Version: 4.12.12
-Kubernetes Version: v1.25.7+eab9cc9
+Server Version: 4.13.0
+Kubernetes Version: v1.26.3+b404935
 ----
 
 . Find out the available versions:
@@ -38,7 +38,7 @@ oc adm upgrade
 .Sample Output
 [source,text,options=nowrap]
 ----
-Cluster version is 4.12.12
+Cluster version is 4.13.0
 
 Upgradeable=False
 
@@ -89,7 +89,7 @@ Date: 2023-04-18, Time: 19:51
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.12.13 \
+  --version 4.13.1 \
   --mode auto \
   --schedule-date ${UPGRADE_DATE} \
   --schedule-time ${UPGRADE_TIME}
@@ -102,7 +102,7 @@ I: Ensuring account and operator role policies for cluster '235ftpmaq3oavfin8mt6
 I: Account roles/policies for cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
 I: Operator roles/policies associated with the cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
 I: Account and operator roles for cluster 'rosa-6n4s8' are compatible with upgrade
-? Are you sure you want to upgrade cluster to version '4.12.10'? Yes
+? Are you sure you want to upgrade cluster to version '4.13.1'? Yes
 I: Upgrade successfully scheduled for cluster 'rosa-6n4s8'
 ----
 
@@ -118,30 +118,30 @@ This section is for your information only. You do *not* have access to the OpenS
 . Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
 . In the _Clusters_ section, locate your cluster and click on it.
 +
-image::media/ocm-cluster-list.png[OCM - Cluster List]
+image::../media/ocm-cluster-list.png[OCM - Cluster List]
 
 . Next, click on the _Settings_ tab.
 +
-image::media/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]
+image::../media/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]
 
 . Next, select the _Update_ button in the _Update status_ sidebar.
 +
-image::media/ocm-update-status.png[OCM - Update Status]
+image::../media/ocm-update-status.png[OCM - Update Status]
 
 . Now, you're presented with a number of versions.
 For this exercise, we'll select the recommended version, and then hit _Next_.
 +
-image::media/ocm-update-version-select.png[OCM - Update Version Select]
+image::../media/ocm-update-version-select.png[OCM - Update Version Select]
 
 . Next, choose to _Schedule a different time_ and change the date box to 1 day from now, then select _Next_.
 +
-image::media/ocm-update-schedule-select.png[OCM - Update Schedule Select]
+image::../media/ocm-update-schedule-select.png[OCM - Update Schedule Select]
 
 . Finally, select the _Confirm Update_ button and then the _Close_ button.
 +
-image::media/ocm-update-confirm.png[OCM - Update Confirm]
+image::../media/ocm-update-confirm.png[OCM - Update Confirm]
 +
-image::media/ocm-update-close.png[OCM - Update Close]
+image::../media/ocm-update-close.png[OCM - Update Close]
 
 Congratulations!
 

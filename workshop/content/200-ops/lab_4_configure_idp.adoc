@@ -194,7 +194,7 @@ rosa create idp \
 --name Cognito \
 --client-id ${CLIENT_ID} \
 --client-secret ${CLIENT_SECRET} \
---issuer-url https://cognito-idp.us-east-2.amazonaws.com/${AWS_USER_POOL_ID} \
+--issuer-url https://cognito-idp.$(aws configure get region).amazonaws.com/${AWS_USER_POOL_ID} \
 --email-claims email \
 --name-claims name \
 --username-claims username

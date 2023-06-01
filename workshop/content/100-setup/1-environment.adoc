@@ -161,13 +161,4 @@ rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
 +
 See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
 
-=== Ensure ELB service role exists
-
-Run the following to check for the role and create it if it is missing.
-
-[source,sh,role=execute]
-----
-aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
-----
-
 We have now successfully set up our account and environment and are ready to deploy our cluster.

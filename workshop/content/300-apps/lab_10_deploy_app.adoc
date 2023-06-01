@@ -250,7 +250,7 @@ To do so, we'll create an `application.properties` file using by running the fol
 cat <<EOF > $HOME/rosa-workshop-app/src/main/resources/application.properties
 # AWS DynamoDB configurations
 %dev.quarkus.dynamodb.endpoint-override=http://localhost:8000
-%prod.quarkus.openshift.env.vars.aws_region=us-east-2
+%prod.quarkus.openshift.env.vars.aws_region=$(aws configure get region)
 %prod.quarkus.dynamodb.aws.credentials.type=default
 dynamodb.table=microsweeper-scores-${GUID}
 

@@ -8,18 +8,11 @@ This page will take you through the steps to deploy a ROSA cluster using the ROS
 
 There are two modes with which to deploy a ROSA w/STS cluster.
 
-One is automatic, which is quicker and will do the manual work for you.
+One is automatic, which is quicker and will do most of the work for you.
 
 The other is manual, which will require you to execute some extra commands, but will allow you to inspect the roles and policies being created.
 
 This workshop will use the automatic version.
-
-Valid options for `--mode` are:
-
-* *manual:* Role and Policy documents will be created and saved in the current directory.
-You will need to manually run the commands that are provided  as the next step.
-This will allow you to review the policy and roles before creating them.
-* *auto:* Roles and policies will be created and applied automatically using the current AWS account, instead of having to manually run each command.
 
 === Deployment flow
 
@@ -88,8 +81,7 @@ If this is the *first time* you are deploying ROSA in this account and have *not
 +
 [source,sh,role=execute]
 ----
-rosa create account-roles \
-  --mode auto --yes
+rosa create account-roles --mode auto --yes
 ----
 +
 .Sample Output
@@ -122,7 +114,6 @@ Note that for the cluster name you are using `rosa-${GUID}` - the environment va
 ----
 rosa create cluster \
   --cluster-name rosa-${GUID} \
-  --region us-east-2 \
   --version 4.13.0 \
   --sts \
   --mode auto \

@@ -211,7 +211,7 @@ spec:
     cloudwatch:
       groupBy: namespaceName
       groupPrefix: rosa-${GUID}
-      region: us-east-2
+      region: $(aws configure get region)
     secret:
       name: cloudwatch-credentials
   pipelines:

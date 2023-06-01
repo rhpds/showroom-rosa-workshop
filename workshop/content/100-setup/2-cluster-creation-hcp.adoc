@@ -11,12 +11,22 @@ As of this writing Hosted Control Planes (HCP) is currently a Technology Preview
 
 == Prerequisites
 
-ROSA HCP requires two things to be created before deploying the cluster:
+ROSA HCP requires a few things to be created before deploying the cluster:
 
+. ELB service role
 . VPC - This is a "bring-your-own VPC" model (also referred to as BYO-VPC)
 . OIDC configuration (and an OIDC provider with that specific configuration)
 
 Let's create those first.
+
+=== Ensure ELB service role exists
+
+Run the following to check for the role and create it if it is missing.
+
+[source,sh,role=execute]
+----
+aws iam get-role --role-name "AWSServiceRoleForElasticLoadBalancing" || aws iam create-service-linked-role --aws-service-name "elasticloadbalancing.amazonaws.com"
+----
 
 === VPC
 
