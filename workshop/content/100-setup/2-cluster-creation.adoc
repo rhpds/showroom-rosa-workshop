@@ -1,10 +1,13 @@
 == Deploy a ROSA Cluster
 
+During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you. 
+
 === CLI deployment modes
 
 This page will take you through the steps to deploy a ROSA cluster using the ROSA CLI.
 
 There are two modes with which to deploy a ROSA w/STS cluster.
+
 One is automatic, which is quicker and will do the manual work for you.
 
 The other is manual, which will require you to execute some extra commands, but will allow you to inspect the roles and policies being created.
@@ -120,7 +123,7 @@ Note that for the cluster name you are using `rosa-${GUID}` - the environment va
 rosa create cluster \
   --cluster-name rosa-${GUID} \
   --region us-east-2 \
-  --version 4.12.12 \
+  --version 4.13.0 \
   --sts \
   --mode auto \
   --yes

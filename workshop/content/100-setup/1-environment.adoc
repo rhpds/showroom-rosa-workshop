@@ -1,4 +1,4 @@
-== Environment Setup
+== The Workshop Environment You Are Using
 
 Your environment has already been set up and you are ready to deploy your first ROSA cluster.
 
