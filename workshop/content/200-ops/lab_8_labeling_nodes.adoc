@@ -112,11 +112,8 @@ EOF
 .Sample Output
 [source,text,options=nowrap]
 ----
-Warning: would violate PodSecurity "restricted:v1.24": runAsNonRoot != true (pod or container "hello-openshift" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "hello-openshift" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/nodeselector-app created
 ----
-+
-You may ignore the warning.
 
 . Now, let's validate that the application has been deployed to one of the labeled nodes.
 To do so, run the following command:
@@ -166,7 +163,7 @@ service/nodeselector-app exposed
 +
 [source,sh,role=execute]
 ----
-oc create route edge --service=nodeselector-app
+oc create route edge --service=nodeselector-app  --insecure-policy=Redirect
 ----
 +
 .Sample Output
@@ -188,12 +185,12 @@ oc get routes/nodeselector-app -o json | jq -r '.spec.host'
 nodeselector-app-nodeselector-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
 +
-Then visit the URL presented in a new tab in your web browser (using HTTPS).
+Then visit the URL presented in a new tab in your web browser.
 
 . In the above case, you'd visit `https://nodeselector-app-nodeselector-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com` in your browser.
 Note the application is exposed over the default ingress using a predetermined URL and trusted TLS certificate.
 This is done using the OpenShift `Route` resource which is an extension to the Kubernetes `Ingress` resource.
-____
 
+____
 Congratulations!
 You've successfully demonstrated the ability to label nodes and target those nodes using `nodeSelector`.

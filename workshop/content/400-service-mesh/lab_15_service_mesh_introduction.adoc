@@ -22,7 +22,7 @@ OpenShift Service Mesh provides integrated metrics, logging, and tracing, tradit
 
 == Red Hat Service Mesh Benefits
 
-image::media/servicemeshp11.png[service mesh benefits diagram]
+image::../media/servicemeshp11.png[service mesh benefits diagram]
 
 === Ready for production
 

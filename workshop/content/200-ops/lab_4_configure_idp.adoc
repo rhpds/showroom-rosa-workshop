@@ -167,17 +167,30 @@ aws cognito-idp create-user-pool-client \
      "UserPoolId": "us-east-2_Z91VxhckZ",
      "ClientName": "rosa-6sc5n",
      "ClientId": "1l3onr3gg232ngprritg50fqao",
-     "ClientSecret": "redacted",
+     "ClientSecret": "1tj74t43u8lf9ub45540g1mnio8sscfbr9l9o0s73a2d97s6gvhc",
      ...
 ----
+
+. Save the *ClientID* and *ClientSecret* in two environment variables:
 +
-*Ensure that you capture the `ClientId` and `ClientSecret` before moving on to the next steps and store it somewhere safe.*
-+
-.Note this box will not automatically copy the command for you. You need to write the command yourself.
-[source,sh]
+[source,sh,role=execute]
 ----
-export CLIENT_ID=1l3onr3gg232ngprritg50fqao
-export CLIENT_SECRET=1u6bf5ut3936a892pete2u45068f41g1isb2tqmn8p5i2m0clgh6
+export AWS_USER_POOL_CLIENT_ID=$(aws cognito-idp list-user-pool-clients --user-pool-id ${AWS_USER_POOL_ID} | jq -r .UserPoolClients[0].ClientId)
+
+export AWS_USER_POOL_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client --user-pool-id ${AWS_USER_POOL_ID} --client-id ${AWS_USER_POOL_CLIENT_ID} | jq -r .UserPoolClient.ClientSecret)
+----
+
+. Double check the variables contain the same values as the command output from when you created the user pool client:
++
+[source,sh,role=execute]
+----
+echo Client ID: ${AWS_USER_POOL_CLIENT_ID}, Client Secret: ${AWS_USER_POOL_CLIENT_SECRET}
+----
++
+.Sample Output
+[source,texinfo,options=nowrap]
+----
+Client ID: 1l3onr3gg232ngprritg50fqao, Client Secret: 1tj74t43u8lf9ub45540g1mnio8sscfbr9l9o0s73a2d97s6gvhc
 ----
 
 == Set up OpenShift authentication to use AWS Cognito
@@ -192,8 +205,8 @@ rosa create idp \
 --cluster rosa-${GUID} \
 --type openid \
 --name Cognito \
---client-id ${CLIENT_ID} \
---client-secret ${CLIENT_SECRET} \
+--client-id ${AWS_USER_POOL_CLIENT_ID} \
+--client-secret ${AWS_USER_POOL_CLIENT_SECRET} \
 --issuer-url https://cognito-idp.$(aws configure get region).amazonaws.com/${AWS_USER_POOL_ID} \
 --email-claims email \
 --name-claims name \

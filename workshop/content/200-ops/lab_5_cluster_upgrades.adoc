@@ -1,8 +1,8 @@
 == Introduction
 
-Red Hat OpenShift Service on AWS (ROSA) provides fully-managed cluster updates.
-These updates can be scheduled from the OpenShift Cluster Manager or from the ROSA CLI.
-All updates are monitored and managed by the Red Hat ROSA SRE team.
+Red Hat OpenShift Service on AWS (ROSA) provides fully-managed cluster upgrades.
+These upgrades can be scheduled from the OpenShift Cluster Manager or from the ROSA CLI.
+All upgrades are monitored and managed by the Red Hat ROSA SRE team.
 
 For more information on how ROSA's Upgrade Service works, please see the https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Red Hat documentation].
 
@@ -57,7 +57,7 @@ Channel: stable-4.12 (available channels: candidate-4.12, candidate-4.13, eus-4.
 Recommended updates:
 
   VERSION     IMAGE
-  4.12.13     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
+  4.13.1     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
 ----
 +
 [NOTE]

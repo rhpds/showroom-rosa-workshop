@@ -7,6 +7,26 @@ In this section of the workshop, we'll configure ROSA to forward logs to AWS Clo
 
 == Prepare AWS CloudWatch
 
+. First, let's set some helper variables that we'll need throughout this section of the workshop. To do so, run the following command:
++
+[source,sh,role=execute]
+----
+export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io \
+  cluster -o json | jq -r .spec.serviceAccountIssuer | \
+  sed  's|^https://||')
+
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity \
+  --query Account --output text)
+
+echo OIDC_Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+OIDC_Endpoint: rh-oidc.s3.us-east-1.amazonaws.com/235ftpmaq3oavfin8mt600af4sar9oej, AWS Account ID: 264091519843
+----
+
 . Validate that a policy `RosaCloudWatch` already exists and if it does not create it:
 +
 [source,sh,role=execute]
@@ -45,27 +65,6 @@ echo ${POLICY_ARN}
 [source,text,options=nowrap]
 ----
 arn:aws:iam::264091519843:policy/RosaCloudWatch
-----
-
-. Next, let's set some helper variables that we'll need throughout this section of the workshop.
-To do so, run the following command:
-+
-[source,sh,role=execute]
-----
-export OIDC_ENDPOINT=$(oc get authentication.config.openshift.io \
-  cluster -o json | jq -r .spec.serviceAccountIssuer | \
-  sed  's|^https://||')
-
-export AWS_ACCOUNT_ID=$(aws sts get-caller-identity \
-  --query Account --output text)
-
-echo OIDC_Endpoint: ${OIDC_ENDPOINT}, AWS Account ID: ${AWS_ACCOUNT_ID}
-----
-+
-.Sample Output
-[source,text,options=nowrap]
-----
-OIDC_Endpoint: rh-oidc.s3.us-east-1.amazonaws.com/235ftpmaq3oavfin8mt600af4sar9oej, AWS Account ID: 264091519843
 ----
 
 . Next, let's create a trust policy document which will define what service account can assume our role.

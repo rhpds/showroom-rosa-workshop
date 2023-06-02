@@ -94,25 +94,21 @@ oc -n bookinfo apply -f \
 ----
 service/details created
 serviceaccount/bookinfo-details created
-Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "details" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "details" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "details" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "details" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/details-v1 created
 service/ratings created
 serviceaccount/bookinfo-ratings created
-Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "ratings" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "ratings" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "ratings" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "ratings" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/ratings-v1 created
 service/reviews created
 serviceaccount/bookinfo-reviews created
-Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "reviews" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "reviews" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "reviews" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "reviews" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/reviews-v1 created
 deployment.apps/reviews-v2 created
 deployment.apps/reviews-v3 created
 service/productpage created
 serviceaccount/bookinfo-productpage created
-Warning: would violate PodSecurity "restricted:v1.24": allowPrivilegeEscalation != false (container "productpage" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "productpage" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "productpage" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "productpage" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 deployment.apps/productpage-v1 created
 ----
 +
-You may ignore the Warnings.
+You may ignore any warnings.
 +
 Interested in seeing the configuration you're deploying?
 Check it out on GitHub https://github.com/rh-mobb/rosa-workshop-content/blob/main/rosa-content/assets/scripts/bookinfo.yaml[here].
@@ -188,4 +184,5 @@ http://istio-ingressgateway-istio-system.apps.rosa-6n4s8.1c1c.p1.openshiftapps.c
 ----
 
 . Copy and paste the URL provided in the previous step into your web browser and verify the Bookinfo product page is successfully deployed.
++
 You should see a book review of "The Comedy of Errors".

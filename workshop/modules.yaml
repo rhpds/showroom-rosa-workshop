@@ -42,9 +42,9 @@ modules:
   300-apps/lab_12_network_policy:
     name: Securing the application using NetworkPolicies
     exit_sign: Continue
-  # lab_13_cicd:
-  #   name: Automate Deploying the App using OpenShift Pipelines
-  #   exit_sign: Continue
+  lab_13_cicd:
+    name: Automate Deploying the App using OpenShift Pipelines
+    exit_sign: Continue
   300-apps/lab_14_resilient_app:
     name: Making your application resilient
     exit_sign: Continue

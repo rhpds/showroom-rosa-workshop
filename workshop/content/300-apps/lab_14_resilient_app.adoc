@@ -19,8 +19,6 @@ oc -n resilience-ex set resources deployment/frontend-js \
   --limits=cpu=20m,memory=150Mi \
   --requests=cpu=20m,memory=100Mi
 ----
-+
-You may ignore the Warning that is being shown.
 
 . While the application is being built from source, you can watch the rollout status of the deployment object to see when its finished.
 +

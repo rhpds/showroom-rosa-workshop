@@ -159,5 +159,5 @@ Hit Ctrl-C to avoid waiting for a timeout.
 
 [INFO]
 ====
-For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/4.10/networking/network_policy/default-network-policy.html[modifying the default project template].
+For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/4.13/networking/network_policy/default-network-policy.html[modifying the default project template].
 ====

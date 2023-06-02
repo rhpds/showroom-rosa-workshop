@@ -5,7 +5,7 @@ The cluster autoscaler increases the size of the cluster when there are pods tha
 The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.
 To learn more about cluster autoscaling, visit the https://docs.openshift.com/rosa/rosa_cluster_admin/rosa_nodes/rosa-nodes-about-autoscaling-nodes.html[Red Hat documentation for cluster autoscaling].
 
-== Enable Autoscaling on the Default MachinePool using the Rosa CLI
+== Enable Autoscaling on the Default MachinePool
 
 You can enable autoscaling on your cluster using either the `rosa` CLI or the Red Hat OpenShift Cluster Manager. Because you do not have credentials for the Red Hat OpenShift Cluster Manager you will be using the CLI in this lab. There are instructions at the end of the lab showing how to do it in the console.
 
@@ -60,7 +60,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-oc -n openshift-machine-api get clusterautoscaler
+oc get clusterautoscaler
 ----
 +
 .Sample Output
@@ -136,11 +136,8 @@ EOF
 .Sample Output
 [source,text,options=nowrap]
 ----
-Warning: would violate PodSecurity "restricted:v1.24": runAsNonRoot != true (pod or container "work" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "work" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
 job.batch/maxscale created
 ----
-+
-You may ignore the warning.
 
 . After a few seconds, run the following to see what pods have been created.
 +
@@ -243,16 +240,16 @@ These instructions will *not* work in your lab environment - they are here so th
 . Log back into the https://console.redhat.com/openshift[OpenShift Cluster Manager].
 . In the Cluster section, locate your cluster and click on it.
 +
-image::media/ocm-cluster-list.png[OCM - Cluster List]
+image::../media/ocm-cluster-list.png[OCM - Cluster List]
 
 . Next, click on the _Machine pools_ tab.
 +
-image::media/ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]
+image::../media/ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]
 
 . Next, click on the ⋮ icon beside the _Default_ machine pool, and select _Scale_.
 +
-image::media/ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]
+image::../media/ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]
 
 . Finally, check the _Enable autoscaling_ checkbox, and set the minimum to `1` and maximum to `2`, then click _Apply_.
 +
-image::media/ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]
+image::../media/ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]
