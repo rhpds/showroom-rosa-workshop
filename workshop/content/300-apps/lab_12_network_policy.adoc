@@ -1,6 +1,6 @@
 = Applying Network Policies to lock down networking
 
-You should have two application deployed in your cluster, the `microsweeper` application deployed in the `Deploy an App` portion of this workshop and the `bgd` app deployed in the `gitops` portion of this workshop.
+You should have two applications deployed in your cluster, the `microsweeper` application deployed in the `Deploy an App` portion of this workshop and the `bgd` app deployed in the `gitops` portion of this workshop.
 
 Each live in their own named Projects (or namespace in Kubernetes-speak).
 
