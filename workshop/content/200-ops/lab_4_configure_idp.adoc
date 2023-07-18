@@ -36,7 +36,7 @@ aws cognito-idp create-user-pool --pool-name rosa-${GUID} --auto-verified-attrib
 [...Lots of output omitted...]
 ----
 
-. You will be using the user pool ID to identify this user pool in subsequent commands. Retrieve the user pool ID and set an environemnt variable in your terminal:
+. You will be using the user pool ID to identify this user pool in subsequent commands. Retrieve the user pool ID and set an environment variable in your terminal:
 +
 [source,sh,role=execute]
 ----
@@ -352,7 +352,7 @@ export COGNITO_ADMIN_PASSWORD=%rosa_user_password%-2@23
 echo "export COGNITO_ADMIN_PASSWORD=${COGNITO_ADMIN_PASSWORD}" >>$HOME/.bashrc
 ----
 
-. Now you can users  user by running the following commands:
+. Now you can add users to the cluster-admin role by running the following commands:
 +
 [source,sh,role=execute]
 ----
