@@ -4,22 +4,22 @@ modules:
     name: Home
     exit_sign: Continue
   100-setup/1-environment:
-    name: Environment
+    name: Environment Setup
     exit_sign: Continue
   100-setup/2-cluster-creation:
-    name: Deploy ROSA cluster
+    name: Deploy a ROSA cluster
     exit_sign: Continue
 # 100-setup/2-cluster-creation-hcp:
 #   name: Deploy ROSA cluster (HCP)
 #   exit_sign: Continue
   100-setup/3-access-cluster:
-    name: Create an admin user
+    name: Create an Admin User
     exit_sign: Continue
   200-ops/lab_4_configure_idp:
-    name: Configure Authentication
+    name: Configure Cluster Authentication Using Amazon Cognito
     exit_sign: Continue
   200-ops/lab_5_cluster_upgrades:
-    name: Cluster Upgrades
+    name: Managing Cluster Upgrades
     exit_sign: Continue
   200-ops/lab_6_managing_worker_nodes:
     name: Managing Worker Nodes
@@ -31,7 +31,7 @@ modules:
     name: Labeling Nodes
     exit_sign: Continue
   200-ops/lab_9_cloudwatch:
-    name: Configure Log Forwarding to Cloudwatch
+    name: Log Forwarding to AWS Cloudwatch
     exit_sign: Continue
   300-apps/lab_10_deploy_app:
     name: Deploy an Application
@@ -46,7 +46,7 @@ modules:
     name: Automate Deploying the App using OpenShift Pipelines
     exit_sign: Continue
   300-apps/lab_14_resilient_app:
-    name: Making your application resilient
+    name: Making your Application Resilient
     exit_sign: Continue
   400-service-mesh/lab_15_service_mesh_introduction:
     name: Introduction to OpenShift Service Mesh
