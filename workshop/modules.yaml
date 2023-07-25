@@ -36,17 +36,17 @@ modules:
   300-apps/lab_10_deploy_app:
     name: Deploy an Application
     exit_sign: Continue
-  300-apps/lab_11_openshift_gitops:
-    name: Deploy the Application using OpenShift Gitops
+  300-apps/lab_14_resilient_app:
+    name: Making your Application Resilient
     exit_sign: Continue
   300-apps/lab_12_network_policy:
     name: Securing the application using NetworkPolicies
     exit_sign: Continue
-  lab_13_cicd:
-    name: Automate Deploying the App using OpenShift Pipelines
+  300-apps/lab_11_openshift_gitops:
+    name: Deploy the Application using OpenShift Gitops
     exit_sign: Continue
-  300-apps/lab_14_resilient_app:
-    name: Making your Application Resilient
+  300-apps/lab_13_cicd:
+    name: Automate Deploying the App using OpenShift Pipelines
     exit_sign: Continue
   400-service-mesh/lab_15_service_mesh_introduction:
     name: Introduction to OpenShift Service Mesh
@@ -55,7 +55,7 @@ modules:
     name: Deploy Service Mesh Operator
     exit_sign: Continue
   400-service-mesh/lab_17_service_mesh_deploy_control_plane:
-    name: Deploy Control Plane
+    name: Deploy Service Mesh Control Plane
     exit_sign: Continue
   400-service-mesh/lab_18_service_mesh_deploy_app:
     name: Deploy Workloads
