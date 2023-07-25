@@ -231,11 +231,18 @@ maxscale-5p2n8   0/1     ContainerCreating   0          5m18s
 Congratulations!
 You've successfully demonstrated cluster autoscaling.
 
-== Enable Autoscaling on the Default MachinePool in the Red Hat OpenShift Cluster Console
+== Summary
+
+Here you learned:
+
+* Enable autoscaling on the default Machine Pool for your cluster
+* Deploy an application on the cluster and watch the cluster autoscaler scale your cluster to support the increased workload
+
+== Enable Autoscaling via Red Hat OpenShift Cluster Manager Console
 
 [WARNING]
 ====
-These instructions will *not* work in your lab environment - they are here so that you see that you could also enable cluster autoscaling from the console if you have access.
+This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next swection.
 ====
 
 . Log back into the https://console.redhat.com/openshift[OpenShift Cluster Manager].

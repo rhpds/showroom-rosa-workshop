@@ -191,9 +191,9 @@ This is done using the OpenShift `Route` resource which is an extension to the K
 Congratulations!
 You've successfully demonstrated the ability to label nodes and target those nodes using `nodeSelector`.
 
-== Summary and Next Steps
+== Summary
 
-Here you learned:
+Here's you learned:
 
 * Add labels to Machine Pools
 * Deploy an application on nodes with certain labels

@@ -1,12 +1,12 @@
 == Introduction
 
-Red Hat OpenShift Service on AWS (ROSA) clusters store log data inside the cluster by default. Understanding metrics and logs is critical in successfully running your cluster. Included with ROSA is the OpenShift Cluster Logging Operator, which is intended to simplify log management and analysis within a ROSA cluster, offering centralized log collection, powerful search capabilities, visualization tools, and integration with other monitoring systems like https://aws.amazon.com/cloudwatch/[AWS CloudWatch].
+Red Hat OpenShift Service on AWS (ROSA) clusters store log data inside the cluster by default. Understanding metrics and logs is critical in successfully running your cluster. Included with ROSA is the OpenShift Cluster Logging Operator, which is intended to simplify log management and analysis within a ROSA cluster, offering centralized log collection, powerful search capabilities, visualization tools, and integration with other monitoring systems like https://aws.amazon.com/cloudwatch/[Amazon CloudWatch].
 
-Amazon CloudWatch is a monitoring and observability service provided by Amazon Web Services. It allows you to collect, store, analyze and visualize logs, metrics and events from various AWS resources and applications. Since ROSA is a first party AWS service, it integrates with AWS CloudWatch and forwards its infrastructure, audit and application logs to AWS CloudWatch.
+Amazon CloudWatch is a monitoring and observability service provided by Amazon Web Services. It allows you to collect, store, analyze and visualize logs, metrics and events from various AWS resources and applications. Since ROSA is a first party AWS service, it integrates with Amazon CloudWatch and forwards its infrastructure, audit and application logs to Amazon CloudWatch.
 
-In this section of the workshop, we'll configure ROSA to forward logs to AWS CloudWatch.
+In this section of the workshop, we'll configure ROSA to forward logs to Amazon CloudWatch.
 
-== Prepare AWS CloudWatch
+== Prepare Amazon CloudWatch
 
 . First, let's set some helper variables that we'll need throughout this section of the workshop. To do so, run the following command:
 +
@@ -122,6 +122,8 @@ aws iam attach-role-policy \
 
 == Configure Cluster Logging
 
+The CLO (Cluster Logging Operator) provides a set of APIs to control collection and forwarding of logs from all pods and nodes in a cluster. This includes application logs (from regular pods), infrastructure logs (from system pods and node logs), and audit logs (special node logs with legal/security implications). In this section we will install cluster logging operator on the ROSA cluster and configure it to forward logs to Amazon CloudWatch.
+
 . Now, we need to deploy the OpenShift Cluster Logging Operator.
 To do so, run the following command:
 +
@@ -192,7 +194,7 @@ EOF
 secret/cloudwatch-credentials created
 ----
 
-. Next, let's configure the OpenShift Cluster Logging Operator by creating a Cluster Log Forwarding custom resource that will forward logs to AWS CloudWatch.
+. Next, let's configure the OpenShift Cluster Logging Operator by creating a Cluster Log Forwarding custom resource that will forward logs to Amazon CloudWatch.
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -258,7 +260,7 @@ EOF
 clusterlogging.logging.openshift.io/instance created
 ----
 
-. After a few minutes, you should begin to see log groups inside of AWS CloudWatch.
+. After a few minutes, you should begin to see log groups inside of Amazon CloudWatch.
 +
 [source,sh,role=execute]
 ----
@@ -291,12 +293,12 @@ aws logs describe-log-groups \
 
 Congratulations!
 
-You've successfully forwarded your cluster's logs to the AWS CloudWatch service.
+You've successfully forwarded your cluster's logs to the Amazon CloudWatch service.
 
-== Summary and Next Steps
+== Summary
 
 Here you learned:
 
-* Create an AWS IAM trust policy and role to grant your cluster access to AWS CloudWatch
+* Create an AWS IAM trust policy and role to grant your cluster access to Amazon CloudWatch
 * Install the OpenShift Cluster Logging Operator in your cluster
-* Configure `ClusterLogForwarder` and `ClusterLogging` objects to forward infrastructure, audit and application logs to AWS CloudWatch
+* Configure `ClusterLogForwarder` and `ClusterLogging` objects to forward infrastructure, audit and application logs to Amazon CloudWatch

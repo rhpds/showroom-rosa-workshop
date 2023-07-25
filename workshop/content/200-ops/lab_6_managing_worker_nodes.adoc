@@ -188,7 +188,7 @@ I: Successfully deleted machine pool 'workshop' from cluster 'rosa-6n4s8'
 Congratulations!
 You've successfully scaled your cluster up and back down to two worker nodes.
 
-== Summary and Next Steps
+== Summary
 
 Here you learned:
 
