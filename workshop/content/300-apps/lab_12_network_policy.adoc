@@ -19,7 +19,7 @@ For this module we will be applying networkpolices to the previously created 'mi
  apiVersion: v1
  kind: Pod
  metadata:
-   name: my-pod
+   name: networkpolicy-pod
    namespace: networkpolicy-test
    labels:
      app: networkpolicy
