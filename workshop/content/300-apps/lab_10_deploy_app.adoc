@@ -301,7 +301,17 @@ quarkus build --no-tests
 
 Let's take a look at what this command did, along with everything that was created in your cluster.
 
-Return to your OpenShift Web Console.
+Return to your OpenShift Web Console. 
+
+[NOTE]
+====
+Reminder that you can get the URL and adming password by running the following commands:
+[source,sh,role=execute]
+----
+oc whoami --show-console
+echo $COGNITO_ADMIN_PASSWORD
+----
+====
 
 === Container Images
 

@@ -104,7 +104,7 @@ I: Updated machine pool 'workshop' on cluster 'rosa-6n4s8'
 ----
 
 . Now that we've scaled the MachinePool to two machines, we can see that the machine is already being created.
-First, let's quickly check the output of the same command we ran in step 1:
+First, let's quickly check the output of the `oc get machinesets` command we ran earlier:
 +
 [source,sh,role=execute]
 ----
@@ -122,11 +122,11 @@ rosa-6n4s8-7hbhw-workshop-us-east-2a   2         2                             7
 
  Note, that the number of *desired* and *current* nodes matches the scale we specified, but depending when you ran this command they may not be available yet.
 
-. We can also run the same command we ran in step 2 to see the machine being provisioned:
+. We can also get the state of our machines to see the additional machines being provisioned:
 +
 [source,sh,role=execute]
 ----
-oc -n openshift-machine-api get machine
+oc -n openshift-machine-api get machine --watch
 ----
 +
 .Sample Output
@@ -144,7 +144,7 @@ rosa-6n4s8-7hbhw-workshop-us-east-2a-pcfd9   Provisioned   m5.xlarge    us-east-
 rosa-6n4s8-7hbhw-workshop-us-east-2a-pxnvd   Provisioned   m5.xlarge    us-east-2   us-east-2a   4m30s
 ----
 
-. Repeat the above command until all machines are in the *Running* phase. This means that they are ready and available to run Pods in the cluster.
+. Let the above command run until all machines are in the *Running* phase. This means that they are ready and available to run Pods in the cluster. Hit CTRL-C to exit the `oc` command.
 
 . We don't actually need these extra worker nodes so let's scale the cluster back down to a total of 3 worker nodes by scaling down the "Workshop" Machine Pool.
 To do so, run the following command:
@@ -183,6 +183,18 @@ rosa delete machinepool -c rosa-${GUID} workshop --yes
 [source,text,options=nowrap]
 ----
 I: Successfully deleted machine pool 'workshop' from cluster 'rosa-6n4s8'
+----
++
+. You can validate that the MachinePool has been deleted by using the `rosa` cli:
+[source,sh,role=execute]
+----
+rosa list machinepools -c rosa-${GUID}
+----
+.Sample Output
+[source,text,options=nowrap]
+----
+ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
+Default  No           2         m5.xlarge                          us-east-2a                       N/A
 ----
 
 Congratulations!

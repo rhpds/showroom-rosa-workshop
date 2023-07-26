@@ -35,7 +35,7 @@ EOF
 +
 . Now we will change to the microsweeper-ex project to start applying the network policies
 +
-[,bash]
+[source,sh,role=execute]
 ----
  oc project microsweeper-ex
 ----

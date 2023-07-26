@@ -1,4 +1,4 @@
-== Deploy a ROSA Cluster
+== Introduction
 
 During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you. 
 
@@ -210,7 +210,7 @@ This will take about 40 minutes to run.
 rosa logs install -c rosa-${GUID} --watch
 ----
 
-. Once you see the following out put in the installation log your cluster has finished the installation and is ready to use:
+. Once you see the following output in the installation log your cluster has finished the installation and is ready to use:
 +
 .Sample Output
 [source,texinfo,options=nowrap]

@@ -61,7 +61,7 @@ Recommended updates:
 Depending on when you run this command the available version list may be longer than just the next release.
 ====
 
-. You probably don't want to actually upgrade the cluster right now siince that may disrupt your lab environment. Luckily it is possible to schedule an update at a less inconvenient time.
+. You probably don't want to actually upgrade the cluster right now since that may disrupt your lab environment. Luckily it is possible to schedule an update at a less inconvenient time.
 +
 Get a date and time that is 24 hours from now:
 +

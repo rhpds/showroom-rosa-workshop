@@ -1,10 +1,16 @@
-= CICD
-
+== Introduction
 // To be updated using something else but GitHub. E.g. Gitea.
+OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard Custom Resource Definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions. Some key features of OpenShift Pipelines include:
 
-Next, we'll automate deploying our application using the OpenShift Pipelines operator, which is based on the open source Tekton project.
+* OpenShift Pipelines is a serverless CI/CD system that runs Pipelines with all the required dependencies in isolated containers.
+* OpenShift Pipelines are designed for decentralized teams that work on microservice-based architecture.
+* OpenShift Pipelines use standard CI/CD pipeline definitions that are easy to extend and integrate with the existing Kubernetes tools, enabling you to scale on-demand.
+* You can use OpenShift Pipelines to build images with Kubernetes tools such as Source-to-Image (S2I), Buildah, Buildpacks, and Kaniko that are portable across any Kubernetes platform.
+* You can use the OpenShift Container Platform Developer Console to create Tekton resources, view logs of Pipeline runs, and manage pipelines in your OpenShift Container Platform namespaces.
 
 If you would like to read more about OpenShift Pipelines, https://docs.openshift.com/container-platform/4.13/cicd/pipelines/understanding-openshift-pipelines.html[see the Red Hat documentation].
+
+== Install the OpenShift Pipelines operator
 
 [WARNING]
 ====
@@ -12,8 +18,6 @@ If you would like to read more about OpenShift Pipelines, https://docs.openshift
 
 This section of the workshop requires a personal https://github.com[GitHub] account. If you do not have a GitHub account and do not wish to create one, you can skip this section and move to the next section.
 ====
-
-== Install the OpenShift Pipelines operator
 
 . Return to your tab with the OpenShift Web Console.
 . Using the menu on the left select *Operator \-> OperatorHub*.
@@ -503,6 +507,17 @@ From the OpenShift Web Console, click on _Networking_ \-> _Routes_.
 +
 image:../media/route-2.png[Image]
 
-. Hopefully, you will see the updated application with a new title for the leaderboard!
+. You should see the updated application with a new title for the leaderboard!
 +
 image:../media/updated-minesweeper.png[Image]
+
+Congratulations! You've successfully installed OpenShift Pipelines and used it to deploy an application.
+
+== Summary
+
+Here's what you learned:
+
+* How to install and configure OpenShift Pipelines.
+* How to import Pipeline tasks.
+* How to configure and validate a Pipeline.
+* How to trigger build based on Git events.

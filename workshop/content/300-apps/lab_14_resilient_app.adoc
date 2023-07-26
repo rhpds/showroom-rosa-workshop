@@ -27,8 +27,6 @@ Requests state the minimum CPU and memory requirements for a container. This wil
  oc adm top pods -n microsweeper-ex
 ----
 +
- You'll see output that looks something like this:
-+
 .Sample Output
 [source,text,options=nowrap]
 ----
@@ -55,14 +53,13 @@ We'll see a new pod (created 28 seconds earlier in this case):
 +
 ----
 +
- Want to see what the limits look like in the pod definition? Run the following command to see the limits and requests added to the pod:
+To see what the limits and requests added to the pod, run the following command, being sure to change the Pod name to the name shown in the above output:
 +
 [source,sh,role=execute]
 ----
- oc get pods microsweeper-appservice-69596ccc54-fsw2b -o yaml microsweeper-ex | grep limits -A5
+ oc get pods -l app.kubernetes.io/name=microsweeper-appservice \
+  -o yaml -n microsweeper-ex | grep limits -A5
 ----
-+
-Your output will look like this:
 +
 .Sample Output
 [source,text,options=nowrap]
@@ -108,8 +105,6 @@ In that case, you'd visit `+http://microsweeper-appservice-microsweeper-ex.apps.
  oc -n microsweeper-ex get pods
 ----
 +
-Your output should look similar to this:
-+
 .Sample Output
 [source,text,options=nowrap]
 ----
@@ -127,8 +122,6 @@ Your output should look similar to this:
 ----
  oc -n microsweeper-ex get deployment microsweeper-appservice
 ----
-+
-Your output should look like this:
 +
 .Sample Output
 [source,text,options=nowrap]
@@ -150,8 +143,10 @@ A PodDisruptionBudget object's configuration consists of the following key parts
  ** minAvailable is the number of pods must always be available, even during a disruption.
  ** maxUnavailable is the number of pods can be unavailable during a disruption.
 
-!!! danger
+[WARNING]
+====
     A maxUnavailable of 0% or 0 or a minAvailable of 100% or equal to the number of replicas can be used but will block nodes from being drained and can result in application instability during maintenance activities.
+====
 
 . Let's create a Pod Disruption Budget for our `microsweeper-appservice` application. To do so, run the following command:
 +
@@ -179,8 +174,6 @@ After creating the PDB, the OpenShift API will ensure at least one pod of `micro
 ----
  oc -n microsweeper-ex get poddisruptionbudgets
 ----
-+
-Your output should match this:
 +
 .Sample Output
 [source,text,options=nowrap]
@@ -242,8 +235,7 @@ EOF
  oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
 ----
 +
-Your output should match the following:
-+
+.Sample Output
 [source,text,options=nowrap]
 ----
  NAME              REFERENCE                                        TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
@@ -265,8 +257,7 @@ Your output should match the following:
  oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
 ----
 +
-Your output should look similar to this:
-+
+.Sample Output
 [source,text,options=nowrap]
 ----
  NAME                          REFERENCE                            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
@@ -282,7 +273,7 @@ This means you are now running 4 replicas, instead of the original three that we
  oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu --watch
 ----
 +
-After a minute or two, your output should be similar to this:
+After a minute or two, your output should be similar to below:
 +
 [source,text,options=nowrap]
 ----
