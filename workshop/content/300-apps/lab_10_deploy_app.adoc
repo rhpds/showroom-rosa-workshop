@@ -99,7 +99,7 @@ To create the trust policy document, run the following command:
 +
 [source,sh,role=execute]
 ----
-cat <<EOF > $HOME/trust-policy.json
+cat <<EOF > ${HOME}/trust-policy.json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -125,7 +125,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-aws iam create-role --role-name irsa_${GUID} --assume-role-policy-document file://$HOME/trust-policy.json --description "IRSA Role (${GUID}"
+aws iam create-role --role-name irsa-${GUID} --assume-role-policy-document file://${HOME}/trust-policy.json --description "IRSA Role (${GUID}"
 ----
 +
 .Sample Output
@@ -165,7 +165,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-aws iam attach-role-policy --role-name irsa_${GUID} --policy-arn=arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+aws iam attach-role-policy --role-name irsa-${GUID} --policy-arn=arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
 ----
 
 . Finally, let's annotate the service account with the ARN of the IAM role we created above.
@@ -173,7 +173,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-oc -n microsweeper-ex annotate serviceaccount microsweeper eks.amazonaws.com/role-arn=arn:aws:iam::$(aws sts get-caller-identity --query 'Account' --output text):role/irsa_${GUID}
+oc -n microsweeper-ex annotate serviceaccount microsweeper eks.amazonaws.com/role-arn=arn:aws:iam::$(aws sts get-caller-identity --query 'Account' --output text):role/irsa-${GUID}
 ----
 +
 .Sample Output
@@ -193,10 +193,10 @@ Now that we've got a DynamoDB instance up and running and our IRSA configuration
 curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
 curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
 
-echo "export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk" >>$HOME/.bashrc
-echo "export PATH=\$JAVA_HOME/bin:\$PATH" >>$HOME/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk" >>${HOME}/.bashrc
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >>${HOME}/.bashrc
 
-source $HOME/.bashrc
+source ${HOME}/.bashrc
 ----
 
 . Double check the Quarkus CLI version:
@@ -209,7 +209,7 @@ quarkus --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-3.1.0.Final
+3.2.2.Final
 ----
 
 . Now, let's clone the application from GitHub.
@@ -217,7 +217,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-cd $HOME
+cd ${HOME}
 
 git clone https://github.com/rh-mobb/rosa-workshop-app.git
 ----
@@ -227,7 +227,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-cd $HOME/rosa-workshop-app
+cd ${HOME}/rosa-workshop-app
 ----
 
 . Next, we will add the OpenShift extension to the Quarkus CLI.
@@ -250,7 +250,7 @@ To do so, we'll create an `application.properties` file using by running the fol
 +
 [source,sh,role=execute]
 ----
-cat <<EOF > $HOME/rosa-workshop-app/src/main/resources/application.properties
+cat <<EOF > ${HOME}/rosa-workshop-app/src/main/resources/application.properties
 # AWS DynamoDB configurations
 %dev.quarkus.dynamodb.endpoint-override=http://localhost:8000
 %prod.quarkus.openshift.env.vars.aws_region=$(aws configure get region)
@@ -386,13 +386,13 @@ You can also get the the URL for your application using the command line:
 
 [source,sh,role=execute]
 ----
-oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}'
+echo "http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')"
 ----
 
 .Sample Output
 [source,text,options=nowrap]
 ----
-microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com[rosa@bastion rosa-workshop-app]$
+http://microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
 
 === Application IP
