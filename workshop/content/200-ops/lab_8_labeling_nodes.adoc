@@ -1,11 +1,8 @@
 == Introduction
 
-Labels are a useful way to select which nodes that an application will run on.
-These nodes are created by machines which are defined by the MachineSets we worked with in previous sections of this workshop.
-An example of this would be running a memory intensive application only on a specific node type.
+Labels are a useful way to select which nodes that an application will run on. These nodes are created by machines which are defined by the MachineSets we worked with in previous sections of this workshop. An example of this would be running a memory intensive application only on a specific node type.
 
-While you can directly add a label to a node, it is not recommended because nodes can be recreated, which would cause the label to disappear.
-Therefore we need to label the Machine pool itself.
+While you can directly add a label to a node, it is not recommended because nodes can be recreated, which would cause the label to disappear. Therefore we need to label the Machine pool itself.
 
 == Set a label for the Machine Pool
 
@@ -47,7 +44,7 @@ You may see between two and four nodes - depending if you did the autoscaling la
 Now that we've successfully labeled our nodes, let's deploy a workload to demonstrate app placement using `nodeSelector`.
 This should force our app to only our labeled nodes.
 
-. First, let's create a namespace (also known as a project in OpenShift).
+. First, let's create a project (or namespace) for our application.
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -130,7 +127,7 @@ oc -n nodeselector-ex get pod -l app=nodeselector-app -o json \
 ip-10-0-146-31.us-east-2.compute.internal
 ----
 
-. Double check the name of the node to compare it to the output above to ensure the node selector worked to put the pod on the correct node
+. Double check the name of the node to compare it to the output above to ensure the node selector worked to put the pod on the correct node.
 +
 [source,sh,role=execute]
 ----
@@ -186,11 +183,16 @@ nodeselector-app-nodeselector-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
 +
 Then visit the URL presented in a new tab in your web browser.
-
-. In the above case, you'd visit `https://nodeselector-app-nodeselector-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com` in your browser.
-Note the application is exposed over the default ingress using a predetermined URL and trusted TLS certificate.
++
+Note that the application is exposed over the default ingress using a predetermined URL and trusted TLS certificate.
 This is done using the OpenShift `Route` resource which is an extension to the Kubernetes `Ingress` resource.
 
-____
 Congratulations!
 You've successfully demonstrated the ability to label nodes and target those nodes using `nodeSelector`.
+
+== Summary
+
+Here's you learned:
+
+* Add labels to Machine Pools
+* Deploy an application on nodes with certain labels

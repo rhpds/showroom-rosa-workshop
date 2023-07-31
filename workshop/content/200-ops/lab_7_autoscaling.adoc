@@ -1,8 +1,9 @@
 == Introduction
 
-The cluster autoscaler adjusts the size of an ROSA cluster to meet the resource needs of the cluster.
-The cluster autoscaler increases the size of the cluster when there are pods that fail to schedule on any of the current worker nodes due to insufficient resources or when another node is necessary to meet deployment needs.
-The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.
+ROSA Cluster Autoscaler is a feature that helps automatically adjust the size of an ROSA cluster based on the current workload and resource demands. Cluster Autoscaler offers automatic and intelligent scaling of ROSA clusters, leading to efficient resource utilization, improved application performance, high availability, and simplified cluster management. By dynamically adjusting the cluster size based on workload demands, it helps organizations optimize their infrastructure costs while ensuring optimal application performance and scalability. The cluster autoscaler does not increase the cluster resources beyond the limits that you specify.
+
+image:../media/diagram-cluster-autoscaler.png[Diagram illustrating the cluster autoscaler process]
+
 To learn more about cluster autoscaling, visit the https://docs.openshift.com/rosa/rosa_cluster_admin/rosa_nodes/rosa-nodes-about-autoscaling-nodes.html[Red Hat documentation for cluster autoscaling].
 
 == Enable Autoscaling on the Default MachinePool
@@ -162,7 +163,7 @@ maxscale-5888n   1/1     Running   0          29s
 Notice that we see a lot of pods in a pending state.
 This should trigger the cluster autoscaler to create more machines using the MachineAutoscaler we created.
 
-. Let's check to see if our MachineSet automatically scaled.
+. Let's check to see if our MachineSet automatically scaled (it may take a few minutes).
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -180,7 +181,7 @@ rosa-6n4s8-7hbhw-worker-us-east-2a   4         4         2       2           23h
 +
 This shows that the cluster autoscaler is working on scaling multiple MachineSets up to 4.
 
-. Now let's watch the cluster autoscaler create and delete machines as necessary.
+. Now let's watch the cluster autoscaler create and delete machines as necessary (it may take several minutes for machines to appear in the Running state).
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -230,11 +231,18 @@ maxscale-5p2n8   0/1     ContainerCreating   0          5m18s
 Congratulations!
 You've successfully demonstrated cluster autoscaling.
 
-== Enable Autoscaling on the Default MachinePool in the Red Hat OpenShift Cluster Console
+== Summary
+
+Here you learned:
+
+* Enable autoscaling on the default Machine Pool for your cluster
+* Deploy an application on the cluster and watch the cluster autoscaler scale your cluster to support the increased workload
+
+== Enable Autoscaling via Red Hat OpenShift Cluster Manager Console
 
 [WARNING]
 ====
-These instructions will *not* work in your lab environment - they are here so that you see that you could also enable cluster autoscaling from the console if you have access.
+This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next swection.
 ====
 
 . Log back into the https://console.redhat.com/openshift[OpenShift Cluster Manager].

@@ -1,13 +1,16 @@
-= Configuring ROSA to use Amazon Cognito for authentication
+== Introduction
+
+https://aws.amazon.com/cognito/[Amazon Cognito] is a fully managed authentication, authorization, and user management service provided by Amazon Web Services (AWS). It simplifies the process of adding user sign-up, sign-in, and access control to your ROSA Cluster.
+Integrating ROSA cluster with Amazon Cognito simplifies user authentication, provides secure access control, supports federated identity and SSO, and enables centralized user management and audit trails
 
 As part of the previous lab, we created a temporary cluster-admin user using the `rosa create admin` command.
 This uses htpasswd as a local identity provider to allow you to access the cluster.
-Most ROSA users will want to connect ROSA to a single-sign-on provider, such as AWS Cognito.
-In this section of the workshop, we'll configure AWS Cognito as the cluster identity provider in your ROSA cluster.
+Most ROSA users will want to connect ROSA to a single-sign-on provider, such as Amazon Cognito.
+In this section of the workshop, we'll configure Amazon Cognito as the cluster identity provider in your ROSA cluster.
 
-== Create and configure a Cognito User Pool
+== Create and Configure a Cognito User Pool
 
-To set up the AWS Cognito service we need to do a few things:
+To set up the Amazon Cognito service we need to do a few things:
 
 * Create a user pool
 * Create a user pool domain
@@ -15,7 +18,7 @@ To set up the AWS Cognito service we need to do a few things:
 * Create an app client for the user pool
 * Set up the OpenShift OAuth service to use that app client
 
-. The first step is to create a user pool in the AWS Cognito service.
+. The first step is to create a user pool in the Amazon Cognito service.
 +
 [source,sh,role=execute]
 ----
@@ -125,7 +128,7 @@ aws cognito-idp admin-create-user \
   --message-action SUPPRESS
 ----
 
-. Lastly we need to determine the OAuth callback URL, which we will use to tell AWS Cognito where it should send authentication responses.
+. Lastly we need to determine the OAuth callback URL, which we will use to tell Amazon Cognito where it should send authentication responses.
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -142,9 +145,9 @@ OAuth callback URL: https://oauth-openshift.apps.rosa-6sc5n.dypb.p1.openshiftapp
 ----
 +
 Take a note of that URL - you will need it in the next section.
-
-//== Create an AWS Cognito User Pool App Client
-
++
+//== Create an Amazon Cognito User Pool App Client
++
 . Next, let's create an app client in Amazon Cognito. To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -184,18 +187,19 @@ export AWS_USER_POOL_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client -
 +
 [source,sh,role=execute]
 ----
-echo Client ID: ${AWS_USER_POOL_CLIENT_ID}, Client Secret: ${AWS_USER_POOL_CLIENT_SECRET}
+echo -e "Client ID: ${AWS_USER_POOL_CLIENT_ID}\nClient Secret: ${AWS_USER_POOL_CLIENT_SECRET}"
 ----
 +
 .Sample Output
 [source,texinfo,options=nowrap]
 ----
-Client ID: 1l3onr3gg232ngprritg50fqao, Client Secret: 1tj74t43u8lf9ub45540g1mnio8sscfbr9l9o0s73a2d97s6gvhc
+Client ID: 1l3onr3gg232ngprritg50fqao
+Client Secret: 1tj74t43u8lf9ub45540g1mnio8sscfbr9l9o0s73a2d97s6gvhc
 ----
 
-== Set up OpenShift authentication to use AWS Cognito
+== Set up OpenShift authentication to use Amazon Cognito
 
-Now that you have your Cognito service fully configured you can configure the OpenShift authentication service to use AWS Cognito to authenticate users.
+Now that you have your Cognito service fully configured you can configure the OpenShift authentication service to use Amazon Cognito to authenticate users.
 
 . Set up the identity provider in OpenShift:
 +
@@ -224,8 +228,8 @@ I: Identity Provider 'Cognito' has been created.
 I: Callback URI: https://oauth-openshift.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com/oauth2callback/Cognito
 I: To log in to the console, open https://console-openshift-console.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com and click on 'Cognito'.
 ----
-
-. Validate that the cluster's `OAuth` resource has been updated:
++
+. Validate that the cluster's `OAuth` resource has been updated (this may take several minutes to update):
 +
 [source,sh,role=execute]
 ----
@@ -319,7 +323,7 @@ If you do not see the *Cognito* option wait a few seconds and refresh the screen
 . Click on *Cognito* and use the userid `admin` with password `%rosa_user_password%-2@23`. You will be prompted to change your password. You can either use a new password or just enter the existing password two more times.
 Select that, and log in using your workshop AWS credentials.
 
-. Let's give Cluster Admin permissions to your AWS Cognito admin.
+. Let's give Cluster Admin permissions to your Amazon Cognito admin.
 +
 Find out the existing users in OpenShift (note for this to work you *must* have logged in via the web console before - OpenShift does not create user objects until a user has logged in).
 +
@@ -352,7 +356,7 @@ export COGNITO_ADMIN_PASSWORD=%rosa_user_password%-2@23
 echo "export COGNITO_ADMIN_PASSWORD=${COGNITO_ADMIN_PASSWORD}" >>$HOME/.bashrc
 ----
 
-. Now you can users  user by running the following commands:
+. Now you can map your new Cognito `admin` user to the `cluster-admin` role by running the following command:
 +
 [source,sh,role=execute]
 ----
@@ -414,7 +418,7 @@ oc get oauth cluster -o json | jq -r '.spec.identityProviders[].name'
 Cognito
 ----
 +
-Now all of your users are managed in AWS Cognito.
+Now all of your users are managed in Amazon Cognito.
 
 . You can delete the `cluster-admin` user object and it's associated identity:
 +
@@ -433,3 +437,11 @@ identity.user.openshift.io "htpasswd:cluster-admin" deleted
 
 Congratulations!
 You've successfully configured your Red Hat OpenShift Service on AWS (ROSA) cluster to authenticate with Amazon Cognito.
+
+== Summary
+
+Here you learned:
+
+* Configure Amazon Cognito to act as the ROSA identity provider
+* Configure your ROSA cluster to use Amazon Cognito for authentication
+* Grant your workshop user `cluster-admin` privileges in ROSA cluster

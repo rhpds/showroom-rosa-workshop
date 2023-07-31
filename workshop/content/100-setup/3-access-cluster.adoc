@@ -1,6 +1,6 @@
 :markup-in-source: verbatim,attributes,quotes
 
-== Create an admin user for quick access
+== Create an Admin User for Cluster Access
 
 If you want to be able to access your cluster immediately through a cluster-admin user, you can follow these steps.
 
@@ -24,7 +24,7 @@ I: To login, run the following command:
 
    oc login https://api.rosa-4fgbq.qrdf.p1.openshiftapps.com:6443 --username cluster-admin --password cD4xo-AnanH-DvB6L-6yndM
 
-I: It may take several minutes for this access to become active.
+I: It may take up to 5 minutes for the account to become active.
 ----
 +
 [TIP]
