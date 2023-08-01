@@ -114,7 +114,7 @@ Note that for the cluster name you are using `rosa-${GUID}` - the environment va
 ----
 rosa create cluster \
   --cluster-name rosa-${GUID} \
-  --version 4.13.0 \
+  --version 4.13.4 \
   --sts \
   --mode auto \
   --yes
