@@ -1,6 +1,25 @@
+:rosa_console_url: %rosa_console_url%
 == Introduction
+rosa_console_url: {rosa_console_url}
+ifeval::["{rosa_console_url}" == ""]
 
-During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you. 
+During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you.
+
+endif::[]
+ifeval::["{rosa_console_url}" != ""]
+
+[WARNING]
+====
+THIS PAGE IS INCLUDED FOR INFORMATIONAL PURPOSES ONLY!
+
+Your cluster pre-provisioned and accessible at:
+
+ROSA Console URL: {rosa_console_url}
+
+Please continue to link:./3-access-cluster[Create an Admin User].
+====
+
+endif::[]
 
 === CLI deployment modes
 
