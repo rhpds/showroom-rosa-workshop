@@ -1,7 +1,8 @@
 // uncomment and delete the `:rosa_console_url: none` once rosa catalog
 // workshop sends  rosa_console_url == none || URL
-// :rosa_console_url: %rosa_console_url%
-:rosa_console_url: none
+//:rosa_console_url: none
+:rosa_console_url: %rosa_console_url%
+
 == Introduction
 ifeval::["{rosa_console_url}" == "none"]
 
