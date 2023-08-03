@@ -1,7 +1,29 @@
+// uncomment and delete the `:rosa_console_url: none` once rosa catalog
+// workshop sends  rosa_console_url == none || URL
+// :rosa_console_url: %rosa_console_url%
+:rosa_console_url: none
 == Introduction
+ifeval::["{rosa_console_url}" == "none"]
 
-During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you. 
+During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you.
 
+endif::[]
+ifeval::["{rosa_console_url}" != ""]
+ifeval::["{rosa_console_url}" != "none"]
+
+[WARNING]
+====
+THIS PAGE IS INCLUDED FOR INFORMATIONAL PURPOSES ONLY!
+
+Your cluster pre-provisioned and accessible at:
+
+ROSA Console URL: {rosa_console_url}
+
+Please continue to link:./3-access-cluster[Create an Admin User].
+====
+
+endif::[]
+endif::[]
 === CLI deployment modes
 
 This page will take you through the steps to deploy a ROSA cluster using the ROSA CLI.
@@ -114,7 +136,7 @@ Note that for the cluster name you are using `rosa-${GUID}` - the environment va
 ----
 rosa create cluster \
   --cluster-name rosa-${GUID} \
-  --version 4.13.0 \
+  --version 4.13.4 \
   --sts \
   --mode auto \
   --yes
