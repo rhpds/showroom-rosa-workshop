@@ -37,7 +37,7 @@ EOF
 +
 [source,sh,role=execute]
 ----
- oc project microsweeper-ex
+oc project microsweeper-ex
 ----
 +
 . Fetch the IP address of the `microsweeper` Pod

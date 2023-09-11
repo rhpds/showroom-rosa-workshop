@@ -32,13 +32,13 @@ The *ID* of the MachinePool that you want to add autoscaling to is `Default`.
 +
 [source,sh,role=execute]
 ----
-rosa edit machinepool --cluster rosa-${GUID} Default --enable-autoscaling --min-replicas=2 --max-replicas=4
+rosa edit machinepool --cluster rosa-${GUID} worker --enable-autoscaling --min-replicas=2 --max-replicas=4
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-I: Updated machine pool 'Default' on cluster 'rosa-6n4s8'
+I: Updated machine pool 'worker' on cluster 'rosa-6n4s8'
 ----
 
 . Next, let's check to see that our managed machine autoscalers have been created.

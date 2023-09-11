@@ -11,13 +11,13 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-rosa edit machinepool -c rosa-${GUID} --labels tier=frontend Default
+rosa edit machinepool -c rosa-${GUID} --labels tier=frontend worker
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-I: Updated machine pool 'Default' on cluster 'rosa-6n4s8'
+I: Updated machine pool 'worker' on cluster 'rosa-6n4s8'
 ----
 
 . Now, let's verify the nodes are properly labeled.

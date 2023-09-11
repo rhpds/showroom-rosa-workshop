@@ -89,6 +89,8 @@ I: To view all machine pools, run 'rosa list machinepools -c rosa-6n4s8'
 +
 This command adds a single m5.xlarge instance to the first AWS availability zone in the region your cluster is deployed in.
 
+// rosa create machinepool -c rosa-${GUID} --replicas 1 --name workshop --instance-type m5.xlarge --use-spot-instances
+
 . Now, let's scale up our selected MachinePool from one to two machines.
 To do so, run the following command:
 +

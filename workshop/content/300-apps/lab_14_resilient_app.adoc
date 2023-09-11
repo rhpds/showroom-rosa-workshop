@@ -12,9 +12,9 @@ In this section of the workshop, we will use the previously deployed microsweepe
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex set resources deployment/microsweeper-appservice \
-   --limits=cpu=60m,memory=250Mi \
-   --requests=cpu=50m,memory=200Mi
+oc -n microsweeper-ex set resources deployment/microsweeper-appservice \
+  --limits=cpu=60m,memory=250Mi \
+  --requests=cpu=50m,memory=200Mi
 ----
 +
 Requests state the minimum CPU and memory requirements for a container. This will ensure that the pod is placed on a node that can meet those requirements. Limits set the maximum amount of CPU and Memory that can be consumed by a container and ensure that a whole container does not consume all of the resources on a node. Setting limits and requests for deployments is best practice for resource management and ensuring the stability and reliability of your applications.
@@ -26,21 +26,21 @@ It is important to know the resource needs of the application before setting lim
 +
 [source,sh,role=execute]
 ----
- oc adm top pods -n microsweeper-ex
+oc adm top pods -n microsweeper-ex
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME                                       CPU(cores)   MEMORY(bytes)
- microsweeper-appservice-65799476b6-vh9q7   0m           191Mi
+NAME                                       CPU(cores)   MEMORY(bytes)
+microsweeper-appservice-65799476b6-vh9q7   0m           191Mi
 ----
 +
 . Now that we've updated the resource, we can see that a new pod was automatically rolled out with these new limits and requests. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
- oc get pods -n microsweeper-ex
+oc get pods -n microsweeper-ex
 ----
 +
 We'll see a new pod (created 28 seconds earlier in this case):
@@ -48,38 +48,37 @@ We'll see a new pod (created 28 seconds earlier in this case):
 .Sample Output
 [source,text,options=nowrap]
 ----
- [user0_mobbws@bastion ~]$ oc get pods microsweeper-ex
- NAME                                       READY   STATUS      RESTARTS   AGE
- microsweeper-appservice-1-build            0/1     Completed   0          17h
- microsweeper-appservice-69596ccc54-fsw2b   1/1     Running     0          28s
-+
+[user0_mobbws@bastion ~]$ oc get pods microsweeper-ex
+NAME                                       READY   STATUS      RESTARTS   AGE
+microsweeper-appservice-1-build            0/1     Completed   0          17h
+microsweeper-appservice-69596ccc54-fsw2b   1/1     Running     0          28s
 ----
 +
 To see what the limits and requests added to the pod, run the following command, being sure to change the Pod name to the name shown in the above output:
 +
 [source,sh,role=execute]
 ----
- oc get pods -l app.kubernetes.io/name=microsweeper-appservice \
-  -o yaml -n microsweeper-ex | grep limits -A5
+oc get pods -l app.kubernetes.io/name=microsweeper-appservice \
+ -o yaml -n microsweeper-ex | grep limits -A5
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- limits:
-   cpu: 60m
-   memory: 250Mi
- requests:
-   cpu: 50m
-   memory: 200Mi
+limits:
+  cpu: 60m
+  memory: 250Mi
+requests:
+  cpu: 50m
+  memory: 200Mi
 ----
 +
 . We can now use the route of the application to ensure the application is functioning with the new limits and requests. To get the route, run the following command:
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get route microsweeper-appservice \
-   -o jsonpath='http://{.spec.host}{"\n"}'
+oc -n microsweeper-ex get route microsweeper-appservice \
+  -o jsonpath='http://{.spec.host}{"\n"}'
 ----
 +
 Then visit the URL presented in a new tab in your web browser (using HTTP). For example, your output will look something similar to:
@@ -87,7 +86,7 @@ Then visit the URL presented in a new tab in your web browser (using HTTP). For 
 .Sample Output
 [source,text,options=nowrap]
 ----
- http://microsweeper-appservice-microsweeper-ex.apps.test-cluster.2ubs.p1.openshiftapps.com
+http://microsweeper-appservice-microsweeper-ex.apps.test-cluster.2ubs.p1.openshiftapps.com
 ----
 +
 In that case, you'd visit `+http://microsweeper-appservice-microsweeper-ex.apps.test-cluster.2ubs.p1.openshiftapps.com+` in your browser.
@@ -96,40 +95,39 @@ In that case, you'd visit `+http://microsweeper-appservice-microsweeper-ex.apps.
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex scale deployment \
-   microsweeper-appservice --replicas=3
+oc -n microsweeper-ex scale deployment \
+  microsweeper-appservice --replicas=3
 ----
 +
 . Next, let's check to see that the application has scaled. To do so, run the following command to see the pods:
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get pods
+oc -n microsweeper-ex get pods
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME                                       READY   STATUS      RESTARTS   AGE
- microsweeper-appservice-1-build            0/1     Completed   0          18h
- microsweeper-appservice-69596ccc54-6lstj   1/1     Running     0          2m41s
- microsweeper-appservice-69596ccc54-fsw2b   1/1     Running     0          39m
- microsweeper-appservice-69596ccc54-rkpgj   1/1     Running     0          2m41s
-+
+NAME                                       READY   STATUS      RESTARTS   AGE
+microsweeper-appservice-1-build            0/1     Completed   0          18h
+microsweeper-appservice-69596ccc54-6lstj   1/1     Running     0          2m41s
+microsweeper-appservice-69596ccc54-fsw2b   1/1     Running     0          39m
+microsweeper-appservice-69596ccc54-rkpgj   1/1     Running     0          2m41s
 ----
 +
 . In addition you can see the number of pods, how many are on the current version, and how many are available by running the following:
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get deployment microsweeper-appservice
+oc -n microsweeper-ex get deployment microsweeper-appservice
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
- microsweeper-appservice   3/3     3            3           18h
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+microsweeper-appservice   3/3     3            3           18h
 ----
 
 == Pod Disruption Budget
@@ -147,7 +145,7 @@ A PodDisruptionBudget object's configuration consists of the following key parts
 
 [WARNING]
 ====
-    A maxUnavailable of 0% or 0 or a minAvailable of 100% or equal to the number of replicas can be used but will block nodes from being drained and can result in application instability during maintenance activities.
+A maxUnavailable of 0% or 0 or a minAvailable of 100% or equal to the number of replicas can be used but will block nodes from being drained and can result in application instability during maintenance activities.
 ====
 
 . Let's create a Pod Disruption Budget for our `microsweeper-appservice` application. To do so, run the following command:
@@ -174,14 +172,14 @@ After creating the PDB, the OpenShift API will ensure at least one pod of `micro
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get poddisruptionbudgets
+oc -n microsweeper-ex get poddisruptionbudgets
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME              MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
- microsweeper-appservice-pdb   1               N/A               0         39s
+NAME              MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+microsweeper-appservice-pdb   1               N/A               0         39s
 ----
 
 == Horizontal Pod Autoscaler (HPA)
@@ -234,36 +232,37 @@ EOF
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
+oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME              REFERENCE                                        TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
- microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%    2         4         3          43s
+NAME              REFERENCE                                        TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%    2         4         3          43s
 ----
 
 . Next, let's generate some load against the `microsweeper-appservice` application. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
- FRONTEND_URL=http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')/
- ab -c100 -n10000 ${FRONTEND_URL}
+FRONTEND_URL=http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')/
+
+ab -c100 -n10000 ${FRONTEND_URL}
 ----
 
 . Apache Bench will take around 100 seconds to complete (you can also hit CTRL-C to kill the ab command). Then immediately check the status of Horizontal Pod Autoscaler. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
+oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
- NAME                          REFERENCE                            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
- microsweeper-appservice-cpu   Deployment/microsweeper-appservice   135%/50%   2         4         4          7m37s
+NAME                          REFERENCE                            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+microsweeper-appservice-cpu   Deployment/microsweeper-appservice   135%/50%   2         4         4          7m37s
 ----
 +
 This means you are now running 4 replicas, instead of the original three that we started with.
@@ -272,17 +271,17 @@ This means you are now running 4 replicas, instead of the original three that we
 +
 [source,sh,role=execute]
 ----
- oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu --watch
+oc -n microsweeper-ex get horizontalpodautoscaler/microsweeper-appservice-cpu --watch
 ----
 +
 After a minute or two, your output should be similar to below:
 +
 [source,text,options=nowrap]
 ----
- NAME                          REFERENCE                            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
- microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         4          19m
- microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         4          19m
- microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         2          20m
+NAME                          REFERENCE                            TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         4          19m
+microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         4          19m
+microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%     2         4         2          20m
 ----
 
 == Summary and Next Steps
