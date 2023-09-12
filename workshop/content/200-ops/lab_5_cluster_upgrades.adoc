@@ -53,7 +53,7 @@ Channel: stable-4.12 (available channels: candidate-4.12, candidate-4.13, eus-4.
 Recommended updates:
 
   VERSION     IMAGE
-  4.13.1     quay.io/openshift-release-dev/ocp-release@sha256:db976910d909373b1136261a5479ed18ec08c93971285ff760ce75c6217d3943
+  4.13.11     quay.io/openshift-release-dev/ocp-release@sha256:e1c2377fdae1d063aaddc753b99acf25972b6997ab9a0b7e80cfef627b9ef3dd
 ----
 +
 [NOTE]
@@ -85,7 +85,7 @@ Date: 2023-04-18, Time: 19:51
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.13.1 \
+  --version 4.13.11 \
   --mode auto \
   --schedule-date ${UPGRADE_DATE} \
   --schedule-time ${UPGRADE_TIME}
