@@ -371,7 +371,7 @@ clusterrole.rbac.authorization.k8s.io/cluster-admin added: "admin"
 
 . Refresh the OpenShift web console - you should now be able to switch to the Administrator view.
 . Get the login command for your new user:
-.. Click on *Cluster Administrator* (your user) on the top left of the console
+.. Click on *Cluster Administrator* (your user) on the top right of the console
 .. Click on *Copy Login Command*
 .. Click on *Cognito*
 .. Click *Display Token*
