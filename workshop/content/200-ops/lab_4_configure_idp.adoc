@@ -425,14 +425,14 @@ Now all of your users are managed in Amazon Cognito.
 [source,sh,role=execute]
 ----
 oc delete user cluster-admin
-oc delete identity htpasswd:cluster-admin
+oc delete identity cluster-admin:cluster-admin
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
 user.user.openshift.io "cluster-admin" deleted
-identity.user.openshift.io "htpasswd:cluster-admin" deleted
+identity.user.openshift.io "cluster-admin:cluster-admin" deleted
 ----
 
 Congratulations!
