@@ -6,10 +6,12 @@ Many of these changes are done using Machine Pools. Machine Pools ensure that a 
 
 Here are some of the advantages of using ROSA Machine Pools to manage the size of your cluster
 
-* Scalability - ROSA Machine Pool enables horizontal scaling of your cluster. It can easily add or remove worker to handle the changes in workload. This flexibility ensures that your cluster can dynamically scale to meet the needs of your applications
-* High Availability - ROSA Machine Pool supports the creation of 3 replicas of workers across different availability zones. This redundancy helps ensure high availability of applications by distributing workloads.
-* Infrastructure Diversity - ROSA Machine Pool allow you to provision worker nodes of different instance type. This enables you you leverage the best kind of instance family for different workloads.
-* Integration with Cluster Autoscaler - ROSA Machine Pool seamlessly integrate with the Cluster Autoscaler feature, which automatically adjusts the number of worker nodes based on the current demand. This integration ensures efficient resource utilization by scaling the cluster up or down as needed, optimizing costs and performance.
+* Scalability - A ROSA Machine Pool enables horizontal scaling of your cluster. It can easily add or remove worker nodes to handle the changes in workload. This flexibility ensures that your cluster can dynamically scale to meet the needs of your applications
+* High Availability - ROSA Machine Pools supports the creation of 3 replicas of workers across different availability zones. This redundancy helps ensure high availability of applications by distributing workloads.
+* Infrastructure Diversity - ROSA Machine Pools allow you to provision worker nodes of different instance types. This enables you to leverage the best kind of instance family for different workloads.
+* Integration with Cluster Autoscaler - ROSA Machine Pools seamlessly integrate with the Cluster Autoscaler feature, which automatically adjusts the number of worker nodes based on the current demand. This integration ensures efficient resource utilization by scaling the cluster up or down as needed, optimizing costs and performance.
+
+Review the following digram to see the relationship between a Machine Pool, Machine Set, Machines, and Nodes.
 
 image:../media/scale_machinepool.png[scale_machinepool]
 
@@ -17,7 +19,7 @@ image:../media/scale_machinepool.png[scale_machinepool]
 
 === Via the CLI
 
-. First, let's see what MachinePools already exist in our cluster. To do so, run the following command:
+. First, let's see what Machine Pools already exist in our cluster. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
