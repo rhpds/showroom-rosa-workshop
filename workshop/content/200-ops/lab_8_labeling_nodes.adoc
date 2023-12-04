@@ -6,7 +6,7 @@ While you can directly add a label to a node, it is not recommended because node
 
 == Set a label for the Machine Pool
 
-. Just like the last section, let's use the default machine pool to add our label.
+. Just like the last section, let's use the default worker machine pool to add our label. We will add the label "tier=frontend" to nodes in this machine pool.
 To do so, run the following command:
 +
 [source,sh,role=execute]
@@ -195,4 +195,4 @@ You've successfully demonstrated the ability to label nodes and target those nod
 Here's you learned:
 
 * Add labels to Machine Pools
-* Deploy an application on nodes with certain labels
+* Deploy an application on nodes with certain labels using nodeSelector
