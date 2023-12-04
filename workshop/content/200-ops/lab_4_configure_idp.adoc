@@ -444,4 +444,4 @@ Here you learned:
 
 * Configure Amazon Cognito to act as the ROSA identity provider
 * Configure your ROSA cluster to use Amazon Cognito for authentication
-* Grant your workshop user `cluster-admin` privileges in ROSA cluster
+* Grant your Cognito workshop user `cluster-admin` privileges in your ROSA cluster
