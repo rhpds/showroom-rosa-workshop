@@ -170,3 +170,5 @@ https://console-openshift-console.%rosa_subdomain_base%
 . Enter the username (`cluster-admin`) and password from the previous section (use `echo ${ADMIN_PASSWORD}` to remind yourself what the password is in case you forgot).
 +
 If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.
+
+If you have any issues please content your lab instructors who can help you out!
