@@ -140,8 +140,8 @@ A PodDisruptionBudget object's configuration consists of the following key parts
 
 * A label selector, which is a label query over a set of pods.
 * An availability level, which specifies the minimum number of pods that must be available simultaneously, either:
- ** minAvailable is the number of pods must always be available, even during a disruption.
- ** maxUnavailable is the number of pods can be unavailable during a disruption.
+ ** minAvailable is the number of pods that must always be available, even during a disruption.
+ ** maxUnavailable is the number of pods that can be unavailable during a disruption.
 
 [WARNING]
 ====
