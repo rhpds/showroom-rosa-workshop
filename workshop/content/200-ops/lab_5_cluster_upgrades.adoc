@@ -1,16 +1,12 @@
 == Introduction
 
-Red Hat OpenShift Service on AWS (ROSA) provides fully-managed cluster upgrades.
-These upgrades can be scheduled from the OpenShift Cluster Manager or from the ROSA CLI.
-All upgrades are monitored and managed by the Red Hat ROSA SRE team.
+Red Hat OpenShift Service on AWS (ROSA) provides fully-managed cluster upgrades. The ROSA Site Reliability Engineering (SRE) Team will monitor and manage all ROSA cluster upgrades. Customers get status emails from the SRE team before, during, and after the upgrade. These updates can be scheduled from the OpenShift Cluster Manager (OCM) or from the ROSA CLI.
 
-For more information on how ROSA's Upgrade Service works, please see the https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Red Hat documentation].
+During ROSA upgrades, one node is upgraded at a time. This is done to ensure customer applications are not impacted during the update, when deployed in a highly-available and fault-tolerant method.
+
+There are two ways to upgrade a ROSA cluster - using OpenShift Cluster Manager or using the `rosa` CLI. In this lab environment we do not have access to the OpenShift Cluster Manager so we will use the `rosa` CLI.
 
 == Upgrade using the `rosa` command line interface
-
-There are two ways to upgrade a ROSA cluster - using OpenShift Cluster Manager or using the `rosa` CLI.
-
-In this lab environment you do not have access to the OpenShift Cluster Manager so we have to use the CLI.
 
 . Remind yourself of the version of your cluster:
 +
@@ -51,10 +47,7 @@ Channel: stable-4.13 (available channels: candidate-4.13, candidate-4.14, fast-4
 Recommended updates:
 
   VERSION     IMAGE
-  4.13.4      quay.io/openshift-release-dev/ocp-release@sha256:e3fb8ace9881ae5428ae7f0ac93a51e3daa71fa215b5299cd3209e134cadfc9c
-  4.13.3      quay.io/openshift-release-dev/ocp-release@sha256:bc9835804046aa844c874d2cc37387ec95fe7e87d8ce96129fba78d465c932fa
-  4.13.2      quay.io/openshift-release-dev/ocp-release@sha256:6ef3cf4bed1970d547dce08a6e334b675d361b212427c4493151dcad6e093d27
-  4.13.1      quay.io/openshift-release-dev/ocp-release@sha256:9c92b5ec203ee7f81626cc4e9f02086484056a76548961e5895916f136302b1f
+  4.13.11     quay.io/openshift-release-dev/ocp-release@sha256:e1c2377fdae1d063aaddc753b99acf25972b6997ab9a0b7e80cfef627b9ef3dd
 ----
 +
 [NOTE]
@@ -86,7 +79,7 @@ Date: 2023-04-18, Time: 19:51
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.13.1 \
+  --version 4.13.11 \
   --mode auto \
   --schedule-date ${UPGRADE_DATE} \
   --schedule-time ${UPGRADE_TIME}
@@ -103,7 +96,31 @@ I: Account and operator roles for cluster 'rosa-bhjks' are compatible with upgra
 I: Upgrade successfully scheduled for cluster 'rosa-6n4s8'
 ----
 
-That's it - your cluster will now be upgraded in exactly 24 hours - of course your environment will no longer exist at this time. But you now know how to easily schedule an upgrade.
+Congratulations! You've successfully scheduled an upgrade of your cluster for tomorrow at this time. While the workshop environment will be deleted before then, you now have the experience to schedule upgrades in the future.
+
+== Additional Resources
+
+=== Red Hat OpenShift Upgrade Graph Tool
+
+Occasionally, you may be not be able to go directly from your current version to a desired version. In these cases, you must first upgrade your cluster from your current version, to an intermediary version, and then to your desired version. To help you navigate these decisions, you can take advantage of the https://access.redhat.com/labs/ocpupgradegraph/update_path_rosa[Red Hat OpenShift Upgrade Graph Tool].
+
+image:../media/rosa_upgrade_graph.png[ROSA Upgrade Graph Tool Screenshot]
+
+In this scenario to upgrade your cluster from version 4.11.0 to 4.12.15, you must first upgrade to 4.11.39, then you can upgrade to 4.12.15. The ROSA Upgrade Graph Tool helps you easily see which version you should upgrade to.
+
+=== Links to Documentation
+
+* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Upgrading ROSA clusters with STS]
+* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html#rosa-upgrade-ocm_rosa-upgrading-sts[Scheduling individual upgrades through the OpenShift Cluster Manager console]
+* https://docs.openshift.com/container-platform/{{ rosa_version }}/updating/understanding-openshift-updates.html#update-service-about_understanding-openshift-updates[About the OpenShift Update Service]
+
+== Summary
+
+Here you learned:
+
+* All upgrades are monitored and managed by the ROSA SRE Team
+* Use OpenShift Cluster Manager (OCM) to schedule an upgrade for your ROSA cluster
+* Explore the OpenShift Upgrade Graph Tool to see available upgrade paths
 
 == Upgrade using the OpenShift Cluster Manager
 

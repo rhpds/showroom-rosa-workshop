@@ -1,6 +1,6 @@
 == The Workshop Environment You Are Using
 
-Your environment has already been set up and you are ready to deploy your first ROSA cluster.
+Your environment has already been set up and with the tools you need to work with ROSA and AWS.
 
 Your workshop environment consists of several components which have been pre-configured and are ready to use.
 This includes a %aws_web_console_url%[Amazon Web Services (AWS)] account, and many other supporting resources.
@@ -51,7 +51,7 @@ rosa version
 .Sample Output
 [source,texinfo]
 ----
-1.2.22
+1.2.26
 Your ROSA CLI is up to date.
 ----
 
@@ -65,7 +65,7 @@ aws --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-aws-cli/2.11.23 Python/3.11.3 Linux/4.18.0-305.88.1.el8_4.x86_64 exe/x86_64.rhel.8 prompt/off
+aws-cli/2.13.20 Python/3.11.5 Linux/5.14.0-284.30.1.el9_2.x86_64 exe/x86_64.rhel.9 prompt/off
 ----
 
 . Verify that the `aws` command line tool is configured correctly:
@@ -96,7 +96,7 @@ rosa verify openshift-client
 [source,texinfo,options=nowrap]
 ----
 I: Verifying whether OpenShift command-line tool is available...
-I: Current OpenShift Client Version: 4.13.0
+I: Current OpenShift Client Version: 4.13.13
 ----
 
 . Rosa login
@@ -142,9 +142,9 @@ OCM Organization ID:          1z8aXAQ73DYAPLeCZhNq1MRQ0ZL
 OCM Organization Name:        Red Hat, Inc.
 ----
 
-=== Verify quota
+=== Review quota
 
-. Verify that your AWS account has enough quota in the region you will be deploying your cluster to.
+. You must ensure your AWS account has enough resources available to run ROSA. Use the following command to review available AWS quota:
 +
 [source,sh,role=execute]
 ----
@@ -161,4 +161,5 @@ rosa/rosa_getting_started/rosa-required-aws-service-quotas.html
 +
 See https://docs.openshift.com/rosa/rosa_planning/rosa-sts-required-aws-service-quotas.html[the documentation] for more details regarding quotas.
 
-We have now successfully set up our account and environment and are ready to deploy our cluster.
+We have now successfully reviewed our account and environment and are ready to work with ROSA and AWS.
+

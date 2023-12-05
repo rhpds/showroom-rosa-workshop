@@ -8,5 +8,6 @@
     "rosa_bastion_user_name": "rosa",
     "rosa_user_password": "password",
     "rosa_subdomain_base": "apps.xxxx.com",
-    "rosa_sandbox_account_id": "11111111"
+    "rosa_sandbox_account_id": "11111111",
+    "rosa_console_url": "none"
 }

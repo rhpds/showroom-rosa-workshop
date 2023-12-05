@@ -1,13 +1,12 @@
-= Introduction
+== Introduction
 
-It's time for us to put our cluster to work and deploy a workload.
-We're going to build an example Java application, https://github.com/redhat-mw-demos/microsweeper-quarkus/tree/ROSA[microsweeper], using https://quarkus.io/[Quarkus] (a Kubernetes-native Java stack) and https://aws.amazon.com/dynamodb[Amazon DynamoDB].
-We'll then deploy the application to our ROSA cluster and connect to the database over AWS's secure network.
+It's time for us to put our cluster to work and deploy a workload! We're going to build an example Java application, https://github.com/redhat-mw-demos/microsweeper-quarkus/tree/ROSA[microsweeper], using https://quarkus.io/[Quarkus] (a Kubernetes-native Java stack) and https://aws.amazon.com/dynamodb[Amazon DynamoDB]. We'll then deploy the application to our ROSA cluster and connect to the database over AWS's secure network.
+
+This lab demonstrates how ROSA (an AWS native service) can easily and securely access and utilize other AWS native services using AWS Secure Token Service (STS). To achieve this, we will be using AWS IAM, Amazon DynamoDB, and a service account within OpenShift. After configuring the latter, we will use both Quarkus - a Kubernetes-native Java framework optimized for containers - and Source-to-Image (S2I) - a toolkit for building container images from source code - to deploy the microsweeper application.
 
 == Create an Amazon DynamoDB instance
 
-. First, let's create a namespace (also known as a project in OpenShift).
-To do so, run the following command:
+. First, let's create a project (also known as namespace). A project is a unit of organization within OpenShift that provides isolation for applications and resources. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
@@ -28,8 +27,7 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
     kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
 ----
 
-. Create the Amazon DynamoDB table resource.
-To do so, run the following command:
+. Next, create the Amazon DynamoDB table resource. Amazon DynamoDB will be used to store information from our application and ROSA will utilize AWS Secure Token Service(STS) to access this native service. More information on STS and how it is utilized in ROSA will be provided in the next section. For now lets create the Amazon DynamoDB table, To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
@@ -75,10 +73,15 @@ aws dynamodb create-table \
 
 == IAM Roles for Service Account (IRSA) Configuration
 
-Our application uses the AWS SDK to make connections to Amazon DynamoDB.
-While we can use static IAM credentials to do this, this is against AWS' recommended best practices.
-Instead AWS recommends the use of AWS' Secure Token Service (STS).
-Lucky for us, we've already deployed our ROSA cluster using AWS STS, so using IAM Roles for Service Accounts (IRSA), also referred to as pod identity, is easy!
+Our application uses AWS Secure Token Service(STS) to establish connections with Amazon DynamoDB. Traditionally, one would use static IAM credentials for this purpose, but this approach goes against AWS' recommended best practices. Instead, AWS suggests utilizing their Secure Token Service (STS). Fortunately, our ROSA cluster has already been deployed using AWS STS, making it effortless to adopt IAM Roles for Service Accounts (IRSA), also known as pod identity.
+
+Service accounts play a crucial role in managing the permissions and access control of applications running within ROSA. They act as identities for pods and allow them to interact securely with various AWS services.
+
+IAM roles, on the other hand, define a set of permissions that can be assumed by trusted entities within AWS. By associating an AWS IAM role with a service account, we enable the pods in our ROSA cluster to leverage the permissions defined within that role. This means that instead of relying on static IAM credentials, our application can obtain temporary security tokens from AWS STS by assuming the associated IAM role.
+
+This approach aligns with AWS' recommended best practices and provides several benefits. Firstly, it enhances security by reducing the risk associated with long-lived static credentials. Secondly, it simplifies the management of access controls by leveraging IAM roles, which can be centrally managed and easily updated. Finally, it enables seamless integration with AWS services, such as DynamoDB, by granting the necessary permissions to the service accounts associated with our pods.
+
+image:../media/irsa-sts.jpeg[irsa_sts]
 
 . First, create a service account to use to assume an IAM role.
 To do so, run the following command:
@@ -99,7 +102,7 @@ To create the trust policy document, run the following command:
 +
 [source,sh,role=execute]
 ----
-cat <<EOF > $HOME/trust-policy.json
+cat <<EOF > ${HOME}/trust-policy.json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -125,7 +128,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-aws iam create-role --role-name irsa_${GUID} --assume-role-policy-document file://$HOME/trust-policy.json --description "IRSA Role (${GUID}"
+aws iam create-role --role-name irsa-${GUID} --assume-role-policy-document file://${HOME}/trust-policy.json --description "IRSA Role (${GUID}"
 ----
 +
 .Sample Output
@@ -165,7 +168,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-aws iam attach-role-policy --role-name irsa_${GUID} --policy-arn=arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
+aws iam attach-role-policy --role-name irsa-${GUID} --policy-arn=arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
 ----
 
 . Finally, let's annotate the service account with the ARN of the IAM role we created above.
@@ -173,7 +176,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-oc -n microsweeper-ex annotate serviceaccount microsweeper eks.amazonaws.com/role-arn=arn:aws:iam::$(aws sts get-caller-identity --query 'Account' --output text):role/irsa_${GUID}
+oc -n microsweeper-ex annotate serviceaccount microsweeper eks.amazonaws.com/role-arn=arn:aws:iam::$(aws sts get-caller-identity --query 'Account' --output text):role/irsa-${GUID}
 ----
 +
 .Sample Output
@@ -193,10 +196,10 @@ Now that we've got a DynamoDB instance up and running and our IRSA configuration
 curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
 curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
 
-echo "export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk" >>$HOME/.bashrc
-echo "export PATH=\$JAVA_HOME/bin:\$PATH" >>$HOME/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk" >>${HOME}/.bashrc
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >>${HOME}/.bashrc
 
-source $HOME/.bashrc
+source ${HOME}/.bashrc
 ----
 
 . Double check the Quarkus CLI version:
@@ -209,7 +212,7 @@ quarkus --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-3.1.0.Final
+3.3.2
 ----
 
 . Now, let's clone the application from GitHub.
@@ -217,7 +220,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-cd $HOME
+cd ${HOME}
 
 git clone https://github.com/rh-mobb/rosa-workshop-app.git
 ----
@@ -227,7 +230,7 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-cd $HOME/rosa-workshop-app
+cd ${HOME}/rosa-workshop-app
 ----
 
 . Next, we will add the OpenShift extension to the Quarkus CLI.
@@ -250,7 +253,7 @@ To do so, we'll create an `application.properties` file using by running the fol
 +
 [source,sh,role=execute]
 ----
-cat <<EOF > $HOME/rosa-workshop-app/src/main/resources/application.properties
+cat <<EOF > ${HOME}/rosa-workshop-app/src/main/resources/application.properties
 # AWS DynamoDB configurations
 %dev.quarkus.dynamodb.endpoint-override=http://localhost:8000
 %prod.quarkus.openshift.env.vars.aws_region=$(aws configure get region)
@@ -298,7 +301,17 @@ quarkus build --no-tests
 
 Let's take a look at what this command did, along with everything that was created in your cluster.
 
-Return to your OpenShift Web Console.
+Return to your OpenShift Web Console. 
+
+[NOTE]
+====
+Reminder that you can get the URL and adming password by running the following commands:
+[source,sh,role=execute]
+----
+oc whoami --show-console
+echo $COGNITO_ADMIN_PASSWORD
+----
+====
 
 === Container Images
 
@@ -386,13 +399,13 @@ You can also get the the URL for your application using the command line:
 
 [source,sh,role=execute]
 ----
-oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}'
+echo "http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')"
 ----
 
 .Sample Output
 [source,text,options=nowrap]
 ----
-microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com[rosa@bastion rosa-workshop-app]$
+http://microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
 
 === Application IP
@@ -426,3 +439,12 @@ It comes from the ROSA Load Balancer.
 In this workshop, we are using a public cluster which means the load balancer is exposed to the Internet.
 If this was a private cluster, you would have to have connectivity to the VPC ROSA is running on.
 This could be via a VPN connection, AWS DirectConnect, or something else.
+
+== Summary
+
+Here you learned:
+
+* Create an AWS DynamoDB table for your application to use
+* Create a service account and AWS IAM resources to use IAM Roles for Service Accounts (IRSA).
+* Deploy the Microsweeper app and connect it to AWS DynamoDB as the backend database
+* Access the publicly exposed Microsweeper app using OpenShift routes.
