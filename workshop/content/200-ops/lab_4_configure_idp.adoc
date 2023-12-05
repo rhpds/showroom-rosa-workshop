@@ -39,7 +39,7 @@ aws cognito-idp create-user-pool --pool-name rosa-${GUID} --auto-verified-attrib
 [...Lots of output omitted...]
 ----
 
-. You will be using the user pool ID to identify this user pool in subsequent commands. Retrieve the user pool ID and set an environemnt variable in your terminal:
+. You will be using the user pool ID to identify this user pool in subsequent commands. Retrieve the user pool ID and set an environment variable in your terminal:
 +
 [source,sh,role=execute]
 ----

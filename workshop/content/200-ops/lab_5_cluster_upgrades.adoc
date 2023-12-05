@@ -18,7 +18,7 @@ oc version
 .Sample Output
 [source,text,options=nowrap]
 ----
-Client Version: 4.13.1
+Client Version: 4.13.4
 Kustomize Version: v4.5.7
 Server Version: 4.13.0
 Kubernetes Version: v1.26.3+b404935
@@ -38,17 +38,11 @@ Cluster version is 4.13.0
 
 Upgradeable=False
 
-  Reason: MultipleReasons
-  Message: Cluster should not be upgraded between minor versions for multiple reasons: AdminAckRequired,MissingUpgradeableAnnotatio
-n
-  * Kubernetes 1.26 and therefore OpenShift 4.13 remove several APIs which require admin consideration. Please see the knowledge ar
-ticle https://access.redhat.com/articles/6958394 for details and instructions.
-  * Cluster operator cloud-credential should not be upgraded between minor versions: Upgradeable annotation cloudcredential.openshi
-ft.io/upgradeable-to on cloudcredential.operator.openshift.io/cluster object needs updating before upgrade. See Manually Creating I
-AM documentation for instructions on preparing a cluster for upgrade.
+  Reason: MissingUpgradeableAnnotation
+  Message: Cluster operator cloud-credential should not be upgraded between minor versions: Upgradeable annotation cloudcredential.openshift.io/upgradeable-to on cloudcredential.operator.openshift.io/cluster object needs updating before upgrade. See Manually Creating IAM documentation for instructions on preparing a cluster for upgrade.
 
 Upstream is unset, so the cluster will use an appropriate default.
-Channel: stable-4.12 (available channels: candidate-4.12, candidate-4.13, eus-4.12, fast-4.12, stable-4.12)
+Channel: stable-4.13 (available channels: candidate-4.13, candidate-4.14, fast-4.13, stable-4.13)
 
 Recommended updates:
 
@@ -79,7 +73,7 @@ echo Date: ${UPGRADE_DATE}, Time: ${UPGRADE_TIME}
 Date: 2023-04-18, Time: 19:51
 ----
 
-. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.12.10`) - answer `y` when prompted if you really want to upgrade.
+. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.13.4`) - answer `y` when prompted if you really want to upgrade.
 +
 [source,sh,role=execute]
 ----
@@ -94,10 +88,10 @@ rosa upgrade cluster \
 .Sample Output
 [source,text,options=nowrap]
 ----
-I: Ensuring account and operator role policies for cluster '235ftpmaq3oavfin8mt600af4sar9oej' are compatible with upgrade.
-I: Account roles/policies for cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
-I: Operator roles/policies associated with the cluster '235ftpmaq3oavfin8mt600af4sar9oej' are already up-to-date.
-I: Account and operator roles for cluster 'rosa-6n4s8' are compatible with upgrade
+I: Ensuring account and operator role policies for cluster '25216tq1cq14etbb8rl91kqg2s1u4ssj' are compatible with upgrade.
+I: Account roles/policies for cluster '25216tq1cq14etbb8rl91kqg2s1u4ssj' are already up-to-date.
+I: Operator roles/policies associated with the cluster '25216tq1cq14etbb8rl91kqg2s1u4ssj' are already up-to-date.
+I: Account and operator roles for cluster 'rosa-bhjks' are compatible with upgrade
 ? Are you sure you want to upgrade cluster to version '4.13.1'? Yes
 I: Upgrade successfully scheduled for cluster 'rosa-6n4s8'
 ----
@@ -132,7 +126,7 @@ Here you learned:
 
 [WARNING]
 ====
-This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next swection.
+This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next section.
 ====
 
 . Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].

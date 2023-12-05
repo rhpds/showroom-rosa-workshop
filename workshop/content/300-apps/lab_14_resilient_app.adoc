@@ -246,8 +246,6 @@ microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%    2  
 +
 [source,sh,role=execute]
 ----
-FRONTEND_URL=http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')/
-
 ab -c100 -n10000 ${FRONTEND_URL}
 ----
 
