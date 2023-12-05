@@ -166,7 +166,7 @@ role.rbac.authorization.k8s.io/pipeline-role created
 rolebinding.rbac.authorization.k8s.io/pipeline-role-binding created
 ----
 
-. We also need to give the pipeline permission for certain privileged security context constraints to that it can execute builds.
+. We also need to give the pipeline permission for certain privileged security context constraints so that it can execute builds.
 To grant these permissions, run the following command:
 +
 [source,sh,role=execute]
@@ -404,7 +404,7 @@ image:../media/ocp-triggers.png[Image]
 The next thing we need to do, is connect our EventListener with Git.
 When an action, such as a git push, happens, git will need to call our EventListener to start the build and deploy process.
 
-. First we need to do is expose our EventListener service to the internet.
+. First we need to expose our EventListener service to the internet.
 To do so, we'll run the `oc expose` command:
 +
 [source,sh,role=execute]
