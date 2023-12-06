@@ -381,7 +381,6 @@ The last thing we will look at is the route that was created for our application
 In the quarkus properties file, we specified that the application should be exposed to the Internet.
 When you create a Route, you have the option to specify a hostname.
 To start with, we will just use the default domain that comes with ROSA (`openshiftapps.com` in our case).
-In the next section, we will expose the same application to a custom domain leveraging Azure Front Door.
 
 You can read more about routes https://docs.openshift.com/container-platform/latest/networking/routes/route-configuration.html[in the Red Hat documentation]
 
