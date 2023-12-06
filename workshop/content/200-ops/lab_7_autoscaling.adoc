@@ -22,11 +22,11 @@ rosa list machinepools --cluster rosa-${GUID}
 .Sample Output
 [source,text,options=nowrap]
 ----
-ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
-Default  No           2         m5.xlarge                          us-east-2a                       N/A
+ID      AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES  DISK SIZE  SG IDs
+worker  No           2         m5.xlarge                          us-east-2a
 ----
 +
-The *ID* of the MachinePool that you want to add autoscaling to is `Default`.
+The *ID* of the MachinePool that you want to add autoscaling to is `worker`.
 
 . To enable autoscaling on a machine pool, enter the following command:
 +

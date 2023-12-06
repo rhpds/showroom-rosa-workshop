@@ -78,8 +78,8 @@ oc -n networkpolicy-test exec -ti pod/networkpolicy-pod -- curl $MS_IP:8080 | he
             src="https://code.jquery.com/jquery-3.2.1.min.js"
 ----
 
-. It's common to want to not allow Pods from another Project.
-This can be done by a fairly simple Network Policy.
+. It's common to want to prohibit Pods from accessing each other between projects (namespaces).
+This can be done with a fairly simple Network Policy.
 +
 [INFO]
 ====
@@ -215,12 +215,13 @@ Hit Ctrl-C to avoid waiting for a timeout.
 
 [INFO]
 ====
-For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/4.13/networking/network_policy/default-network-policy.html[modifying the default project template].
+For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/latest/networking/network_policy/default-network-policy.html[modifying the default project template].
 ====
 
 == Summary
 
 Here's what you learned:
+
 * Network Policies are a powerful way to apply zero-trust networking patterns.
 * Access to pods can be restricted to other Pods, Namespaces, or other labels.
 * Access can be completely denied, allowed, or set to particular ports or services.

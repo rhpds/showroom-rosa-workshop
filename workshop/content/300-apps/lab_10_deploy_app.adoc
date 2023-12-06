@@ -6,7 +6,7 @@ This lab demonstrates how ROSA (an AWS native service) can easily and securely a
 
 == Create an Amazon DynamoDB instance
 
-. First, let's create a project (also known as namespace). A project is a unit of organization within OpenShift that provides isolation for applications and resources. To do so, run the following command:
+. First, let's create a project (also known as a namespace). A project is a unit of organization within OpenShift that provides isolation for applications and resources. To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
@@ -27,7 +27,7 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
     kubectl create deployment hello-node --image=k8s.gcr.io/e2e-test-images/agnhost:2.33 -- /agnhost serve-hostname
 ----
 
-. Next, create the Amazon DynamoDB table resource. Amazon DynamoDB will be used to store information from our application and ROSA will utilize AWS Secure Token Service(STS) to access this native service. More information on STS and how it is utilized in ROSA will be provided in the next section. For now lets create the Amazon DynamoDB table, To do so, run the following command:
+. Next, create the Amazon DynamoDB table resource. Amazon DynamoDB will be used to store information from our application and ROSA will utilize AWS Secure Token Service (STS) to access this native service. More information on STS and how it is utilized in ROSA will be provided in the next section. For now let's create the Amazon DynamoDB table, To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
@@ -322,7 +322,7 @@ image::../media/rosa-console-imagestreams.png[OpenShift Web Console - Imagestrea
 You will see two images that were created on your behalf when you ran the quarkus build command.
 There is one image for `openjdk-11` that comes with OpenShift as a Universal Base Image (UBI) that the application will run under.
 With UBI, you get highly optimized and secure container images that you can build your applications with.
-For more information on UBI please read this https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image[article].
+For more information on UBI please visit the UBI section of the https://catalog.redhat.com/software/base-images[Red Hat Ecosystem Catalog].
 
 The second image you see is the the `microsweeper-appservice` image.
 This is the image for the application that was built automatically for you and pushed to the built-in container registry inside of OpenShift.
@@ -358,7 +358,7 @@ image::../media/rosa-console-builds.png[OpenShift Web Console - Builds]
 
 On the next screen, explore around.
 Look specifically at the YAML definition of the build and the logs to see what the build actually did.
-If you build failed for some reason, the logs are a great first place to start to look at to debug what happened.
+If your build failed for some reason, the logs are a great first place to start to look at to debug what happened.
 
 image::../media/rosa-console-build-logs.png[OpenShift Web Console - Build Logs]
 
@@ -381,7 +381,6 @@ The last thing we will look at is the route that was created for our application
 In the quarkus properties file, we specified that the application should be exposed to the Internet.
 When you create a Route, you have the option to specify a hostname.
 To start with, we will just use the default domain that comes with ROSA (`openshiftapps.com` in our case).
-In next section, we will expose the same application to a custom domain leveraging Azure Front Door.
 
 You can read more about routes https://docs.openshift.com/container-platform/latest/networking/routes/route-configuration.html[in the Red Hat documentation]
 

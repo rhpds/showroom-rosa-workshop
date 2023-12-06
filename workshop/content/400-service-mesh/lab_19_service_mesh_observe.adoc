@@ -84,11 +84,11 @@ https://kiali-istio-system.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com/console
 +
 [TIP]
 ====
-If you forgot the password for your `cluster-admin` user use the following command to remind yourself:
+If you forgot the password for the `admin` user you created with Cognito use:
 
 [source,sh]
 ----
-history | grep login
+zoieo7Helya7aarU-2@23
 ----
 ====
 +

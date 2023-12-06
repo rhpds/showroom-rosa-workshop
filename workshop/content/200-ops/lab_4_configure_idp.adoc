@@ -371,7 +371,7 @@ clusterrole.rbac.authorization.k8s.io/cluster-admin added: "admin"
 
 . Refresh the OpenShift web console - you should now be able to switch to the Administrator view.
 . Get the login command for your new user:
-.. Click on *Cluster Administrator* (your user) on the top left of the console
+.. Click on *Cluster Administrator* (your user) on the top right of the console
 .. Click on *Copy Login Command*
 .. Click on *Cognito*
 .. Click *Display Token*
@@ -425,14 +425,14 @@ Now all of your users are managed in Amazon Cognito.
 [source,sh,role=execute]
 ----
 oc delete user cluster-admin
-oc delete identity htpasswd:cluster-admin
+oc delete identity cluster-admin:cluster-admin
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
 user.user.openshift.io "cluster-admin" deleted
-identity.user.openshift.io "htpasswd:cluster-admin" deleted
+identity.user.openshift.io "cluster-admin:cluster-admin" deleted
 ----
 
 Congratulations!
@@ -444,4 +444,4 @@ Here you learned:
 
 * Configure Amazon Cognito to act as the ROSA identity provider
 * Configure your ROSA cluster to use Amazon Cognito for authentication
-* Grant your workshop user `cluster-admin` privileges in ROSA cluster
+* Grant your Cognito workshop user `cluster-admin` privileges in your ROSA cluster
