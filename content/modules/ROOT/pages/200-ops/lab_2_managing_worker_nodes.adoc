@@ -13,7 +13,7 @@ Here are some of the advantages of using ROSA Machine Pools to manage the size o
 
 Review the following digram to see the relationship between a Machine Pool, Machine Set, Machines, and Nodes.
 
-image:../media/scale_machinepool.png[scale_machinepool]
+image::/scale_machinepool.png[scale_machinepool]
 
 == Scaling worker nodes
 

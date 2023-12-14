@@ -22,23 +22,23 @@ This section of the workshop requires a personal https://github.com[GitHub] acco
 . Return to your tab with the OpenShift Web Console.
 . Using the menu on the left select *Operator \-> OperatorHub*.
 +
-image:../media/web-console-operatorhub-menu.png[Web Console - OperatorHub Sidebar]
+image::/web-console-operatorhub-menu.png[Web Console - OperatorHub Sidebar]
 
 . In the search box, search for "OpenShift Pipelines" and click on the _Red Hat OpenShift Pipelines_ box.
 +
-image:../media/web-console-operatorhub-openshift-pipelines.png[Web Console - OpenShift Pipelines Operator Selection]
+image::/web-console-operatorhub-openshift-pipelines.png[Web Console - OpenShift Pipelines Operator Selection]
 
 . Click on _Install_ on the page that appears.
 +
-image:../media/web-console-openshift-pipelines-simple-install.png[Web Console - OpenShift Pipelines Simple Install]
+image::/web-console-openshift-pipelines-simple-install.png[Web Console - OpenShift Pipelines Simple Install]
 
 . Select *pipelines-1.10* for the *Update channel* and accept the other defaults that are presented, then click on *Install* to install the operator.
 +
-image:../media/web-console-openshift-pipelines-detailed-install.png[Web Console - OpenShift Pipelines Detailed Install]
+image::/web-console-openshift-pipelines-detailed-install.png[Web Console - OpenShift Pipelines Detailed Install]
 
 . Allow the operator a few minutes to successfully install the OpenShift Pipelines operator into the cluster.
 +
-image:../media/web-console-openshift-pipelines-successful-install.png[Web Console - OpenShift Pipelines Successful Install]
+image::/web-console-openshift-pipelines-successful-install.png[Web Console - OpenShift Pipelines Successful Install]
 
 == Configure the GitHub integration
 
@@ -399,7 +399,7 @@ eventlistener.triggers.tekton.dev/minesweeper-el created
 
 . From the OpenShift console, under Pipelines, click on Triggers.
 . Browse the EventListener, TriggerTemplate and TriggerBindings that you just created.
-image:../media/ocp-triggers.png[Image]
+image::/ocp-triggers.png[Image]
 +
 The next thing we need to do, is connect our EventListener with Git.
 When an action, such as a git push, happens, git will need to call our EventListener to start the build and deploy process.
@@ -430,15 +430,15 @@ http://el-minesweeper-el-microsweeper-ex.apps.rosa-8wqxv.1yyt.p1.openshiftapps.c
 +
 From your browser, go to your personal GitHub rosa-workshop-app repository, and click on *Settings*.
 +
-image:../media/git-settings.png[Image]
+image::/git-settings.png[Image]
 
 . On the next screen, click on *Webhooks*.
 +
-image:../media/git-settings-webhook.png[Image]
+image::/git-settings-webhook.png[Image]
 
 . Click on the *Add Webhook* button.
 +
-image:../media/git-add-webhook.png[Image]
+image::/git-add-webhook.png[Image]
 
 . On the next screen, enter the following settings:
 
@@ -505,11 +505,11 @@ image::watch-pipeline.png[Image]
 . Once the pipeline finishes, check out the change.
 From the OpenShift Web Console, click on _Networking_ \-> _Routes_.
 +
-image:../media/route-2.png[Image]
+image::/route-2.png[Image]
 
 . You should see the updated application with a new title for the leaderboard!
 +
-image:../media/updated-minesweeper.png[Image]
+image::/updated-minesweeper.png[Image]
 
 Congratulations! You've successfully installed OpenShift Pipelines and used it to deploy an application.
 
