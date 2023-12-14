@@ -14,4 +14,3 @@ Welcome to the Building a Modern Application Platform workshop. In this workshop
 - Learn how to use OpenShift Service Mesh for application observability and tracing
 
 After completing this workshop, attendees will have a comprehensive understanding of key concepts related to architecting modern cloud application platforms and will have gained hands-on experience implementing key concepts directly within the lab's provided AWS infrastructure.
-

@@ -1,0 +1,11 @@
+name: modules
+title: ROSA Workshop
+version: master
+nav:
+- modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    lab_name: ROSA Workshop
+    release_version: master
+    page-pagination: true  
+    experimental: true
