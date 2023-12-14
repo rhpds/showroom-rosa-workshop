@@ -248,16 +248,16 @@ This section is for your information only. You do *not* have access to the OpenS
 . Log back into the https://console.redhat.com/openshift[OpenShift Cluster Manager].
 . In the Cluster section, locate your cluster and click on it.
 +
-image::../media/ocm-cluster-list.png[OCM - Cluster List]
+image::ocm-cluster-list.png[OCM - Cluster List]
 
 . Next, click on the _Machine pools_ tab.
 +
-image::../media/ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]
+image::ocm-cluster-detail-overview.png[OCM - Cluster Detail Overview]
 
 . Next, click on the ⋮ icon beside the _Default_ machine pool, and select _Scale_.
 +
-image::../media/ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]
+image::ocm-machine-pool-three-dots.png[OCM - Machine Pool Menu]
 
 . Finally, check the _Enable autoscaling_ checkbox, and set the minimum to `1` and maximum to `2`, then click _Apply_.
 +
-image::../media/ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]
+image::ocm-machine-pool-scale-menu.png[OCM - Machine Pool Scale Menu]

@@ -48,12 +48,12 @@ image:../media/web-console-openshift-pipelines-successful-install.png[Web Consol
 
 . Ensure you are logged in to GitHub and select the _Fork_ button for *both* repositories and then choose your own GitHub account.
 +
-image::../media/github-fork.png[GitHub Repository Fork]
+image::github-fork.png[GitHub Repository Fork]
 
 . Next, browse to https://github.com/settings/tokens/new and create a new GitHub Personal Access Token.
 Use *rosa-workshop* for the Name, set the *Expiration* to `7 Days` and the *Scope* to "repo" and click _Generate Token_.
 +
-image::../media/github-personal-access-token.png[GitHub Personal Access Token]
+image::github-personal-access-token.png[GitHub Personal Access Token]
 +
 [WARNING]
 ====
@@ -300,7 +300,7 @@ Make sure your Project is set to ``microsweeper-ex``
 
 . From the OpenShift Web Console, click on *Pipelines* \-> *Tasks*.
 +
-image::../media/pipeline-tasks-ocp.png[Image]
+image::pipeline-tasks-ocp.png[Image]
 +
 Notice the 5 tasks that we imported and click into them to view the YAML definitions.
 
@@ -309,16 +309,16 @@ Click on *Pipelines*.
 Notice that it is either still running, or the last run was successful.
 Click on _maven-pipeline_ to view the pipeline details.
 +
-image::../media/pipeline-ocp.png[Image]
+image::pipeline-ocp.png[Image]
 
 . On the following screen, click on *PipelineRuns* to view the status of each Pipeline Run.
 +
-image::../media/pipeline-run-ocp.png[Image]
+image::pipeline-run-ocp.png[Image]
 
 . Lastly, click on the *PipelineRun* name and you can see all the details and steps of the pipeline.
 If your are curious, you can also view the logs of the different tasks that were run.
 +
-image::../media/pipeline-run-details-ocp.png[Image]
+image::pipeline-run-details-ocp.png[Image]
 
 . Watch the PipelineRun page as the tasks complete and the PipelineRun finishes.
 
@@ -470,7 +470,7 @@ If you remember in the previous step, we created this secret and used your git t
 
 . Keep the remaining defaults, and click _Add webhook_.
 +
-image::../media/add-webhook.png[Image]
+image::add-webhook.png[Image]
 
 === Test the Event Triggering
 
@@ -486,7 +486,7 @@ cd ~/gitops/rosa-workshop-app
 vim src/main/resources/META-INF/resources/index.html
 ----
 +
-image::../media/html-edit.png[Image]
+image::html-edit.png[Image]
 
 . Now commit and push the change:
 +
@@ -500,7 +500,7 @@ git push
 +
 Quickly switch over to your OpenShift Web Console, and watch the pipeline run.
 +
-image::../media/watch-pipeline.png[Image]
+image::watch-pipeline.png[Image]
 
 . Once the pipeline finishes, check out the change.
 From the OpenShift Web Console, click on _Networking_ \-> _Routes_.

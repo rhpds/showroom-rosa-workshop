@@ -132,30 +132,30 @@ This section is for your information only. You do *not* have access to the OpenS
 . Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
 . In the _Clusters_ section, locate your cluster and click on it.
 +
-image::../media/ocm-cluster-list.png[OCM - Cluster List]
+image::ocm-cluster-list.png[OCM - Cluster List]
 
 . Next, click on the _Settings_ tab.
 +
-image::../media/ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]
+image::ocm-cluster-detail-overview-settings.png[OCM - Cluster Detail Overview Settings]
 
 . Next, select the _Update_ button in the _Update status_ sidebar.
 +
-image::../media/ocm-update-status.png[OCM - Update Status]
+image::ocm-update-status.png[OCM - Update Status]
 
 . Now, you're presented with a number of versions.
 For this exercise, we'll select the recommended version, and then hit _Next_.
 +
-image::../media/ocm-update-version-select.png[OCM - Update Version Select]
+image::ocm-update-version-select.png[OCM - Update Version Select]
 
 . Next, choose to _Schedule a different time_ and change the date box to 1 day from now, then select _Next_.
 +
-image::../media/ocm-update-schedule-select.png[OCM - Update Schedule Select]
+image::ocm-update-schedule-select.png[OCM - Update Schedule Select]
 
 . Finally, select the _Confirm Update_ button and then the _Close_ button.
 +
-image::../media/ocm-update-confirm.png[OCM - Update Confirm]
+image::ocm-update-confirm.png[OCM - Update Confirm]
 +
-image::../media/ocm-update-close.png[OCM - Update Close]
+image::ocm-update-close.png[OCM - Update Close]
 
 Congratulations!
 
