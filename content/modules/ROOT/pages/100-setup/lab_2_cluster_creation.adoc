@@ -13,9 +13,9 @@ THIS PAGE IS INCLUDED FOR INFORMATIONAL PURPOSES ONLY!
 
 Your cluster pre-provisioned and accessible at:
 
-ROSA Console URL: {rosa_console_url}
+ROSA Console URL: {rosa_console_url}[ROSA Console URL,window=_blank]
 
-Please continue to link:./4-access-cluster[Create an Admin User].
+Please continue to link:./lab_4_access_cluster[Create an Admin User].
 ====
 
 endif::[]
