@@ -137,7 +137,7 @@ EOF
 application.argoproj.io/bgd-app created
 ----
 
-. Find the URL for your Argo CD dashboard, copy it to your web browser and log in using your OpenShift credentials (remind yourself what your password for user `admin` is by typing `echo ${COGNITO_ADMIN_PASSWORD}`)
+. Find the URL for your Argo CD dashboard, copy it to your web browser and log in using your OpenShift credentials (remind yourself what your password for user `admin` is by typing `echo $COGNITO_ADMIN_PASSWORD` - `{rosa_user_password}-2@23` if you accepted the default)
 +
 [source,sh,role=execute]
 ----
