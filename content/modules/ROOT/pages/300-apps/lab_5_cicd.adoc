@@ -32,7 +32,7 @@ image::/web-console-operatorhub-openshift-pipelines.png[Web Console - OpenShift 
 +
 image::/web-console-openshift-pipelines-simple-install.png[Web Console - OpenShift Pipelines Simple Install]
 
-. Select *pipelines-1.10* for the *Update channel* and accept the other defaults that are presented, then click on *Install* to install the operator.
+. Select *pipelines-1.13* for the *Update channel* and accept the other defaults that are presented, then click on *Install* to install the operator.
 +
 image::/web-console-openshift-pipelines-detailed-install.png[Web Console - OpenShift Pipelines Detailed Install]
 

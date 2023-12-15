@@ -212,7 +212,7 @@ quarkus --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-3.3.2
+3.6.3
 ----
 
 . Now, let's clone the application from GitHub.
@@ -406,6 +406,11 @@ echo "http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpa
 ----
 http://microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
++
+[WARNING]
+====
+This is an `http` URL. Some browsers (Chrome) replace `http` with `https` automatically which will result in a application not available error. Either use another browser or fix the URL manually in the URL bar.
+====
 
 === Application IP
 

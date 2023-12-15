@@ -19,7 +19,7 @@ OpenShift and OpenShift GitOps:
 
 . From the OpenShift Console Administrator view click through *HOME* \-> *Operators* \-> *Operator Hub*, search for "openshift gitops" and click *Install*.
 +
-For the update channel select *gitops-1.8*. Leave all other defaults and click *Install*.
+For the update channel select *gitops-1.11*. Leave all other defaults and click *Install*.
 +
 image::gitops_operator.png[OpenShift Web Console - OpenShift GitOps in OperatorHub]
 
@@ -52,7 +52,7 @@ to build a new example application in Ruby. Or use kubectl to deploy a simple Ku
 ----
 cat <<EOF | oc apply -f -
 ---
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1beta1
 kind: ArgoCD
 metadata:
   name: argocd

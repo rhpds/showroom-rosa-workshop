@@ -320,8 +320,7 @@ oauth-openshift-7766df68c8-bj777   1/1     Running   0    	58s
 If you do not see the *Cognito* option wait a few seconds and refresh the screen.
 ====
 
-. Click on *Cognito* and use the userid `admin` with password `{rosa_user_password}-2@23`. You will be prompted to change your password. You can either use a new password or just enter the existing password two more times.
-Select that, and log in using your workshop AWS credentials.
+. Click on *Cognito* and use the userid `admin` with password `{rosa_user_password}-2@23`. You will be prompted to change your password. Just enter the existing password two more times.
 
 . Let's give Cluster Admin permissions to your Amazon Cognito admin.
 +
@@ -344,7 +343,7 @@ cluster-admin             301ada8a-3348-465f-8506-31e1c6ae0db1                  
 In the example above you can see the two admin users that we have created: the `cluster-admin` which is managed by htpasswd and the `admin` user that is managed by Cognito. You will also see the `backplane-cluster-admin` that Red Hat SREs are using.
 . Save your admin user password in a variable:
 +
-[source,sh,role=execute]
+[source,sh,role=execute,subs=attributes]
 ----
 export COGNITO_ADMIN_PASSWORD={rosa_user_password}-2@23
 ----
