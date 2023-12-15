@@ -46,7 +46,7 @@ Save the admin password in your `.bashrc`
 +
 [source,sh,role=execute]
 ----
-echo "export ADMIN_PASSWORD=${ADMIN_PASSWORD}" >>$HOME/.bashrc
+echo "export ADMIN_PASSWORD=$ADMIN_PASSWORD" >>$HOME/.bashrc
 ----
 
 . Copy the login command returned to you in the previous step and paste that into your terminal. This should log you into the cluster via the CLI so you can start using the cluster (answer `y` when prompted if you want to accept the certificate).
@@ -127,7 +127,7 @@ https://console-openshift-console.apps.rosa-z8ssd.ls3a.p1.openshiftapps.com/
 
 . Next, open the printed URL in a web browser.
 . Click on the `cluster-admin` identity provider.
-. Enter the username (`cluster-admin`) and password from the previous section (use `echo ${ADMIN_PASSWORD}` to remind yourself what the password is in case you forgot).
+. Enter the username (`cluster-admin`) and password from the previous section (use `echo $ADMIN_PASSWORD` to remind yourself what the password is in case you forgot).
 +
 If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.
 

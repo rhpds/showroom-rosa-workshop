@@ -45,7 +45,7 @@ aws cognito-idp create-user-pool --pool-name rosa-${GUID} --auto-verified-attrib
 ----
 export AWS_USER_POOL_ID=$(aws cognito-idp list-user-pools --max-results 1 | jq -r .UserPools[0].Id)
 
-echo ${AWS_USER_POOL_ID}
+echo $AWS_USER_POOL_ID
 ----
 +
 .Sample Output
@@ -60,7 +60,7 @@ us-east-2_Z91VxhckZ
 ----
 aws cognito-idp create-user-pool-domain \
   --domain "rosa-${GUID}" \
-  --user-pool-id ${AWS_USER_POOL_ID}
+  --user-pool-id $AWS_USER_POOL_ID
 ----
 
 . The next step is to create users in the user pool. You probably want a special user to be designated as cluster admin as well as a few regular users.
@@ -70,7 +70,7 @@ First let's create an admin user for our cluster:
 [source,sh,role=execute,subs=attributes]
 ----
 aws cognito-idp admin-create-user \
-  --user-pool-id ${AWS_USER_POOL_ID} \
+  --user-pool-id $AWS_USER_POOL_ID \
   --username admin \
   --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="Cluster Administrator" Name="email",Value="admin@rosaworkshop.com" Name="email_verified",Value="true" \
@@ -114,14 +114,14 @@ aws cognito-idp admin-create-user \
 [source,sh,role=execute,subs=attributes]
 ----
 aws cognito-idp admin-create-user \
-  --user-pool-id ${AWS_USER_POOL_ID} \
+  --user-pool-id $AWS_USER_POOL_ID \
   --username user1 \
   --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="User 1" Name="email",Value="user1@rosaworkshop.com" Name="email_verified",Value="true" \
   --message-action SUPPRESS
 
 aws cognito-idp admin-create-user \
-  --user-pool-id ${AWS_USER_POOL_ID} \
+  --user-pool-id $AWS_USER_POOL_ID \
   --username user2 \
   --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="User 2" Name="email",Value="user2@rosaworkshop.com" Name="email_verified",Value="true" \
@@ -153,7 +153,7 @@ Take a note of that URL - you will need it in the next section.
 [source,sh,role=execute]
 ----
 aws cognito-idp create-user-pool-client \
-  --user-pool-id ${AWS_USER_POOL_ID} \
+  --user-pool-id $AWS_USER_POOL_ID \
   --client-name rosa-${GUID} \
   --generate-secret \
   --supported-identity-providers COGNITO \
@@ -178,9 +178,9 @@ aws cognito-idp create-user-pool-client \
 +
 [source,sh,role=execute]
 ----
-export AWS_USER_POOL_CLIENT_ID=$(aws cognito-idp list-user-pool-clients --user-pool-id ${AWS_USER_POOL_ID} | jq -r .UserPoolClients[0].ClientId)
+export AWS_USER_POOL_CLIENT_ID=$(aws cognito-idp list-user-pool-clients --user-pool-id $AWS_USER_POOL_ID | jq -r .UserPoolClients[0].ClientId)
 
-export AWS_USER_POOL_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client --user-pool-id ${AWS_USER_POOL_ID} --client-id ${AWS_USER_POOL_CLIENT_ID} | jq -r .UserPoolClient.ClientSecret)
+export AWS_USER_POOL_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client --user-pool-id $AWS_USER_POOL_ID --client-id ${AWS_USER_POOL_CLIENT_ID} | jq -r .UserPoolClient.ClientSecret)
 ----
 
 . Double check the variables contain the same values as the command output from when you created the user pool client:
