@@ -7,36 +7,6 @@ This includes a %aws_web_console_url%[Amazon Web Services (AWS)] account, and ma
 
 ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
 
-== Connect to your bastion VM
-
-. In the terminal window to the right connect to the bastion VM (you can also just click the command below to have it copied and executed automatically):
-+
-[TIP]
-====
-Answer `yes` when asked if to accept the host key.
-
-The password for the user %rosa_bastion_user_name% is `%rosa_user_password%`
-====
-+
-[source,sh,role=execute]
-----
-ssh %rosa_bastion_user_name%@bastion.%rosa_subdomain_base%
-----
-+
-.Click in the box below to copy and paste the string `yes` to your terminal:
-+
-[source,sh,role=execute]
-----
-yes
-----
-+
-.Click in the box below to copy and paste the password to your terminal:
-+
-[source,sh,role=execute]
-----
-%rosa_user_password%
-----
-
 === Validate installed tools
 
 You will be using the `rosa`, `aws` and `oc` command line tools throughout this lab.
@@ -51,7 +21,7 @@ rosa version
 .Sample Output
 [source,texinfo]
 ----
-1.2.26
+1.2.32
 Your ROSA CLI is up to date.
 ----
 
@@ -65,7 +35,7 @@ aws --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-aws-cli/2.13.20 Python/3.11.5 Linux/5.14.0-284.30.1.el9_2.x86_64 exe/x86_64.rhel.9 prompt/off
+aws-cli/2.15.1 Python/3.11.6 Linux/5.14.0-362.8.1.el9_3.x86_64 exe/x86_64.rhel.9 prompt/off
 ----
 
 . Verify that the `aws` command line tool is configured correctly:

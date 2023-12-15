@@ -18,36 +18,24 @@ oc version
 .Sample Output
 [source,text,options=nowrap]
 ----
-Client Version: 4.13.4
+Client Version: 4.13.24
 Kustomize Version: v4.5.7
-Server Version: 4.13.0
-Kubernetes Version: v1.26.3+b404935
+Server Version: 4.13.24
+Kubernetes Version: v1.26.9+aa37255
 ----
 
 . Find out the available versions:
 +
 [source,sh,role=execute]
 ----
-oc adm upgrade
+rosa list upgrades --cluster rosa-${GUID}
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-Cluster version is 4.13.0
-
-Upgradeable=False
-
-  Reason: MissingUpgradeableAnnotation
-  Message: Cluster operator cloud-credential should not be upgraded between minor versions: Upgradeable annotation cloudcredential.openshift.io/upgradeable-to on cloudcredential.operator.openshift.io/cluster object needs updating before upgrade. See Manually Creating IAM documentation for instructions on preparing a cluster for upgrade.
-
-Upstream is unset, so the cluster will use an appropriate default.
-Channel: stable-4.13 (available channels: candidate-4.13, candidate-4.14, fast-4.13, stable-4.13)
-
-Recommended updates:
-
-  VERSION     IMAGE
-  4.13.11     quay.io/openshift-release-dev/ocp-release@sha256:e1c2377fdae1d063aaddc753b99acf25972b6997ab9a0b7e80cfef627b9ef3dd
+VERSION  NOTES
+4.13.25  recommended
 ----
 +
 [NOTE]
@@ -73,13 +61,13 @@ echo Date: ${UPGRADE_DATE}, Time: ${UPGRADE_TIME}
 Date: 2023-04-18, Time: 19:51
 ----
 
-. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.13.4`) - answer `y` when prompted if you really want to upgrade.
+. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.13.25`) - answer `y` when prompted if you really want to upgrade.
 +
 [source,sh,role=execute]
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.13.11 \
+  --version 4.13.25 \
   --mode auto \
   --schedule-date ${UPGRADE_DATE} \
   --schedule-time ${UPGRADE_TIME}

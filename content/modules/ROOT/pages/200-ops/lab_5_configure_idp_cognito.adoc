@@ -67,12 +67,12 @@ aws cognito-idp create-user-pool-domain \
 +
 First let's create an admin user for our cluster:
 +
-[source,sh,role=execute]
+[source,sh,role=execute,subs=attributes]
 ----
 aws cognito-idp admin-create-user \
   --user-pool-id ${AWS_USER_POOL_ID} \
   --username admin \
-  --temporary-password %rosa_user_password%-2@23 \
+  --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="Cluster Administrator" Name="email",Value="admin@rosaworkshop.com" Name="email_verified",Value="true" \
   --message-action SUPPRESS
 ----
@@ -111,19 +111,19 @@ aws cognito-idp admin-create-user \
 
 . Now create two more users (output not shown below):
 +
-[source,sh,role=execute]
+[source,sh,role=execute,subs=attributes]
 ----
 aws cognito-idp admin-create-user \
   --user-pool-id ${AWS_USER_POOL_ID} \
   --username user1 \
-  --temporary-password %rosa_user_password%-2@23 \
+  --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="User 1" Name="email",Value="user1@rosaworkshop.com" Name="email_verified",Value="true" \
   --message-action SUPPRESS
 
 aws cognito-idp admin-create-user \
   --user-pool-id ${AWS_USER_POOL_ID} \
   --username user2 \
-  --temporary-password %rosa_user_password%-2@23 \
+  --temporary-password {rosa_user_password}-2@23 \
   --user-attributes Name=name,Value="User 2" Name="email",Value="user2@rosaworkshop.com" Name="email_verified",Value="true" \
   --message-action SUPPRESS
 ----
@@ -320,7 +320,7 @@ oauth-openshift-7766df68c8-bj777   1/1     Running   0    	58s
 If you do not see the *Cognito* option wait a few seconds and refresh the screen.
 ====
 
-. Click on *Cognito* and use the userid `admin` with password `%rosa_user_password%-2@23`. You will be prompted to change your password. You can either use a new password or just enter the existing password two more times.
+. Click on *Cognito* and use the userid `admin` with password `{rosa_user_password}-2@23`. You will be prompted to change your password. You can either use a new password or just enter the existing password two more times.
 Select that, and log in using your workshop AWS credentials.
 
 . Let's give Cluster Admin permissions to your Amazon Cognito admin.
@@ -346,7 +346,7 @@ In the example above you can see the two admin users that we have created: the `
 +
 [source,sh,role=execute]
 ----
-export COGNITO_ADMIN_PASSWORD=%rosa_user_password%-2@23
+export COGNITO_ADMIN_PASSWORD={rosa_user_password}-2@23
 ----
 
 . Save the variable to your `.bashrc`
