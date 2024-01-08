@@ -61,7 +61,7 @@ echo Date: ${UPGRADE_DATE}, Time: ${UPGRADE_TIME}
 Date: 2023-04-18, Time: 19:51
 ----
 
-. Now schedule the cluster upgrade to the latest version that is shown in the list of available versions (in the example above that is `4.13.25`) - answer `y` when prompted if you really want to upgrade.
+. Now schedule the cluster upgrade to a version  shown in the list of available versions you found earlier (in the example above that is `4.13.25`) - answer `y` when prompted if you really want to upgrade. To be clear, you will need to change the value specified in the `--version` line below to be something from the `list upgrades` command you ran before.
 +
 [source,sh,role=execute]
 ----
@@ -90,17 +90,17 @@ Congratulations! You've successfully scheduled an upgrade of your cluster for to
 
 === Red Hat OpenShift Upgrade Graph Tool
 
-Occasionally, you may be not be able to go directly from your current version to a desired version. In these cases, you must first upgrade your cluster from your current version, to an intermediary version, and then to your desired version. To help you navigate these decisions, you can take advantage of the https://access.redhat.com/labs/ocpupgradegraph/update_path_rosa[Red Hat OpenShift Upgrade Graph Tool].
+Occasionally, you may be not be able to go directly from your current version to a desired version. In these cases, you must first upgrade your cluster from your current version, to an intermediary version, and then to your desired version. To help you navigate these decisions, you can take advantage of the https://access.redhat.com/labs/ocpupgradegraph/update_path_rosa[Red Hat OpenShift Upgrade Graph Tool] (Red Hat portal login required).
 
-image::/rosa_upgrade_graph.png[ROSA Upgrade Graph Tool Screenshot]
+image::/rosa_upgrade_graph.png[ROSA Upgrade Graph Tool Screenshot,window=_blank]
 
 In this scenario to upgrade your cluster from version 4.11.0 to 4.12.15, you must first upgrade to 4.11.39, then you can upgrade to 4.12.15. The ROSA Upgrade Graph Tool helps you easily see which version you should upgrade to.
 
 === Links to Documentation
 
-* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Upgrading ROSA clusters with STS]
-* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html#rosa-upgrade-ocm_rosa-upgrading-sts[Scheduling individual upgrades through the OpenShift Cluster Manager console]
-* https://docs.openshift.com/container-platform/latest/updating/understanding_updates/understanding-update-channels-release.html[Understanding update channels and releases]
+* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html[Upgrading ROSA clusters with STS,window=_blank]
+* https://docs.openshift.com/rosa/upgrading/rosa-upgrading-sts.html#rosa-upgrade-ocm_rosa-upgrading-sts[Scheduling individual upgrades through the OpenShift Cluster Manager console,window=_blank]
+* https://docs.openshift.com/container-platform/latest/updating/understanding_updates/understanding-update-channels-release.html[Understanding update channels and releases,window=_blank]
 
 == Summary
 
@@ -114,10 +114,10 @@ Here you learned:
 
 [WARNING]
 ====
-This section is for your information only. You do *not* have access to the OpenShift Cluster Manager. Feel free to read through these instructions to understand how to do it via the console - or skip to the next section.
+This section is for your information only. You do *not* have access to the OpenShift Cluster Manager for this cluster. Feel free to read through these instructions to understand how to schedule updates in OCM - or skip to the next section if you're ready for more.
 ====
 
-. Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here].
+. Log back into the OpenShift Cluster Manager by https://console.redhat.com/openshift[clicking here,window=_blank].
 . In the _Clusters_ section, locate your cluster and click on it.
 +
 image::ocm-cluster-list.png[OCM - Cluster List]
