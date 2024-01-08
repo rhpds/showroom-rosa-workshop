@@ -16,7 +16,7 @@ Your pre-provisioned cluster is accessible at:
 
 ROSA Console URL: {rosa_console_url}[ROSA Console URL,window=_blank]
 
-To continue the lab please follow this link for the next section:./lab_4_access_cluster.html[Create an Admin User].
+To continue the lab please follow this link for the next section: ./lab_4_access_cluster.html[Create an Admin User].
 ====
 
 endif::[]
