@@ -36,7 +36,7 @@ Save the login command somewhere. Also take note of the password for your `clust
 
 . Save an environment variable for your admin password (copy the password from above making sure to copy the *entire* password):
 +
-.Note this box will not automatically copy the command for you. You need to write the command yourself.
+.Note this box will not automatically copy the command for you. You need to write the command yourself using the password from your environment.
 [source,sh]
 ----
 export ADMIN_PASSWORD=cD4xo-AnanH-DvB6L-6yndM
@@ -129,6 +129,6 @@ https://console-openshift-console.apps.rosa-z8ssd.ls3a.p1.openshiftapps.com/
 . Click on the `cluster-admin` identity provider.
 . Enter the username (`cluster-admin`) and password from the previous section (use `echo $ADMIN_PASSWORD` to remind yourself what the password is in case you forgot).
 +
-If you don't see an error, congratulations! You're now logged into the cluster and ready to move on to the workshop content.
+Congratulations! You're now logged into the cluster and ready to move on to the workshop content.
 
-If you have any issues please content your lab instructors who can help you out!
+If you have any issues please content your lab instructors who can help you out.

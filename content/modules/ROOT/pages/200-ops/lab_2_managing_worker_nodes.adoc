@@ -2,7 +2,7 @@
 
 When deploying your ROSA cluster, you can configure many aspects of your worker nodes, but what happens when you need to change your worker nodes after they've already been created? These activities include scaling the number of nodes, changing the instance type, adding labels or taints, just to name a few.
 
-Many of these changes are done using Machine Pools. Machine Pools ensure that a specified number of Machine replicas are running at any given time. Think of a Machine Pool as a "template" for the kinds of Machines that make up the worker nodes of your cluster. If you'd like to learn more, see the https://docs.openshift.com/rosa/rosa_cluster_admin/rosa_nodes/rosa-managing-worker-nodes.html[Red Hat documentation on worker node management].
+Many of these changes are done using Machine Pools. Machine Pools ensure that a specified number of Machine replicas are running at any given time. Think of a Machine Pool as a "template" for the kinds of Machines that make up the worker nodes of your cluster. If you'd like to learn more, see the https://docs.openshift.com/rosa/rosa_cluster_admin/rosa_nodes/rosa-managing-worker-nodes.html[Red Hat documentation on worker node management,window=_blank].
 
 Here are some of the advantages of using ROSA Machine Pools to manage the size of your cluster
 
@@ -194,6 +194,7 @@ I: Successfully deleted machine pool 'workshop' from cluster 'rosa-6n4s8'
 ----
 rosa list machinepools -c rosa-${GUID}
 ----
++
 .Sample Output
 [source,text,options=nowrap]
 ----
@@ -208,6 +209,6 @@ You've successfully scaled your cluster up and back down to two worker nodes.
 
 Here you learned:
 
-* Creating new Machine Pool for your ROSA cluster to add additional nodes to the cluster
+* Creating a new Machine Pool for your ROSA cluster to add additional nodes to the cluster
 * Scaling your new Machine Pool up to add more nodes to the cluster
 * Scaling your Machine Pool down to remove worker nodes from the cluster

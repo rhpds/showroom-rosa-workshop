@@ -1,6 +1,6 @@
 == Introduction
 
-https://aws.amazon.com/cognito/[Amazon Cognito] is a fully managed authentication, authorization, and user management service provided by Amazon Web Services (AWS). It simplifies the process of adding user sign-up, sign-in, and access control to your ROSA Cluster.
+https://aws.amazon.com/cognito/[Amazon Cognito,window=_blank] is a fully managed authentication, authorization, and user management service provided by Amazon Web Services (AWS). It simplifies the process of adding user sign-up, sign-in, and access control to your ROSA Cluster.
 Integrating ROSA cluster with Amazon Cognito simplifies user authentication, provides secure access control, supports federated identity and SSO, and enables centralized user management and audit trails
 
 As part of the previous lab, we created a temporary cluster-admin user using the `rosa create admin` command.
@@ -273,13 +273,13 @@ oc get oauth cluster -o json | jq .spec.identityProviders
       }
     },
     "mappingMethod": "claim",
-    "name": "htpasswd",
+    "name": "cluster-admin",
     "type": "HTPasswd"
   }
 ]
 ----
 +
-You will notice that there are two authentication providers configured: Cognito and htpasswd. The htpasswd authentication provider got added when you added the admin user in a previous lab. In the last step of this lab you will clean that up.
+You will notice that there are two authentication providers configured: Cognito and HTPasswd. The HTPasswd authentication provider got added when you added the admin user in a previous lab. In the last step of this lab you will clean that up.
 
 . To display just the names of the configured identity providers use this command:
 +
@@ -292,7 +292,7 @@ oc get oauth cluster -o json | jq -r '.spec.identityProviders[].name'
 [source,text,options=nowrap]
 ----
 Cognito
-htpasswd
+cluster-admin
 ----
 
 . It will take a few minutes for the authentication operator to redeploy the authentication pods. Watch the pods until all three pods have been updated - when all three pods are running again (with an age of less than a few minutes) hit `Ctrl-C` to stop the watch:
@@ -313,8 +313,11 @@ oauth-openshift-7766df68c8-5zdnc   1/1     Running   0    	30s
 oauth-openshift-7766df68c8-bj777   1/1     Running   0    	58s
 ----
 
-. Logout from your OpenShift Web Console and browse back to the Console URL (`rosa describe cluster -c rosa-${GUID} -o json | jq -r '.console.url'` if you have forgotten it) and you should see a new option to login called *Cognito*.
+. Logout from your OpenShift Web Console and browse back to the Console URL (`rosa describe cluster -c rosa-{GUID} -o json | jq -r '.console.url'` if you have forgotten it) and you should see a new option to login called *Cognito*.
 +
+
+image::/cognito-login.png[Cognito Login Screen]
+
 [TIP]
 ====
 If you do not see the *Cognito* option wait a few seconds and refresh the screen.
