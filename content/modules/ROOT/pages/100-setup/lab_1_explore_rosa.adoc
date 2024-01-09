@@ -3,7 +3,7 @@
 Your environment has already been set up and with the tools you need to work with ROSA and AWS.
 
 Your workshop environment consists of several components which have been pre-configured and are ready to use.
-This includes a %aws_web_console_url%[Amazon Web Services (AWS)] account, and many other supporting resources.
+This includes an Amazon Web Services (AWS) account, and many other supporting resources.
 
 ROSA is enabled on the AWS account used for this lab - and the ROSA CLI as well as AWS CLI tools are installed and configured on your bastion VM.
 
