@@ -2,7 +2,7 @@
 
 NetworkPolicies are used to control and secure communication between pods within a cluster. They provide a declarative approach to define and enforce network traffic rules, allowing you to specify the desired network behavior. By using NetworkPolicies, you can enhance the overall security of your applications by isolating and segmenting different components within the cluster. These policies enable fine-grained control over network access, allowing you to define ingress and egress rules based on criteria such as IP addresses, ports, and pod selectors.
 
-For this module we will be applying networkpolices to the previously created 'microsweeper-ex' namespace and using the 'microsweeper' app to test these policies. In addition, we will deploy two new applications to test against the 'microsweeper app
+For this module we will be applying networkpolices to the previously created 'microsweeper-ex' namespace and using the 'microsweeper' app to test these policies. In addition, we will deploy two new applications to test against the 'microsweeper' app
 
 . Create a new project and a new app. We will be using this pod for testing network connectivity to the microsweeper application
 +
@@ -215,7 +215,7 @@ Hit Ctrl-C to avoid waiting for a timeout.
 
 [INFO]
 ====
-For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/latest/networking/network_policy/default-network-policy.html[modifying the default project template].
+For information on setting default network policies for new projects you can read the OpenShift documentation on https://docs.openshift.com/container-platform/latest/networking/network_policy/default-network-policy.html[modifying the default project template,window=_blank].
 ====
 
 == Summary
