@@ -4,7 +4,7 @@ Red Hat OpenShift Service Mesh requires the following four Operators:
 
 [WARNING]
 ====
-Before moving on, ensure you have deployed all four of these operators.
+Before moving on, ensure you have deployed all four of these operators; you'll find the steps to do so below.
 ====
 
 * *OpenShift Elasticsearch Operator* - Provides database storage for tracing and logging with the distributed tracing platform.
@@ -46,9 +46,9 @@ Community versions of the Operators are not supported.
 +
 image::operatorhub-click-install.png[Operator Install]
 
-* The OpenShift Elasticsearch Operator is installed in the `openshift-operators-redhat` namespace and is available for all namespaces in the cluster.
-* The Red Hat OpenShift distributed tracing platform is installed in the `openshift-distributed-tracing` namespace and is available for all namespaces in the cluster.
-* The Kiali and Red Hat OpenShift Service Mesh Operators are installed in the `openshift-operators` namespace and are available for all namespaces in the cluster.
+* The **OpenShift Elasticsearch Operator** is installed in the `openshift-operators-redhat` namespace and is available for all namespaces in the cluster.
+* The **Red Hat OpenShift distributed tracing platform** is installed in the `openshift-distributed-tracing` namespace and is available for all namespaces in the cluster.
+* The **Kiali Operator (Provided by Red Hat)** and **Red Hat OpenShift Service Mesh** operators are installed in the `openshift-operators` namespace and are available for all namespaces in the cluster.
 
 . After all you have installed all four Operators, click *Operators → Installed Operators* to verify that your Operators installed.
 +
