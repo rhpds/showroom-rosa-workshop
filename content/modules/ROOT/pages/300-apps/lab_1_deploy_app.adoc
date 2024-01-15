@@ -212,7 +212,7 @@ quarkus --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-3.6.3
+3.6.5
 ----
 
 . Now, let's clone the application from GitHub.
@@ -305,7 +305,7 @@ Return to your OpenShift Web Console.
 
 [NOTE]
 ====
-Reminder that you can get the URL and adming password by running the following commands:
+Reminder that you can get the URL and `admin`` password by running the following commands:
 [source,sh,role=execute]
 ----
 oc whoami --show-console
@@ -406,7 +406,7 @@ echo "http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpa
 ----
 http://microsweeper-appservice-microsweeper-ex.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 ----
-+
+
 [WARNING]
 ====
 This is an `http` URL. Some browsers (Chrome) replace `http` with `https` automatically which will result in a application not available error. Either use another browser or fix the URL manually in the URL bar.

@@ -30,7 +30,7 @@ rosa list machinepools -c rosa-${GUID}
 [source,text,options=nowrap]
 ----
 ID       AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONES    SUBNETS    SPOT INSTANCES
-Default  No           2         m5.xlarge                          us-east-2a                       N/A
+Default  No           2         m6a.xlarge                         us-east-2a                       N/A
 ----
 +
 . Now, let's take a look at the MachineSets inside of the ROSA cluster that have been created according to the instructions provided by the above MachinePools. To do so, run the following command:
@@ -64,11 +64,11 @@ oc -n openshift-machine-api get machine
 NAME                                       PHASE     TYPE         REGION      ZONE         AGE
 rosa-6n4s8-7hbhw-infra-us-east-2a-bgr86    Running   r5.xlarge    us-east-2   us-east-2a   22h
 rosa-6n4s8-7hbhw-infra-us-east-2a-xthr6    Running   r5.xlarge    us-east-2   us-east-2a   22h
-rosa-6n4s8-7hbhw-master-0                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
-rosa-6n4s8-7hbhw-master-1                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
-rosa-6n4s8-7hbhw-master-2                  Running   m5.2xlarge   us-east-2   us-east-2a   23h
-rosa-6n4s8-7hbhw-worker-us-east-2a-xc8g2   Running   m5.xlarge    us-east-2   us-east-2a   22h
-rosa-6n4s8-7hbhw-worker-us-east-2a-zxm8j   Running   m5.xlarge    us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-master-0                  Running   m6a.2xlarge  us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-1                  Running   m6a.2xlarge  us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-master-2                  Running   m6a.2xlarge  us-east-2   us-east-2a   23h
+rosa-6n4s8-7hbhw-worker-us-east-2a-xc8g2   Running   m6a.xlarge   us-east-2   us-east-2a   22h
+rosa-6n4s8-7hbhw-worker-us-east-2a-zxm8j   Running   m6a.xlarge   us-east-2   us-east-2a   22h
 ----
 +
 For this workshop, we've deployed your ROSA cluster with seven total machines (two workers, three control planes, and two infrastructure nodes).

@@ -18,10 +18,10 @@ oc version
 .Sample Output
 [source,text,options=nowrap]
 ----
-Client Version: 4.13.24
+Client Version: 4.13.26
 Kustomize Version: v4.5.7
-Server Version: 4.13.24
-Kubernetes Version: v1.26.9+aa37255
+Server Version: 4.13.26
+Kubernetes Version: v1.26.11+7dfc52e
 ----
 
 . Find out the available versions:
@@ -35,7 +35,7 @@ rosa list upgrades --cluster rosa-${GUID}
 [source,text,options=nowrap]
 ----
 VERSION  NOTES
-4.13.25  recommended
+4.13.27  recommended
 ----
 +
 [NOTE]
