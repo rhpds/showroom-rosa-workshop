@@ -212,7 +212,7 @@ quarkus --version
 .Sample Output
 [source,text,options=nowrap]
 ----
-3.6.5
+3.7.2
 ----
 
 . Now, let's clone the application from GitHub.
