@@ -5,7 +5,7 @@ OpenShift GitOps enables customers to build and integrate declarative git driven
 
 There's no single tool that converts a development pipeline to "DevOps". By implementing a GitOps framework, updates and changes are pushed through declarative code, automating infrastructure and deployment requirements, and CI/CD.
 
-OpenShift GitOps takes advantage of https://argoproj.github.io/cd[Argo CD] and integrates it into Red Hat OpenShift to deliver a consistent, fully supported, declarative Kubernetes platform to configure and use with GitOps principles.
+OpenShift GitOps takes advantage of https://argoproj.github.io/cd[Argo CD,window=_blank] and integrates it into Red Hat OpenShift to deliver a consistent, fully supported, declarative Kubernetes platform to configure and use with GitOps principles.
 
 OpenShift and OpenShift GitOps:
 
@@ -186,7 +186,7 @@ bgd-bgd.apps.rosa-6n4s8.1c1c.p1.openshiftapps.com
 +
 image::bgd_green.png[]
 
-. Patch the OpenShift resource to force it to be out of sync with the github repository:
+. Patch the OpenShift resource to force it to be out of sync with the github repository. To do this we're going to turn the tile blue by changing the deployed code directly. This means the value set in the deployed code ("blue") and the value in the repo ("green") are now different:
 +
 [source,sh,role=execute]
 ----
@@ -205,7 +205,7 @@ deployment.apps/bgd patched
 +
 image::app_blue.png[]
 
-. Meanwhile check ArgoCD it should show the application as out of sync. Click the *Sync* button and then click on *Synchronize* to have it revert the change you made in OpenShift
+. Meanwhile check ArgoCD it should show the application as out of sync. Click the *Sync* button and then click on *Synchronize* to have it revert the change you made directly to the code deployed in OpenShift
 +
 image::sync_bgd.png[]
 

@@ -1,6 +1,6 @@
 == Introduction
 
-It's time for us to put our cluster to work and deploy a workload! We're going to build an example Java application, https://github.com/redhat-mw-demos/microsweeper-quarkus/tree/ROSA[microsweeper], using https://quarkus.io/[Quarkus] (a Kubernetes-native Java stack) and https://aws.amazon.com/dynamodb[Amazon DynamoDB]. We'll then deploy the application to our ROSA cluster and connect to the database over AWS's secure network.
+It's time for us to put our cluster to work and deploy a workload! We're going to build an example Java application, https://github.com/redhat-mw-demos/microsweeper-quarkus/tree/ROSA[microsweeper,window=_blank], using https://quarkus.io/[Quarkus,window=_blank] (a Kubernetes-native Java stack) and https://aws.amazon.com/dynamodb[Amazon DynamoDB,window=_blank]. We'll then deploy the application to our ROSA cluster and connect to the database over AWS's secure network.
 
 This lab demonstrates how ROSA (an AWS native service) can easily and securely access and utilize other AWS native services using AWS Secure Token Service (STS). To achieve this, we will be using AWS IAM, Amazon DynamoDB, and a service account within OpenShift. After configuring the latter, we will use both Quarkus - a Kubernetes-native Java framework optimized for containers - and Source-to-Image (S2I) - a toolkit for building container images from source code - to deploy the microsweeper application.
 
@@ -275,7 +275,7 @@ EOF
 ----
 
 . Now that we've provided the proper configuration, we will build our application.
-We'll do this using https://github.com/openshift/source-to-image[source-to-image], a tool built-in to OpenShift.
+We'll do this using https://github.com/openshift/source-to-image[source-to-image,window=_blank], a tool built-in to OpenShift.
 To start the build and deploy, run the following command:
 +
 [source,sh,role=execute]
@@ -322,7 +322,7 @@ image::rosa-console-imagestreams.png[OpenShift Web Console - Imagestreams]
 You will see two images that were created on your behalf when you ran the quarkus build command.
 There is one image for `openjdk-11` that comes with OpenShift as a Universal Base Image (UBI) that the application will run under.
 With UBI, you get highly optimized and secure container images that you can build your applications with.
-For more information on UBI please visit the UBI section of the https://catalog.redhat.com/software/base-images[Red Hat Ecosystem Catalog].
+For more information on UBI please visit the UBI section of the https://catalog.redhat.com/software/base-images[Red Hat Ecosystem Catalog,window=_blank].
 
 The second image you see is the the `microsweeper-appservice` image.
 This is the image for the application that was built automatically for you and pushed to the built-in container registry inside of OpenShift.
@@ -345,12 +345,12 @@ A build configuration describes a single build definition and a set of triggers 
 Build configurations are defined by a BuildConfig, which is a REST object that can be used in a POST to the API server to create a new instance.
 ====
 
-You can read more about BuildConfigs https://docs.openshift.com/container-platform/latest/cicd/builds/understanding-buildconfigs.html[here]
+You can read more about BuildConfigs https://docs.openshift.com/container-platform/latest/cicd/builds/understanding-buildconfigs.html[here,window=_blank]
 
 Once the BuildConfig was created, the source-to-image process kicked off a Build of that BuildConfig.
 The build is what actually does the work in building and deploying the image.
 We started with defining what to be built with the BuildConfig and then actually did the work with the Build.
-You can read more about Builds https://docs.openshift.com/container-platform/latest/cicd/builds/understanding-image-builds.html[here]
+You can read more about Builds https://docs.openshift.com/container-platform/latest/cicd/builds/understanding-image-builds.html[here,window=_blank]
 
 To look at what the build actually did, click on Builds tab and then into the first Build in the list.
 
@@ -382,7 +382,7 @@ In the quarkus properties file, we specified that the application should be expo
 When you create a Route, you have the option to specify a hostname.
 To start with, we will just use the default domain that comes with ROSA (`openshiftapps.com` in our case).
 
-You can read more about routes https://docs.openshift.com/container-platform/latest/networking/routes/route-configuration.html[in the Red Hat documentation]
+You can read more about routes https://docs.openshift.com/container-platform/latest/networking/routes/route-configuration.html[in the Red Hat documentation,window=_blank]
 
 From the OpenShift Web Console menu, click on _Networking_\->__Routes__, and the _microsweeper-appservice_ route.
 

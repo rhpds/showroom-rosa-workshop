@@ -21,7 +21,7 @@ Requests state the minimum CPU and memory requirements for a container. This wil
 +
 [NOTE]
 ====
-It is important to know the resource needs of the application before setting limits and requests to avoid resource starvation or over allocating resources. If you are unsure of the resource consumption of your application, you can use 'oc adm top pods' to view the current memory and CPU being currently consumed by each pod. Running the following command multiple times while the application is running can help set a general picture:
+It is important to know the resource needs of the application before setting limits and requests to avoid resource starvation or over-allocating resources. If you are unsure of the resource consumption of your application, you can use 'oc adm top pods' to view the current memory and CPU being currently consumed by each pod. Running the following command multiple times while the application is running can help set a general picture:
 ====
 +
 [source,sh,role=execute]
@@ -54,7 +54,7 @@ microsweeper-appservice-1-build            0/1     Completed   0          17h
 microsweeper-appservice-69596ccc54-fsw2b   1/1     Running     0          28s
 ----
 +
-To see what the limits and requests added to the pod, run the following command, being sure to change the Pod name to the name shown in the above output:
+To see what the limits and requests added to the pod, run the following command:
 +
 [source,sh,role=execute]
 ----
@@ -246,6 +246,8 @@ microsweeper-appservice-cpu   Deployment/microsweeper-appservice   0%/50%    2  
 +
 [source,sh,role=execute]
 ----
+FRONTEND_URL=http://$(oc -n microsweeper-ex get route microsweeper-appservice -o jsonpath='{.spec.host}')/
+
 ab -c100 -n10000 ${FRONTEND_URL}
 ----
 
