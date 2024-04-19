@@ -179,10 +179,11 @@ rosa create account-roles --mode auto --yes
 [source,sh,role=execute]
 ----
 rosa create cluster --cluster-name rosa-${GUID} \
-    --subnet-ids ${PUBLIC_SUBNET_ID},${PRIVATE_SUBNET_ID} \
-    --hosted-cp \
-    --oidc-config-id $OIDC_ID \
-    --sts --mode auto --yes
+  --subnet-ids ${PUBLIC_SUBNET_ID},${PRIVATE_SUBNET_ID} \
+  --hosted-cp \
+  --version 4.15.6 \
+  --oidc-config-id $OIDC_ID \
+  --sts --mode auto --yes
 ----
 +
 In about 10 minutes the control plane and API will be up, and about 5-10 minutes after, the worker nodes will be up and the cluster will be completely usable.  This cluster will have a control plane across three AWS availability zones in your selected region, in a Red Hat AWS account and will also create 2 worker nodes in your AWS account.
