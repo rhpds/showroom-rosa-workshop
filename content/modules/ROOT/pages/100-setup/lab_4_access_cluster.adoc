@@ -117,7 +117,7 @@ ifeval::["{rosa_admin_user}" != "none"]
 
 An admin user has already been creaeted for you on this cluster. If you created that cluster yourself you'd have to create an admin user as well.
 
-The command to create an admin user is:
+The command to create an admin user is (don't run this command, the admin user has already been created for you):
 
 [source,sh]
 ----
@@ -125,7 +125,7 @@ rosa create admin --cluster rosa-${GUID}
 ----
 
 Your admin credentials are:
-+
+
 ====
 * Admin User: {rosa_admin_user}
 * Admin Password: {rosa_admin_password}
