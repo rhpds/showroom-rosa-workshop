@@ -1,6 +1,6 @@
 :markup-in-source: verbatim,attributes,quotes
 
-ifeval::["{rosa_admin_user}" == "none"]
+ifndef::rosa_admin_user[]
 
 == Create a Local Admin User for Cluster Access
 
@@ -111,7 +111,7 @@ router-default-7994f6fd58-z6gpm   1/1     Running   0          102s
 . You can now access the cluster with this local admin user. Though, for production use, it is highly recommended to set up an external identity provider.
 
 endif::[]
-ifeval::["{rosa_admin_user}" != "none"]
+ifdef::rosa_admin_user[]
 
 == Access the cluster using the Local Admin User
 
