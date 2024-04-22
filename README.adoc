@@ -1,0 +1,8 @@
+= Showroom Repository for the Rosa Workshop
+
+This repository holds the instructions for the ROSA Workshop.
+
+Instruction pages are in content/modules/ROOT/pages.
+
+To be intended to be used with Red Hat Demo Platform Showroom but can be built using Antora as well.
+
