@@ -1,11 +1,11 @@
 == Introduction
-ifeval::["{rosa_console_url}" == "none"]
+ifeval::["{rosa_openshift_console_url}" == ""]
 
 During this workshop, you will be working on a cluster that you will create yourself in this step. This cluster will be dedicated to you.
 
 endif::[]
-ifeval::["{rosa_console_url}" != ""]
-ifeval::["{rosa_console_url}" != "none"]
+ifeval::["{rosa_openshift_console_url}" != ""]
+ifeval::["{rosa_openshift_console_url}" != "none"]
 
 [WARNING]
 ====
@@ -14,7 +14,7 @@ There are no exercises to complete on this page but it remains as an educational
 
 Your pre-provisioned cluster is accessible at:
 
-ROSA Console URL: {rosa_console_url}[ROSA Console URL,window=_blank]
+ROSA Console URL: {rosa_openshift_console_url}[ROSA Console URL,window=_blank]
 
 To continue the lab please follow this link for the next section: link:./lab_4_access_cluster.html[Create an Admin User].
 ====
