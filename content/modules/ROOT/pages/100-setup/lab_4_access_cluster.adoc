@@ -1,6 +1,6 @@
 :markup-in-source: verbatim,attributes,quotes
 
-ifndef::rosa_admin_user[]
+ifndef::rosa_openshift_admin_user[]
 
 == Create a Local Admin User for Cluster Access
 
@@ -111,7 +111,7 @@ router-default-7994f6fd58-z6gpm   1/1     Running   0          102s
 . You can now access the cluster with this local admin user. Though, for production use, it is highly recommended to set up an external identity provider.
 
 endif::[]
-ifdef::rosa_admin_user[]
+ifdef::rosa_openshift_admin_user[]
 
 == Access the cluster using the Local Admin User
 
@@ -127,10 +127,10 @@ rosa create admin --cluster rosa-${GUID}
 Your admin credentials are:
 
 ====
-* Admin User: {rosa_admin_user}
-* Admin Password: {rosa_admin_password}
-* OpenShift API URL: {rosa_api_url}
-* OpenShift Web Console: {rosa_console_url}
+* Admin User: {rosa_openshift_admin_user}
+* Admin Password: {rosa_openshift_admin_password}
+* OpenShift API URL: {rosa_openshift_api_url}
+* OpenShift Web Console: {rosa_openshift_console_url}
 ====
 
 . Save an environment variable for your admin password:
@@ -138,7 +138,7 @@ Your admin credentials are:
 .Note this box will not automatically copy the command for you. You need to write the command yourself using the password from your environment.
 [source,sh,subs=attributes,role=execute]
 ----
-export ADMIN_PASSWORD={rosa_admin_password}
+export ADMIN_PASSWORD={rosa_openshift_admin_password}
 ----
 +
 Save the admin password in your `.bashrc`
@@ -152,7 +152,7 @@ echo "export ADMIN_PASSWORD=$ADMIN_PASSWORD" >>$HOME/.bashrc
 +
 [source,sh,subs=attributes,role=execute]
 ----
-oc login {rosa_api_url} --username {rosa_admin_user} --password {rosa_admin_password}
+oc login {rosa_openshift_api_url} --username {rosa_openshift_admin_user} --password {rosa_openshift_admin_password}
 ----
 +
 .Sample Output
