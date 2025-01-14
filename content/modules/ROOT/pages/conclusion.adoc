@@ -8,8 +8,6 @@ Take the next step and https://console.redhat.com/openshift/create/rosa/getstart
 
 Our onboarding specialists are here to help. If you have any questions or need help getting started with ROSA, send us a chat in the console at any time by clicking the blue hat icon in the bottom right corner:
 
-image::../media/BlueHat.gif[OCM Help]
-
 Additional resources to help you get started:
 
 * ROSA https://youtu.be/roiCLvcR8fE[install video,window=_blank]
