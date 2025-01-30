@@ -4,11 +4,11 @@ ifndef::rosa_openshift_admin_user[]
 
 == Create a Local Admin User for Cluster Access
 
-You can use built-in authentication to access your cluster immediately. This is done through the creation of a local privileged user. 
+You can use built-in authentication to access your cluster immediately. This is done through the creation of a local privileged user.
 
-ROSA makes this easy by providing a command to create a user, called `cluster-admin`, which has powerful cluster administration capabilities. 
+ROSA makes this easy by providing a command to create a user, called `cluster-admin`, which has powerful cluster administration capabilities.
 
-For production deployments, however, the recommended approach is to use an external identity provider to access the cluster. We will take you through an example of that in a later lab. 
+For production deployments, however, the recommended approach is to use an external identity provider to access the cluster. We will take you through an example of that in a later lab.
 
 . Run this command to create the local admin user
 +
@@ -158,12 +158,6 @@ oc login {rosa_openshift_api_url} --username {rosa_openshift_admin_user} --passw
 .Sample Output
 [source,texinfo,options=nowrap]
 ----
-The server uses a certificate signed by an unknown authority.
-You can bypass the certificate check, but any data you send to the server could be intercepted by others.
-Use insecure connections? (y/n): y
-
-WARNING: Using insecure TLS client config. Setting this option is not supported!
-
 Login successful.
 
 You have access to 100 projects, the list has been suppressed. You can list all projects with 'oc projects'
