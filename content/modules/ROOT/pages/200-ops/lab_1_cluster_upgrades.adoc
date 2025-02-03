@@ -28,7 +28,8 @@ Kubernetes Version: v1.26.11+7dfc52e
 +
 [source,sh,role=execute]
 ----
-rosa list upgrades --cluster rosa-${GUID}
+UPGRADE_TO=$(rosa list upgrades --cluster rosa-${GUID} -o json | jq -r '.[0]')
+echo $UPGRADE_TO
 ----
 +
 .Sample Output
@@ -61,16 +62,17 @@ echo Date: ${UPGRADE_DATE}, Time: ${UPGRADE_TIME}
 Date: 2023-04-18, Time: 19:51
 ----
 
-. Now schedule the cluster upgrade to a version  shown in the list of available versions you found earlier (in the example above that is `4.13.25`) - answer `y` when prompted if you really want to upgrade. To be clear, you will need to change the value specified in the `--version` line below to be something from the `list upgrades` command you ran before.
+. Now schedule the cluster upgrade to a version shown in the list of available versions you found earlier (in the example above that is `4.13.25`) - answer `y` when prompted if you really want to upgrade. To be clear, you will need to change the value specified in the `--version` line below to be something from the `list upgrades` command you ran before.
 +
 [source,sh,role=execute]
 ----
 rosa upgrade cluster \
   -c rosa-${GUID} \
-  --version 4.13.25 \
-  --mode auto \
+  --version ${UPGRADE_TO} \
+  --mode auto --yes \
   --schedule-date ${UPGRADE_DATE} \
-  --schedule-time ${UPGRADE_TIME}
+  --schedule-time ${UPGRADE_TIME} \
+  --control-plane
 ----
 +
 .Sample Output
