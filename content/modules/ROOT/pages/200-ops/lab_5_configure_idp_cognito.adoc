@@ -23,7 +23,7 @@ To set up the Amazon Cognito service we need to do a few things:
 [source,sh,role=execute]
 ----
 aws cognito-idp create-user-pool --pool-name rosa-${GUID} --auto-verified-attributes email \
-  --admin-create-user-config '{"AllowAdminCreateUserOnly": true}'
+  --admin-create-user-config '{"AllowAdminCreateUserOnly": true} | jq .'
 ----
 +
 .Sample Output
