@@ -11,14 +11,31 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-rosa edit machinepool -c rosa-${GUID} --labels tier=frontend worker
+rosa edit machinepool -c rosa-${GUID} --labels tier=frontend workers
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-I: Updated machine pool 'worker' on cluster 'rosa-6n4s8'
+I: Updated machine pool 'workers' on cluster 'rosa-6n4s8'
 ----
+
+. ROSA does not automatically update the labels on existing nodes, you can add the label to existing nodes manually by running the following command:
++
+[source,sh,role=execute]
+----
+oc label nodes -l "hypershift.openshift.io/nodePool=rosa-${GUID}-workers" tier=frontend
+----
++
+.Sample Output
+[source,text,options=nowrap]
+----
+node/ip-10-0-0-113.us-east-2.compute.internal labeled
+node/ip-10-0-0-164.us-east-2.compute.internal labeled
+node/ip-10-0-0-210.us-east-2.compute.internal labeled
+node/ip-10-0-0-42.us-east-2.compute.internal labeled
+----
+
 
 . Now, let's verify the nodes are properly labeled.
 To do so, run the following command:
