@@ -228,7 +228,7 @@ image::/cognito-login.png[Cognito Login Screen]
 If you do not see the *Cognito* option wait a few seconds and refresh the screen.
 ====
 
-. Click on *Cognito* and use the userid `admin` with password `{ssh_password}-2@23`. You will be prompted to change your password. Just enter the existing password two more times.
+. Click on *Cognito* and use the userid `admin` with password `{ssh_password}-A2@23`. You will be prompted to change your password. Just enter the existing password two more times.
 
 . Let's give Cluster Admin permissions to your Amazon Cognito admin.
 +
