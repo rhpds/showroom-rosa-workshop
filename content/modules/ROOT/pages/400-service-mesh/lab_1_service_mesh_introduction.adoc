@@ -1,4 +1,9 @@
-= Red Hat Service Mesh
+= Red Hat Service Mesh 2
+
+[WARNING]
+====
+This workshop was built with Red Hat OpenShift Service Mesh 2. It is not yet compatible with Service Mesh 3. Please ensure you are using version 2 for this workshop.
+====
 
 == What is Red Hat Service Mesh?
 
