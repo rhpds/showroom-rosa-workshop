@@ -22,13 +22,13 @@
 * xref:300-apps/lab_4_resilient_app.adoc[Make your application resilient]
 // * xref:300-apps/lab_5_cicd.adoc[Deploy your application using CI/CD]
 
-*Red Hat OpenShift Service Mesh*
+*Red Hat OpenShift Service Mesh 2*
 
-* xref:400-service-mesh/lab_1_service_mesh_introduction.adoc[Service Mesh Introduction]
-* xref:400-service-mesh/lab_2_service_mesh_deploy_operator.adoc[Install Service Mesh Operator]
-* xref:400-service-mesh/lab_3_service_mesh_deploy_control_plane.adoc[Deploy Service Mesh Control Plane]
-* xref:400-service-mesh/lab_4_service_mesh_deploy_app.adoc[Deploy a Service Mesh example application]
-* xref:400-service-mesh/lab_5_service_mesh_observe.adoc[Configure and observe Service Mesh traffic]
+* xref:400-service-mesh/lab_1_service_mesh_introduction.adoc[Service Mesh 2 Introduction]
+* xref:400-service-mesh/lab_2_service_mesh_deploy_operator.adoc[Install Service Mesh 2 Operator]
+* xref:400-service-mesh/lab_3_service_mesh_deploy_control_plane.adoc[Deploy Service Mesh 2 Control Plane]
+* xref:400-service-mesh/lab_4_service_mesh_deploy_app.adoc[Deploy a Service Mesh 2 example application]
+* xref:400-service-mesh/lab_5_service_mesh_observe.adoc[Configure and observe Service Mesh 2 traffic]
 
 *Conclusion and What's Next*
 

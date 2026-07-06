@@ -138,15 +138,17 @@ To do so, run the following command:
 +
 [source,sh,role=execute]
 ----
-oc -n openshift-machine-api get machinesets
+aws ec2 describe-instances --filters Name=tag:api.openshift.com/nodepool-ocm,Values=workers \
+  | jq -r '.Reservations[].Instances[].PrivateDnsName'
 ----
 +
 .Sample Output
 [source,text,options=nowrap]
 ----
-NAME                                 DESIRED   CURRENT   READY   AVAILABLE   AGE
-rosa-6n4s8-7hbhw-infra-us-east-2a    2         2         2       2           23h
-rosa-6n4s8-7hbhw-worker-us-east-2a   4         4         2       2           23h
+ip-10-0-0-199.us-east-2.compute.internal
+ip-10-0-0-42.us-east-2.compute.internal
+ip-10-0-0-170.us-east-2.compute.internal
+ip-10-0-0-53.us-east-2.compute.internal
 ----
 +
 This shows that the cluster autoscaler is working on scaling multiple MachineSets up to 4.
